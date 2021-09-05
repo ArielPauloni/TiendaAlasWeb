@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="GUI.SiteMaster" %>
+
+<%--<!DOCTYPE html>--%>
+
+<html lang="en">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Content/StylesPopup.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a id="aHome" class="navbar-brand" runat="server" href="~/Bienvenido">-Nombre de la aplicación</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a id="aAbout" runat="server" href="~/AcercaDe.aspx">-Acerca de</a></li>
+                        <li><a id="aContact" runat="server" href="~/Contacto.aspx">-Contacto</a></li>
+                        <li class="dropdown">
+                            <a id="aSecurity" runat="server" class="dropdown-toggle" data-toggle="dropdown" href="#">-Seguridad<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="aBackup" runat="server" href="~/Servicios/Backup.aspx">-Backups</a></li>
+                                <li><a id="aPermisos" runat="server" href="~/Servicios/Permisos.aspx">-Permisos</a></li>
+                                <li><a id="aIdiomas" runat="server" href="~/Servicios/CrearIdioma.aspx">-Idiomas</a></li>
+                                <%--<li class="dropdown">
+                                    <a id="aIdiomas" runat="server" class="dropdown" data-toggle="dropdown" href="#">-Idiomas<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a id="a2" runat="server" href="#">-Crear Idioma</a></li>
+                                        <li><a id="a3" runat="server" href="#">-Editar Idioma</a></li>
+                                    </ul>
+                                </li>--%>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li runat="server"><a id="aSignUp" runat="server" href="#"><span class="glyphicon glyphicon-user" runat="server"></span>-Sign Up</a></li>
+                        <li runat="server"><a id="aLogin" runat="server" href="~/Login.aspx"><span class="glyphicon glyphicon-log-in" runat="server"></span>-Login</a></li>
+                        <li runat="server"><a id="aLogout" runat="server" href="#"><span class="glyphicon glyphicon-log-out" runat="server"></span>-Login</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right marg">
+                        <li runat="server">
+                            <%--<i class="fa fa-globe"></i>--%>
+                            <a runat="server">
+                                <asp:DropDownList ID="ddlIdiomas" Height="80%" ClientIDMode="Static" runat="server" AutoPostBack="true" CssClass="form-control form-control-select" OnSelectedIndexChanged="ddlIdiomas_SelectedIndexChanged"></asp:DropDownList>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>
+                    &copy; <%: DateTime.Now.Year %> -
+                    <asp:Label ID="lblNombreSitio" runat="server" Text="-Tienda Alas"></asp:Label>
+            </footer>
+        </div>
+
+    </form>
+</body>
+</html>
