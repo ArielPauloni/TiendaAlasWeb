@@ -88,7 +88,7 @@ namespace GUI
                     idiomaSeleccionado.Textos = gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado);
                     Session["IdiomaSel"] = idiomaSeleccionado;
                 }
-                ddlIdiomas.SelectedValue = ((IdiomaBE)Session["IdiomaSel"]).DescripcionIdioma;
+                ddlIdiomas.SelectedValue = ((IdiomaBE)Session["IdiomaSel"]).IdIdioma.ToString();
 
                 Subject.CleanObserversAll();
                 Subject.AddObserver(this);

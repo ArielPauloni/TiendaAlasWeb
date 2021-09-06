@@ -16,6 +16,10 @@ namespace GUI.Servicios
 
         public void TraducirTexto()
         {
+            grvTexto.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
+            lblIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
+            grvTexto.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
+            
         }
 
         public void ChequearPermisos()
@@ -80,7 +84,7 @@ namespace GUI.Servicios
                 grvTexto.DataSource = datosTexto;
                 grvTexto.DataBind();
 
-                grvTexto.Columns[0].Visible = false;
+                grvTexto.Columns[1].Visible = false;
 
                 grvTexto.Visible = true;
             }
@@ -93,6 +97,47 @@ namespace GUI.Servicios
         protected void btnCrearNuevoIdioma_Click(object sender, EventArgs e)
         {
             Response.Redirect(@"CrearIdioma.aspx");
+        }
+
+        protected void grvTexto_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+            grvTexto.EditIndex = -1;
+            ShowData();
+        }
+        
+        protected void grvTexto_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            //NewEditIndex property used to determine the index of the row being edited.  
+            grvTexto.EditIndex = e.NewEditIndex;
+            ShowData();
+        }
+
+        protected void grvTexto_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            //Finding the controls from Gridview for the row which is going to update 
+            Label id = grvTexto.Rows[e.RowIndex].FindControl("lbl_idFrase") as Label;
+            TextBox name = grvTexto.Rows[e.RowIndex].FindControl("txt_Texto") as TextBox;
+            //con = new SqlConnection(cs);
+            //con.Open();
+            ////updating the record  
+            //SqlCommand cmd = new SqlCommand("Update tbl_Employee set Name='" + name.Text + "',City='" + city.Text + "' where ID=" + Convert.ToInt32(id.Text), con);
+            //cmd.ExecuteNonQuery();
+            //con.Close();
+            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+            grvTexto.EditIndex = -1;
+            //Call ShowData method for displaying updated data  
+            ShowData();
+        }
+
+        private void ShowData()
+        {
+            IdiomaBE nuevoIdiomaSeleccionado = new IdiomaBE
+            {
+                DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
+                IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
+            };
+            InicializaIdioma(nuevoIdiomaSeleccionado);
         }
     }
 }

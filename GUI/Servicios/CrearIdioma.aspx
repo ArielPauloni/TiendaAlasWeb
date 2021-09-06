@@ -14,14 +14,38 @@
         </div>
 
         <div class="form-group form-check">
-            <asp:CheckBox ID="chkTraducir" CssClass="form-check-inline" runat="server" Checked="true" />
+            <asp:CheckBox ID="chkTraducir" CssClass="form-check-inline" runat="server" Checked="true" Enabled="false" />
             <asp:Label ID="lblTraducir" runat="server" Text="-Traducir Idioma"></asp:Label>
         </div>
 
         <div class="form-group">
-            <asp:Button ID="btnGuardar" CssClass="btn btn-primary" runat="server" Text="-Guardar" OnClick="btnGuardar_Click" />
+            <asp:Button ID="btnGuardar" CssClass="btn btn-primary" runat="server" Text="-Guardar" OnClick="btnGuardar_Click" OnClientClick="processingShow()" />
             <asp:Button ID="btnCancelar" CssClass="btn btn-secondary" runat="server" Text="-Cancelar" OnClick="btnCancelar_Click" />
         </div>
     </div>
+
+    <!-- Modal Procesando -->
+    <div class="modal fade" id="processingModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align: center;">
+                    <br />
+                    <br />
+                    <div>
+                        <asp:Label ID="lblWait" runat="server" Text="-Please wait... " />
+                        <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Imagenes/processing.gif" />
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function processingShow() {
+            $('#processingModal').modal({backdrop: 'static', keyboard: false});
+        }
+    </script>
 </asp:Content>
 
