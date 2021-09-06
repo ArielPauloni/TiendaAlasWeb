@@ -140,6 +140,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Imagenes\processing.gif" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -248,7 +249,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Servicios\Bitacora.aspx" />
     <Content Include="Servicios\CrearIdioma.aspx" />
-    <Content Include="Servicios\EditarIdioma.aspx" />
+    <Content Include="Servicios\Idioma.aspx" />
     <Content Include="Servicios\Permisos.aspx" />
     <Content Include="Servicios\Backup.aspx" />
     <Content Include="Servicios\Integridad.aspx" />
@@ -372,12 +373,12 @@
     <Compile Include="Servicios\CrearIdioma.aspx.designer.cs">
       <DependentUpon>CrearIdioma.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Servicios\EditarIdioma.aspx.cs">
-      <DependentUpon>EditarIdioma.aspx</DependentUpon>
+    <Compile Include="Servicios\Idioma.aspx.cs">
+      <DependentUpon>Idioma.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Servicios\EditarIdioma.aspx.designer.cs">
-      <DependentUpon>EditarIdioma.aspx</DependentUpon>
+    <Compile Include="Servicios\Idioma.aspx.designer.cs">
+      <DependentUpon>Idioma.aspx</DependentUpon>
     </Compile>
     <Compile Include="Servicios\Permisos.aspx.cs">
       <DependentUpon>Permisos.aspx</DependentUpon>
@@ -445,7 +446,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Imagenes\" />
     <Folder Include="Negocio\" />
   </ItemGroup>
   <ItemGroup>

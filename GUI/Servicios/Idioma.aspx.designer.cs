@@ -7,45 +7,45 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GUI {
+namespace GUI.Servicios {
     
     
-    public partial class Bienvenido {
+    public partial class Idioma {
         
         /// <summary>
-        /// Control lblHolaMundo.
+        /// Control lblIdioma.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHolaMundo;
+        protected global::System.Web.UI.WebControls.Label lblIdioma;
         
         /// <summary>
-        /// Control btnAlerta.
+        /// Control ddlIdiomas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAlerta;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIdiomas;
         
         /// <summary>
-        /// Control lblAlerta.
+        /// Control grvTexto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlerta;
+        protected global::System.Web.UI.WebControls.GridView grvTexto;
         
         /// <summary>
-        /// Control btnCerrarAlerta.
+        /// Control btnCrearNuevoIdioma.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCerrarAlerta;
+        protected global::System.Web.UI.WebControls.Button btnCrearNuevoIdioma;
     }
 }

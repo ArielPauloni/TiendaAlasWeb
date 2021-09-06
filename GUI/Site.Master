@@ -59,7 +59,7 @@
                             <ul class="dropdown-menu">
                                 <li><a id="aBackup" runat="server" href="~/Servicios/Backup.aspx">-Backups</a></li>
                                 <li><a id="aPermisos" runat="server" href="~/Servicios/Permisos.aspx">-Permisos</a></li>
-                                <li><a id="aIdiomas" runat="server" href="~/Servicios/CrearIdioma.aspx">-Idiomas</a></li>
+                                <li><a id="aIdiomas" runat="server" href="~/Servicios/Idioma.aspx">-Idiomas</a></li>
                                 <%--<li class="dropdown">
                                     <a id="aIdiomas" runat="server" class="dropdown" data-toggle="dropdown" href="#">-Idiomas<span class="caret"></span></a>
                                     <ul class="dropdown-menu">

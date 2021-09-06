@@ -16,18 +16,6 @@ namespace GUI
         {
             IdiomaSL gestorIdioma = new IdiomaSL();
 
-            //if (Session["IdiomaSel"] == null)
-            //{
-            //    IdiomaBE idiomaSeleccionado = new IdiomaBE
-            //    {
-            //        CodIdioma = "es",
-            //        DescripcionIdioma = "Español",
-            //        IdIdioma = 1
-            //    };
-            //    idiomaSeleccionado.Textos = gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado);
-            //    Session["IdiomaSel"] = idiomaSeleccionado;
-            //}
-
             lblHolaMundo.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
             //btnAceptar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 2) + " " + Server.HtmlDecode("&#10003;");
             btnAlerta.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 11) + " " + Server.HtmlDecode("&#33;");
@@ -73,7 +61,6 @@ namespace GUI
 
         protected void btnAlerta_Click(object sender, EventArgs e)
         {
-            txtPrueba.Text = string.Empty;
             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "alertaShow()", true);
         }
 

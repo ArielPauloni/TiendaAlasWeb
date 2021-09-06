@@ -14,7 +14,6 @@ namespace GUI
     {
         public void ChequearPermisos()
         {
-            aContact.Visible = false;
             aLogout.Visible = false;
         }
 
@@ -38,7 +37,8 @@ namespace GUI
             //lblNombreSitio.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 3);
             //Page.Title = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 3);
             Page.Title = "Tienda Alas";
-            aAbout.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 3);
+            aAbout.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 14);
+            aContact.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 15);
             aHome.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 4);
 
             aSecurity.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 5) + " ";

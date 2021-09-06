@@ -113,4 +113,30 @@ public class IdiomaMapper
         }
         return retList;
     }
+
+    public int InsertarTexto(IdiomaBE idioma, TextoBE texto)
+    {
+        AccesoSQL AccesoSQL = new AccesoSQL();
+        List<SqlParameter> parametros = new List<SqlParameter>();
+        parametros.Add(AccesoSQL.CrearParametroStr("CodIdioma", idioma.CodIdioma));
+        parametros.Add(AccesoSQL.CrearParametroInt("IdFrase", texto.IdFrase));
+        parametros.Add(AccesoSQL.CrearParametroStr("Texto", texto.Texto));
+        return AccesoSQL.Escribir("pr_Insertar_Texto", parametros);
+    }
+
+    public int EliminarTextosDeIdioma(IdiomaBE idioma)
+    {
+        AccesoSQL AccesoSQL = new AccesoSQL();
+        List<SqlParameter> parametros = new List<SqlParameter>();
+        parametros.Add(AccesoSQL.CrearParametroStr("CodIdioma", idioma.CodIdioma));
+        return AccesoSQL.Escribir("pr_Eliminar_TextosDeIdioma", parametros);
+    }
+
+    public int EliminarIdioma(IdiomaBE idioma)
+    {
+        AccesoSQL AccesoSQL = new AccesoSQL();
+        List<SqlParameter> parametros = new List<SqlParameter>();
+        parametros.Add(AccesoSQL.CrearParametroStr("CodIdioma", idioma.CodIdioma));
+        return AccesoSQL.Escribir("pr_Eliminar_Idioma", parametros);
+    }
 }

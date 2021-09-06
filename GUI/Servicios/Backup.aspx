@@ -4,7 +4,7 @@
     <div style="text-align: center;">
         <br />
         <br />
-        <asp:Label ID="lblBackup" runat="server" Text="Backup page" Font-Bold="true"></asp:Label>
+        <asp:Label ID="lblBackup" runat="server" Text="-Backup page" Font-Bold="true"></asp:Label>
         <br />
         <br />
         <asp:Button ID="btnBackup" runat="server" CssClass="btn btn-primary" Text="-Generar Backup" OnClick="btnBackup_Click" />
@@ -30,8 +30,8 @@
                     <asp:TextBox ID="txtNombreBkp" runat="server" Font-Size="14px"></asp:TextBox>
                 </div>
                 <div class="modal-footer">
-                    <asp:Button ID="btnGuardarCambios" runat="server" Text="-Guardar Cambios" CssClass="btn btn-primary" OnClick="btnGuardarCambios_click" />
-                    <asp:Button ID="btnCerrarAlerta" runat="server" Text="-Cancelar" CssClass="btn btn-secondary" data-dismiss="modal" />
+                    <asp:Button ID="btnGuardar" runat="server" Text="-Guardar" CssClass="btn btn-primary" OnClick="btnGuardarCambios_click" />
+                    <asp:Button ID="btnCancelar" runat="server" Text="-Cancelar" CssClass="btn btn-secondary" data-dismiss="modal" />
                 </div>
             </div>
         </div>

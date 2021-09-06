@@ -5,15 +5,38 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SL.PatronObserver;
 using SL;
 
 namespace GUI.Servicios.Seguridad
 {
-    public partial class Backup : System.Web.UI.Page
+    public partial class Backup : System.Web.UI.Page, IObserver
     {
+        public void TraducirTexto()
+        {
+            IdiomaSL gestorIdioma = new IdiomaSL();
+
+            CrearBkpModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
+            lblBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
+            btnBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 17);
+            btnRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
+            btnGuardar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+            btnCancelar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            lblNombreBkp.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
+        }
+
+        public void ChequearPermisos()
+        {
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            CrearBkpModalTitle.InnerText = "-Generar Backup";
+            if (!IsPostBack)
+            {
+                Subject.CleanObserversAll();
+                Subject.AddObserver(this);
+                Subject.Notify();
+            }
         }
 
         protected void btnBackup_Click(object sender, EventArgs e)

@@ -30,12 +30,10 @@
                 <div class="modal-body">
                     <asp:Label ID="lblAlerta" runat="server" Text="-Alerta"></asp:Label>
                     <br />
-                    <br />
-                    <asp:TextBox ID="txtPrueba" runat="server"></asp:TextBox>
                 </div>
                 <div class="modal-footer">
-                    <asp:Button ID="btnGuardarCambios" runat="server" Text="-Guardar Cambios" CssClass="btn btn-primary" OnClick="btnGuardarCambios_click" />
-                    <asp:Button ID="btnCerrarAlerta" runat="server" Text="-Cancelar" CssClass="btn btn-secondary" data-dismiss="modal" />
+                    <%--<asp:Button ID="btnGuardarCambios" runat="server" Text="-Guardar Cambios" CssClass="btn btn-primary" OnClick="btnGuardarCambios_click" />--%>
+                    <asp:Button ID="btnCerrarAlerta" runat="server" Text="-Cerrar" CssClass="btn btn-secondary" data-dismiss="modal" />
                 </div>
             </div>
         </div>
