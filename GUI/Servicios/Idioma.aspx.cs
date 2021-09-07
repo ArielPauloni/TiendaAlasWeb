@@ -19,7 +19,10 @@ namespace GUI.Servicios
             grvTexto.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
             lblIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
             grvTexto.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
-            
+            ViewState["tooltipEdit"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
+            ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
+            ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
+            btnCrearNuevoIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 29);
         }
 
         public void ChequearPermisos()
@@ -90,7 +93,7 @@ namespace GUI.Servicios
             }
             catch (Exception ex)
             {
-               
+
             }
         }
 
@@ -105,7 +108,7 @@ namespace GUI.Servicios
             grvTexto.EditIndex = -1;
             ShowData();
         }
-        
+
         protected void grvTexto_RowEditing(object sender, GridViewEditEventArgs e)
         {
             //NewEditIndex property used to determine the index of the row being edited.  
@@ -117,13 +120,23 @@ namespace GUI.Servicios
         {
             //Finding the controls from Gridview for the row which is going to update 
             Label id = grvTexto.Rows[e.RowIndex].FindControl("lbl_idFrase") as Label;
-            TextBox name = grvTexto.Rows[e.RowIndex].FindControl("txt_Texto") as TextBox;
-            //con = new SqlConnection(cs);
-            //con.Open();
-            ////updating the record  
-            //SqlCommand cmd = new SqlCommand("Update tbl_Employee set Name='" + name.Text + "',City='" + city.Text + "' where ID=" + Convert.ToInt32(id.Text), con);
-            //cmd.ExecuteNonQuery();
-            //con.Close();
+            TextBox textoNuevo = grvTexto.Rows[e.RowIndex].FindControl("txt_Texto") as TextBox;
+
+            if (!string.IsNullOrWhiteSpace(textoNuevo.Text))
+            {
+                //Grabar el nuevo texto
+                TextoBE texto = new TextoBE();
+                texto.IdFrase = short.Parse(id.Text);
+                texto.Texto = textoNuevo.Text;
+                IdiomaBE idiomaSeleccionado = new IdiomaBE
+                {
+                    DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
+                    IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
+                };
+                int i = gestorIdioma.ActualizarTexto(idiomaSeleccionado, texto);
+                //if (i == 0) { MessageBox.Show(noPudoGrabarText, errorText, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                //else { CargarIdioma((IdiomaBE)cboIdioma.SelectedItem); }
+            }
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             grvTexto.EditIndex = -1;
             //Call ShowData method for displaying updated data  
@@ -138,6 +151,23 @@ namespace GUI.Servicios
                 IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
             };
             InicializaIdioma(nuevoIdiomaSeleccionado);
+        }
+
+        protected void grvTexto_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                LinkButton controlEdit = (LinkButton)e.Row.FindControl("btn_Edit");
+                if (controlEdit != null) { controlEdit.ToolTip = ViewState["tooltipEdit"].ToString(); }
+
+                LinkButton controlUpdate = (LinkButton)e.Row.FindControl("btn_Update");
+                if (controlUpdate != null)
+                { controlUpdate.ToolTip = ViewState["tooltipConfirm"].ToString(); }
+
+                LinkButton controlUndo = (LinkButton)e.Row.FindControl("btn_Undo");
+                if (controlUndo != null)
+                { controlUndo.ToolTip = ViewState["tooltipUndo"].ToString(); }
+            }
         }
     }
 }

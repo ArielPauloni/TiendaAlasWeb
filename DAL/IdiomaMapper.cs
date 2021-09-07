@@ -124,6 +124,16 @@ public class IdiomaMapper
         return AccesoSQL.Escribir("pr_Insertar_Texto", parametros);
     }
 
+    public int ActualizarTexto(IdiomaBE idioma, TextoBE texto)
+    {
+        AccesoSQL AccesoSQL = new AccesoSQL();
+        List<SqlParameter> parametros = new List<SqlParameter>();
+        parametros.Add(AccesoSQL.CrearParametroInt("IdIdioma", idioma.IdIdioma));
+        parametros.Add(AccesoSQL.CrearParametroInt("IdFrase", texto.IdFrase));
+        parametros.Add(AccesoSQL.CrearParametroStr("Texto", texto.Texto));
+        return AccesoSQL.Escribir("pr_Actualizar_TextoIdioma", parametros);
+    }
+
     public int EliminarTextosDeIdioma(IdiomaBE idioma)
     {
         AccesoSQL AccesoSQL = new AccesoSQL();

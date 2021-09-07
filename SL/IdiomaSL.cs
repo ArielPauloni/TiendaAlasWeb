@@ -159,5 +159,11 @@ namespace SL
             TraducirNombresDeIdiomas();
             return retVal;
         }
+
+        public int ActualizarTexto(IdiomaBE idioma, TextoBE texto)
+        {
+            IdiomaMapper m = new IdiomaMapper();
+            return m.ActualizarTexto(idioma, texto);
+        }
     }
 }

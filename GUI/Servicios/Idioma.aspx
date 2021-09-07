@@ -9,22 +9,19 @@
 
     <div class="form-group col-md-12">
         <asp:GridView ID="grvTexto" runat="server" AllowSorting="True" Caption="-Textos"
-            AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="idFrase" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvTexto_PageIndexChanging" OnRowCancelingEdit="grvTexto_RowCancelingEdit" OnRowEditing="grvTexto_RowEditing" OnRowUpdating="grvTexto_RowUpdating">
+            AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="idFrase" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvTexto_PageIndexChanging" OnRowCancelingEdit="grvTexto_RowCancelingEdit" OnRowEditing="grvTexto_RowEditing" OnRowUpdating="grvTexto_RowUpdating" OnRowDataBound="grvTexto_RowDataBound">
             <AlternatingRowStyle BackColor="#CCFFFF" />
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton runat="server" ID="btn_Edit" class="btn btn-mini" CommandName="Edit"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        <asp:LinkButton runat="server" ID="btn_Edit" class="btn btn-mini" CommandName="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                         </asp:LinkButton>
-                        <%--<asp:Button ID="btn_Edit" runat="server" Text="-Edit" CommandName="Edit" />--%>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:LinkButton runat="server" ID="btn_Update" class="btn btn-mini" CommandName="Update"><i class="fa fa-check" aria-hidden="true"></i>
+                        <asp:LinkButton runat="server" ID="btn_Update" class="btn btn-mini" CommandName="Update"><i class="fa fa-check-circle-o" aria-hidden="true"></i>
                         </asp:LinkButton>
-                        <asp:LinkButton runat="server" ID="btn_Cancel" class="btn btn-mini" CommandName="Cancel"><i class="fa fa-undo" aria-hidden="true"></i>
+                        <asp:LinkButton runat="server" ID="btn_Undo" class="btn btn-mini" CommandName="Cancel"><i class="fa fa-undo" aria-hidden="true"></i>
                         </asp:LinkButton>
-                        <%--<asp:Button ID="btn_Update" runat="server" Text="-Update" CommandName="Update" />
-                        <asp:Button ID="btn_Cancel" runat="server" Text="-Cancel" CommandName="Cancel" />--%>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ID">
@@ -40,10 +37,6 @@
                         <asp:TextBox ID="txt_Texto" runat="server" Text='<%#Eval("Texto") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <%--<asp:BoundField DataField="idFrase" />
-                <asp:BoundField DataField="Texto" HeaderText="-Texto">
-                    <HeaderStyle CssClass="th" />
-                </asp:BoundField>--%>
             </Columns>
         </asp:GridView>
     </div>

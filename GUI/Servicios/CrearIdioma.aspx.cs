@@ -44,7 +44,7 @@ namespace GUI.Servicios
             Response.Redirect(@"Idioma.aspx");
         }
 
-        protected async void btnGuardar_Click(object sender, EventArgs e)
+        protected void btnGuardar_Click(object sender, EventArgs e)
         {
             if ((!string.IsNullOrWhiteSpace(txtCodIdioma.Text) && (!string.IsNullOrWhiteSpace(txtDescripcionIdioma.Text))))
             {
@@ -56,9 +56,16 @@ namespace GUI.Servicios
                 {
                     try
                     {
-                        Task miTask = new Task(Traducir_EnNuevoHilo);
-                        miTask.Start();
-                        await miTask;
+                        //Task miTask = new Task(Traducir_EnNuevoHilo);
+                        //miTask.Start();
+                        //await miTask;
+                        IdiomaBE español = new IdiomaBE
+                        {
+                            CodIdioma = "es",
+                            DescripcionIdioma = "Español",
+                            IdIdioma = 1
+                        };
+                        int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
                         //ActualizarListaIdiomas();
                         //gestorBitacora.GrabarBitacora((short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
                     }
@@ -72,20 +79,6 @@ namespace GUI.Servicios
             {
                 //datosIncorrectos
             }
-        }
-
-        private void Traducir_EnNuevoHilo()
-        {
-            //Por ahora traduzco siempre desde el español (según mis pruebas es el más fiable)
-            IdiomaBE español = new IdiomaBE
-            {
-                CodIdioma = "es",
-                DescripcionIdioma = "Español",
-                IdIdioma = 1
-            };
-            int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
-            //if (frasesTraducidas > 0) { MessageBox.Show(cantidadPalabrasText + ": " + frasesTraducidas.ToString()); }
-            //else { MessageBox.Show(idiomaErrorText + "\r" + idiomaError2Text, errorText, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
     }
 }

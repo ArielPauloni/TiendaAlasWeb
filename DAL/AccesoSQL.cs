@@ -156,11 +156,12 @@ internal class AccesoSQL
         Cerrar();
     }
 
-    public void restaurarBackup()
+    public void restaurarBackup(string fileName)
     {
         Abrir();
-        string backUpFile = string.Format(@"{0}\", @"D:\Repositorio\Backups");
-        SqlCommand command = new SqlCommand(string.Format(@"ALTER DATABASE TiendaAlas SET SINGLE_USER WITH ROLLBACK IMMEDIATE; USE master; RESTORE DATABASE TiendaAlada FROM disk='{0}TiendaAlas_TFI.bak' WITH REPLACE, NOUNLOAD, STATS = 10", backUpFile), myConnection);
+        string backupPath = ConfigurationManager.AppSettings["BackupPath"];
+        fileName = backupPath + fileName;
+        SqlCommand command = new SqlCommand(string.Format(@"ALTER DATABASE TiendaAlas SET SINGLE_USER WITH ROLLBACK IMMEDIATE; USE master; RESTORE DATABASE TiendaAlas FROM disk='{0}.bak' WITH REPLACE, NOUNLOAD, STATS = 10", fileName), myConnection);
         command.ExecuteNonQuery();
         Cerrar();
     }

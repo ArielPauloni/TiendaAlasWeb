@@ -21,9 +21,9 @@ namespace SL
             }
         }
 
-        public static void restaurarBackup()
+        public static void restaurarBackup(string fileName)
         {
-            BackupMapper.restaurarBackup();
+            BackupMapper.restaurarBackup(fileName);
         }
     }
 }

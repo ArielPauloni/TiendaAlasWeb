@@ -21,10 +21,10 @@ namespace DAL
             }
         }
 
-        public static void restaurarBackup()
+        public static void restaurarBackup(string fileName)
         {
             AccesoSQL a = new AccesoSQL();
-            a.restaurarBackup();
+            a.restaurarBackup(fileName);
         }
     }
 }
