@@ -5,5 +5,9 @@
         <br />
         <br />
         <asp:Label ID="lblPermisos" runat="server" Text="Permisos page" Font-Bold="true"></asp:Label>
+        <br />
+        <br />
+        <asp:TreeView ID="trvPermisos" runat="server" ShowCheckBoxes="All">
+        </asp:TreeView>
     </div>
 </asp:Content>

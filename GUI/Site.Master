@@ -18,6 +18,8 @@
     <link href="~/Content/StylesPopup.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fontawesome.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fontawesome.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -39,7 +41,7 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
-                
+
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
@@ -52,36 +54,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a id="aHome" class="navbar-brand" runat="server" href="~/Bienvenido">-Nombre de la aplicación</a>
+                    <a id="aHome" class="navbar-brand fa fa-home" runat="server" href="~/Bienvenido">-Nombre de la aplicación</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a id="aAbout" runat="server" href="~/AcercaDe.aspx">-Acerca de</a></li>
-                        <li><a id="aContact" runat="server" href="~/Contacto.aspx">-Contacto</a></li>
+                        <li><a id="aAbout" class="fa fa-info" runat="server" href="~/AcercaDe.aspx">-Acerca de</a></li>
+                        <li><a id="aContact" class="fa fa-address-book" runat="server" href="~/Contacto.aspx">-Contacto</a></li>
                         <li class="dropdown">
-                            <a id="aSecurity" runat="server" class="dropdown-toggle" data-toggle="dropdown" href="#">-Seguridad<span class="caret"></span></a>
+                            <a id="aSecurity" runat="server" class="dropdown-toggle fa fa-shield" data-toggle="dropdown" href="#">-Seguridad<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a id="aBackup" runat="server" href="~/Servicios/Backup.aspx">-Backups</a></li>
-                                <li><a id="aPermisos" runat="server" href="~/Servicios/Permisos.aspx">-Permisos</a></li>
-                                <li><a id="aIdiomas" runat="server" href="~/Servicios/Idioma.aspx">-Idiomas</a></li>
-                                <%--<li class="dropdown">
-                                    <a id="aIdiomas" runat="server" class="dropdown" data-toggle="dropdown" href="#">-Idiomas<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a id="a2" runat="server" href="#">-Crear Idioma</a></li>
-                                        <li><a id="a3" runat="server" href="#">-Editar Idioma</a></li>
-                                    </ul>
-                                </li>--%>
+                                <li><a id="aBackup" class="fa fa-database" runat="server" href="~/Servicios/Backup.aspx">-Backups</a></li>
+                                <li><a id="aPermisos" class="fa fa-lock" runat="server" href="~/Servicios/Permisos.aspx">-Permisos</a></li>
+                                <li><a id="aIdiomas" class="fa fa-language" runat="server" href="~/Servicios/Idioma.aspx">-Idiomas</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li runat="server"><a id="aSignUp" runat="server" href="#"><span class="glyphicon glyphicon-user" runat="server"></span>-Sign Up</a></li>
-                        <li runat="server"><a id="aLogin" runat="server" href="~/Login.aspx"><span class="glyphicon glyphicon-log-in" runat="server"></span>-Login</a></li>
-                        <li runat="server"><a id="aLogout" runat="server" href="#"><span class="glyphicon glyphicon-log-out" runat="server"></span>-Login</a></li>
+                        <li runat="server"><a id="aSignUp" class="fa fa fa-user" runat="server" href="#"><span class="glyphicon glyphicon-user" runat="server"></span>-Sign Up</a></li>
+                        <li runat="server"><a id="aLogin" class="fa fa-sign-in" runat="server" href="~/Login.aspx"><span class="glyphicon glyphicon-log-in" runat="server"></span>-Login</a></li>
+                        <li runat="server"><a id="aLogout" class="fa fa-sign-out" runat="server" href="#"><span class="glyphicon glyphicon-log-out" runat="server"></span>-Login</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right marg">
                         <li runat="server">
-                            <%--<i class="fa fa-globe"></i>--%>
                             <a runat="server">
                                 <asp:DropDownList ID="ddlIdiomas" Height="80%" ClientIDMode="Static" runat="server" AutoPostBack="true" CssClass="form-control form-control-select" OnSelectedIndexChanged="ddlIdiomas_SelectedIndexChanged"></asp:DropDownList>
                             </a>

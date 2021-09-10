@@ -18,11 +18,24 @@ namespace GUI.Servicios
         {
             grvTexto.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
             lblIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
-            grvTexto.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
+            grvTexto.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
             ViewState["tooltipEdit"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
             ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
             ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
             btnCrearNuevoIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 29);
+
+            lblBuscarTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
+            ViewState["ddlItemContiene"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 34);
+            ViewState["ddlItemComienza"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 35);
+            ViewState["ddlItemIgual"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 36);
+            ViewState["ddlItemTermina"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 37);
+
+            btnMostrarFiltros.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 38);
+            ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
+            ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
+            btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
+            btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
+            btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
         }
 
         public void ChequearPermisos()
@@ -48,7 +61,15 @@ namespace GUI.Servicios
                 ddlIdiomas.DataValueField = "IdIdioma";
                 ddlIdiomas.DataBind();
 
-                InicializaIdioma(idiomaSeleccionado);
+                Session["filtrosTexto"] = false;
+                MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
+
+                ddlTipoBusqueda.DataSource = null;
+                ddlTipoBusqueda.Items.Add(ViewState["ddlItemContiene"].ToString());
+                ddlTipoBusqueda.Items.Add(ViewState["ddlItemIgual"].ToString());
+                ddlTipoBusqueda.Items.Add(ViewState["ddlItemComienza"].ToString());
+                ddlTipoBusqueda.Items.Add(ViewState["ddlItemTermina"].ToString());
+                ddlTipoBusqueda.DataBind();
             }
         }
 
@@ -59,42 +80,7 @@ namespace GUI.Servicios
                 DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
                 IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
             };
-            InicializaIdioma(gestorIdioma.ListarIdioma(nuevoIdiomaSeleccionado));
-        }
-
-        protected void grvTexto_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            IdiomaBE nuevoIdiomaSeleccionado = new IdiomaBE
-            {
-                DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
-                IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
-            };
-
-            List<TextoBE> datosTexto = new List<TextoBE>();
-            datosTexto = gestorIdioma.ListarTextosDelIdioma(nuevoIdiomaSeleccionado);
-            grvTexto.PageIndex = e.NewPageIndex;
-            grvTexto.DataSource = datosTexto;
-            grvTexto.DataBind();
-        }
-
-        private void InicializaIdioma(IdiomaBE idioma)
-        {
-            try
-            {
-                grvTexto.DataSource = null;
-                List<TextoBE> datosTexto = new List<TextoBE>();
-                datosTexto = gestorIdioma.ListarTextosDelIdioma(idioma);
-                grvTexto.DataSource = datosTexto;
-                grvTexto.DataBind();
-
-                grvTexto.Columns[1].Visible = false;
-
-                grvTexto.Visible = true;
-            }
-            catch (Exception ex)
-            {
-
-            }
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
         }
 
         protected void btnCrearNuevoIdioma_Click(object sender, EventArgs e)
@@ -102,23 +88,89 @@ namespace GUI.Servicios
             Response.Redirect(@"CrearIdioma.aspx");
         }
 
+        #region GrillaTextos
+
+        private void EnlazarGrillaTextos(List<string> filtros)
+        {
+            grvTexto.DataSource = null;
+            IdiomaBE idiomaSeleccionado = new IdiomaBE
+            {
+                DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
+                IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
+            };
+            List<TextoBE> datosTexto = new List<TextoBE>();
+            if (filtros.Count == 0) { datosTexto = gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado); }
+            else
+            {
+                IEnumerable<TextoBE> filtradosPorTexto = null;
+
+                //Filtro por Texto
+                if (!string.IsNullOrWhiteSpace(filtros[0].ToString()))
+                {
+                    switch (ddlTipoBusqueda.SelectedIndex.ToString())
+                    {
+                        case "0": //Contiene
+                            filtradosPorTexto =
+                        from TextoBE tex in gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado)
+                        where tex.Texto.ToLower().Contains(filtros[0].ToString().ToLower())
+                        select tex;
+                            break;
+                        case "1": //Igual a 
+                            filtradosPorTexto =
+                        from TextoBE tex in gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado)
+                        where tex.Texto.ToLower() == filtros[0].ToString().ToLower()
+                        select tex;
+                            break;
+                        case "2": //Comienza con
+                            filtradosPorTexto =
+                        from TextoBE tex in gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado)
+                        where tex.Texto.ToLower().StartsWith(filtros[0].ToString().ToLower())
+                        select tex;
+                            break;
+                        case "3": //Termina con
+                            filtradosPorTexto =
+                        from TextoBE tex in gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado)
+                        where tex.Texto.ToLower().EndsWith(filtros[0].ToString().ToLower())
+                        select tex;
+                            break;
+                    }
+                }
+                else { filtradosPorTexto = gestorIdioma.ListarTextosDelIdioma(idiomaSeleccionado); }
+
+                foreach (TextoBE textoFiltrado in filtradosPorTexto)
+                { datosTexto.Add(textoFiltrado); }
+            }
+            ListaOrdenable<TextoBE> textosOrdenable = new ListaOrdenable<TextoBE>();
+            textosOrdenable = new ListaOrdenable<TextoBE>(datosTexto);
+            grvTexto.DataSource = textosOrdenable;
+            grvTexto.DataBind();
+            grvTexto.Columns[1].Visible = false;
+        }
+
+        protected void grvTexto_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            grvTexto.PageIndex = e.NewPageIndex;
+            grvTexto.EditIndex = -1;
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
+        }
+
         protected void grvTexto_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+            //Setea EditIndex a -1: Cancela modo edición 
             grvTexto.EditIndex = -1;
-            ShowData();
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
         }
 
         protected void grvTexto_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            //NewEditIndex property used to determine the index of the row being edited.  
+            //NewEditIndex se usa pa determinar el índice a editar
             grvTexto.EditIndex = e.NewEditIndex;
-            ShowData();
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
         }
 
         protected void grvTexto_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            //Finding the controls from Gridview for the row which is going to update 
+            //Busco los controles de la grilla para la fila que voy a actualizar
             Label id = grvTexto.Rows[e.RowIndex].FindControl("lbl_idFrase") as Label;
             TextBox textoNuevo = grvTexto.Rows[e.RowIndex].FindControl("txt_Texto") as TextBox;
 
@@ -137,20 +189,29 @@ namespace GUI.Servicios
                 //if (i == 0) { MessageBox.Show(noPudoGrabarText, errorText, MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 //else { CargarIdioma((IdiomaBE)cboIdioma.SelectedItem); }
             }
-            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             grvTexto.EditIndex = -1;
-            //Call ShowData method for displaying updated data  
-            ShowData();
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
         }
 
-        private void ShowData()
+        private void MostrarDatosGrillaTexto(Boolean hayFiltros)
         {
-            IdiomaBE nuevoIdiomaSeleccionado = new IdiomaBE
+            if (!hayFiltros)
             {
-                DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
-                IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
-            };
-            InicializaIdioma(nuevoIdiomaSeleccionado);
+                IdiomaBE idiomaSeleccionado = new IdiomaBE
+                {
+                    DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
+                    IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
+                };
+                List<string> listaVacia = new List<string>();
+                EnlazarGrillaTextos(listaVacia);
+            }
+            else if (!string.IsNullOrWhiteSpace(txtTexto.Text))
+            {
+                List<string> filtros = new List<string>();
+                filtros.Add(txtTexto.Text.Trim());
+
+                EnlazarGrillaTextos(filtros);
+            }
         }
 
         protected void grvTexto_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -169,5 +230,46 @@ namespace GUI.Servicios
                 { controlUndo.ToolTip = ViewState["tooltipUndo"].ToString(); }
             }
         }
+
+        #endregion
+
+        #region Filtros
+        protected void btnMostrarFiltros_Click(object sender, EventArgs e)
+        {
+            if (divFiltros.Visible)
+            {
+                btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
+                divFiltros.Visible = false;
+                LimpiarFiltros();
+            }
+            else
+            {
+                btnMostrarFiltros.Attributes.Add("title", ViewState["OcultarFiltros"].ToString());
+                divFiltros.Visible = true;
+            }
+        }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            Session["filtrosTexto"] = true;
+            grvTexto.PageIndex = 0;
+            grvTexto.EditIndex = -1;
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
+        }
+
+        protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            LimpiarFiltros();
+        }
+
+        private void LimpiarFiltros()
+        {
+            Session["filtrosTexto"] = false;
+            grvTexto.PageIndex = 0;
+            grvTexto.EditIndex = -1;
+            txtTexto.Text = string.Empty;
+            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
+        }
+        #endregion
     }
 }

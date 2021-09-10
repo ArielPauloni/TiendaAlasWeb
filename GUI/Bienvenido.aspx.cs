@@ -63,10 +63,5 @@ namespace GUI
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "alertaShow()", true);
         }
-
-        protected void btnGuardarCambios_click(object sender, EventArgs e)
-        {
-           
-        }
     }
 }

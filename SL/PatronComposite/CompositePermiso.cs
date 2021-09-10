@@ -40,7 +40,8 @@ namespace SL.PatronComposite
             TreeNode nodoAux = new TreeNode()
             {
                 Value = Permiso.CodPermiso.ToString(),
-                Text = Permiso.DescripcionPermiso
+                Text = Permiso.DescripcionPermiso,
+                NavigateUrl = "javascript:void(0)"
                 //Tag = Permiso.DescripcionPermiso
             };
 
@@ -49,8 +50,8 @@ namespace SL.PatronComposite
 
             foreach (ComponentPermiso p in _hijos.OrderBy(c => c.Permiso.DescripcionPermiso))
             {
-                //int indice = nodo[nivel].Parent != null ? nodo[nivel].Parent.GetNodeCount(false) - 1 : nodo.Count - 1;
-                //p.Mostrar(nodo[indice].Nodes);
+                int indice = nodo[nivel].Parent != null ? nodo[nivel].Parent.ChildNodes.Count - 1 : nodo.Count - 1;
+                p.Mostrar(nodo[indice].ChildNodes);
             }
             nivel++;
         }

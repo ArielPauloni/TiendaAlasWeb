@@ -32,8 +32,7 @@
                     <br />
                 </div>
                 <div class="modal-footer">
-                    <%--<asp:Button ID="btnGuardarCambios" runat="server" Text="-Guardar Cambios" CssClass="btn btn-primary" OnClick="btnGuardarCambios_click" />--%>
-                    <asp:Button ID="btnCerrarAlerta" runat="server" Text="-Cerrar" CssClass="btn btn-secondary" data-dismiss="modal" />
+                   <asp:Button ID="btnCerrarAlerta" runat="server" Text="-Cerrar" CssClass="btn btn-secondary" data-dismiss="modal" />
                 </div>
             </div>
         </div>
