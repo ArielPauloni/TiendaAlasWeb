@@ -40,9 +40,8 @@ namespace SL.PatronComposite
             TreeNode nodoAux = new TreeNode()
             {
                 Value = Permiso.CodPermiso.ToString(),
-                Text = Permiso.DescripcionPermiso,
-                NavigateUrl = "javascript:void(0)"
-                //Tag = Permiso.DescripcionPermiso
+                Text = Permiso.DescripcionPermiso//,
+                //NavigateUrl = "javascript:void(0)"
             };
 
             nodo.Add(nodoAux);

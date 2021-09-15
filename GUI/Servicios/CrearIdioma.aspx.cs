@@ -21,8 +21,8 @@ namespace GUI.Servicios
 
         public void TraducirTexto()
         {
-            btnGuardar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
-            btnCancelar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+            btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
             lblCodIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 22);
             lblDescripcionIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 23);
             lblTraducir.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 24);

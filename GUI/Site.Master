@@ -72,7 +72,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li runat="server"><a id="aSignUp" class="fa fa fa-user" runat="server" href="#"><span class="glyphicon glyphicon-user" runat="server"></span>-Sign Up</a></li>
                         <li runat="server"><a id="aLogin" class="fa fa-sign-in" runat="server" href="~/Login.aspx"><span class="glyphicon glyphicon-log-in" runat="server"></span>-Login</a></li>
-                        <li runat="server"><a id="aLogout" class="fa fa-sign-out" runat="server" href="#"><span class="glyphicon glyphicon-log-out" runat="server"></span>-Login</a></li>
+                        <li runat="server"><a id="aLogout" class="fa fa-sign-out" runat="server" href="#"><span class="glyphicon glyphicon-log-out" runat="server"></span>-Logout</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right marg">
                         <li runat="server">
@@ -94,7 +94,6 @@
                     <asp:Label ID="lblNombreSitio" runat="server" Text="-Tienda Alas"></asp:Label>
             </footer>
         </div>
-
     </form>
 </body>
 </html>

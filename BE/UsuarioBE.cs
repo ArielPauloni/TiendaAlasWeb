@@ -72,13 +72,13 @@ namespace BE
             set { dvh = value; }
         }
 
-        private IdiomaBE idioma;
+        //private IdiomaBE idioma;
 
-        public IdiomaBE Idioma
-        {
-            get { return idioma; }
-            set { idioma = value; }
-        }
+        //public IdiomaBE Idioma
+        //{
+        //    get { return idioma; }
+        //    set { idioma = value; }
+        //}
 
         private string telefono;
 
@@ -110,6 +110,22 @@ namespace BE
         {
             get { return inactivo; }
             set { inactivo = value; }
+        }
+
+        private short intentosEquivocados;
+
+        public short IntentosEquivocados
+        {
+            get { return intentosEquivocados; }
+            set { intentosEquivocados = value; }
+        }
+
+        private DateTime? ultimoLogin;
+
+        public DateTime? UltimoLogin
+        {
+            get { return ultimoLogin; }
+            set { ultimoLogin = value; }
         }
 
         public override string ToString()

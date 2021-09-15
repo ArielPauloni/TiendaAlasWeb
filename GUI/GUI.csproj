@@ -140,6 +140,13 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Imagenes\arrows_banner.png" />
+    <Content Include="Imagenes\banner1.jpg" />
+    <Content Include="Imagenes\banner2.jpg" />
+    <Content Include="Imagenes\banner3.jpg" />
+    <Content Include="Imagenes\banner4.jpg" />
+    <Content Include="Imagenes\banner5.jpg" />
+    <Content Include="Imagenes\buttons_banner.png" />
     <Content Include="Imagenes\processing.gif" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -253,7 +260,6 @@
     <Content Include="Servicios\Permisos.aspx" />
     <Content Include="Servicios\Backup.aspx" />
     <Content Include="Servicios\Integridad.aspx" />
-    <Content Include="Servicios\Restore.aspx" />
     <Content Include="Servicios\ABMUsuario.aspx" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
@@ -400,13 +406,6 @@
     </Compile>
     <Compile Include="Servicios\Integridad.aspx.designer.cs">
       <DependentUpon>Integridad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Servicios\Restore.aspx.cs">
-      <DependentUpon>Restore.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Servicios\Restore.aspx.designer.cs">
-      <DependentUpon>Restore.aspx</DependentUpon>
     </Compile>
     <Compile Include="Servicios\ABMUsuario.aspx.cs">
       <DependentUpon>ABMUsuario.aspx</DependentUpon>

@@ -19,8 +19,8 @@
         </div>
 
         <div class="form-group">
-            <asp:Button ID="btnGuardar" CssClass="btn btn-primary" runat="server" Text="-Guardar" OnClick="btnGuardar_Click" OnClientClick="processingShow()" />
-            <asp:Button ID="btnCancelar" CssClass="btn btn-secondary" runat="server" Text="-Cancelar" OnClick="btnCancelar_Click" />
+            <button runat="server" id="btnGuardar" class="btn btn-primary fa fa-check-circle" onserverclick="btnGuardar_Click" onclick="processingShow();"></button>
+            <button runat="server" id="btnCancelar" class="btn btn-secondary fa fa-window-close-o" onserverclick="btnCancelar_Click"></button>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
 
     <script type="text/javascript">
         function processingShow() {
-            $('#processingModal').modal({backdrop: 'static', keyboard: false});
+            $('#processingModal').modal({ backdrop: 'static', keyboard: false });
         }
     </script>
 </asp:Content>

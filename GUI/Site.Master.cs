@@ -7,14 +7,28 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using SL.PatronObserver;
 using SL;
+using BE;
 
 namespace GUI
 {
     public partial class SiteMaster : MasterPage, IObserver
     {
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+
         public void ChequearPermisos()
         {
             aLogout.Visible = false;
+            aBackup.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Generar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Restaurar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])));
+            aIdiomas.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"])));
+            aPermisos.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Gestionar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Asignar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Permisos"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Quitar permisos"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Permisos Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"])));
+            aSecurity.Visible = ((aPermisos.Visible) || (aIdiomas.Visible) || (aBackup.Visible));
         }
 
         public void TraducirTexto()
@@ -58,7 +72,7 @@ namespace GUI
             if (!IsPostBack)
             {
                 IdiomaSL gestorIdioma = new IdiomaSL();
-                //Load Idiomas
+                //Cargo Idiomas
                 ddlIdiomas.DataSource = gestorIdioma.ListarIdiomas((IdiomaBE)Session["IdiomaSel"]);
                 ddlIdiomas.DataTextField = "DescripcionIdioma";
                 ddlIdiomas.DataValueField = "IdIdioma";

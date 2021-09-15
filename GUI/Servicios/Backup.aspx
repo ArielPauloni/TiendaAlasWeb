@@ -30,8 +30,8 @@
                     <asp:TextBox ID="txtNombreBkp" runat="server" Font-Size="14px"></asp:TextBox>
                 </div>
                 <div class="modal-footer">
-                    <asp:Button ID="btnGuardar" runat="server" Text="-Guardar" CssClass="btn btn-primary" OnClick="btnGuardarCambios_click" />
-                    <asp:Button ID="btnCancelar" runat="server" Text="-Cancelar" CssClass="btn btn-secondary" data-dismiss="modal" />
+                    <button id="btnGuardar" runat="server" class="btn btn-primary fa fa-check-circle" onserverclick="btnGuardarCambios_click"></button>
+                    <button id="btnCancelar" runat="server" class="btn btn-secondary fa fa-window-close-o" data-dismiss="modal"></button>
                 </div>
             </div>
         </div>
@@ -81,8 +81,8 @@
                     <br />
                 </div>
                 <div class="modal-footer">
-                    <asp:Button ID="btnAceptarRestore" runat="server" Text="-Confirmar" CssClass="btn btn-primary" OnClick="btnAceptarRestore_Click" />
-                    <asp:Button ID="btnCancelarRestore" runat="server" Text="-Cancelar" CssClass="btn btn-secondary" data-dismiss="modal" />
+                    <button id="btnAceptarRestore" runat="server" class="btn btn-primary fa fa-check-circle" onserverclick="btnAceptarRestore_Click"></button>
+                    <button id="btnCancelarRestore" runat="server" class="btn btn-secondary fa fa-window-close-o" data-dismiss="modal"></button>
                 </div>
             </div>
         </div>

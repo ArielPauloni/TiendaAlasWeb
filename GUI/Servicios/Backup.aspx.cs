@@ -21,12 +21,12 @@ namespace GUI.Servicios.Seguridad
             lblBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
             btnBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 17);
             btnRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
-            btnGuardar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
-            btnCancelar.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+            btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
             lblNombreBkp.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
             lblMensaje.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 31);
-            btnAceptarRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
-            btnCancelarRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            btnAceptarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
+            btnCancelarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
             RestaurarModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
             MensajeModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 32);
             lblArchivoRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);

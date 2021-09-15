@@ -73,7 +73,7 @@ namespace GUI.Servicios.Seguridad {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnGuardar;
         
         /// <summary>
         /// Control btnCancelar.
@@ -82,7 +82,7 @@ namespace GUI.Servicios.Seguridad {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelar;
         
         /// <summary>
         /// Control MensajeModalTitle.
@@ -136,7 +136,7 @@ namespace GUI.Servicios.Seguridad {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptarRestore;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAceptarRestore;
         
         /// <summary>
         /// Control btnCancelarRestore.
@@ -145,6 +145,6 @@ namespace GUI.Servicios.Seguridad {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelarRestore;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelarRestore;
     }
 }

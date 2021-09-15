@@ -113,21 +113,6 @@ namespace DAL
         //    return myLista;
         //}
 
-        public int ActualizarIdioma(UsuarioBE usuario)
-        {
-            int retVal = 0;
-            AccesoSQL AccesoSQL = new AccesoSQL();
-            List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Usuario", usuario.Cod_Usuario));
-            parametros.Add(AccesoSQL.CrearParametroInt("IdIdioma", usuario.Idioma.IdIdioma));
-            retVal = AccesoSQL.Escribir("pr_Actualizar_IdiomaUsuario", parametros);
-            if (retVal > 0)
-            {
-                //gestorIdioma.SetearIdioma(ref usuario);
-            }
-            return retVal;
-        }
-
         public int Editar(BE.UsuarioBE usuario)
         {
             AccesoSQL AccesoSQL = new AccesoSQL();
@@ -191,6 +176,14 @@ namespace DAL
             {
                 valAscii += SumaASCIIString(usuario.Inactivo.ToString(), 9);
             }
+            if (usuario.UltimoLogin.HasValue)
+            {
+                valAscii += SumaASCIIString(usuario.UltimoLogin?.ToString("dd/MM/yyyyHHmmss"), 10);
+            }
+            if (!string.IsNullOrEmpty(usuario.IntentosEquivocados.ToString()))
+            {
+                valAscii += SumaASCIIString(usuario.IntentosEquivocados.ToString(), 11);
+            }
             usuario.DVH = valAscii;
         }
 
@@ -234,16 +227,6 @@ namespace DAL
                     tipoUsuario.Cod_Tipo = short.Parse(fila["Cod_Tipo"].ToString());
                     tipoUsuario.Descripcion_Tipo = fila["DescripcionTipo"].ToString();
                     usuario.TipoUsuario = tipoUsuario;
-                    //Dejo el idioma que selecciono al principio de la app? (Comentar lo siguiente)
-                    //O mantengo el idioma del usuario?
-                    //*****************************************************//
-                    IdiomaBE idioma = new IdiomaBE();
-                    idioma.IdIdioma = short.Parse(fila["IdIdioma"].ToString());
-                    idioma.CodIdioma = fila["CodIdioma"].ToString();
-                    idioma.DescripcionIdioma = fila["DescripcionIdioma"].ToString();
-                    //*****************************************************//
-                    //usuario.Idioma = IdiomaSingleton.IdiomaSeteado;
-                    //gestorIdioma.SetearIdioma(ref usuario);
                     usuario.Telefono = fila["Telefono"].ToString();
                     usuario.Mail = fila["Mail"].ToString();
                     if (!string.IsNullOrWhiteSpace(fila["FechaNacimiento"].ToString()))
@@ -252,10 +235,18 @@ namespace DAL
                     }
                     else
                     {
-                        Nullable<DateTime> fNull = default(DateTime?);
-                        usuario.FechaNacimiento = fNull;
+                        usuario.FechaNacimiento = default(DateTime?);
                     }
                     usuario.Inactivo = (bool)fila["Inactivo"];
+                    if (!string.IsNullOrWhiteSpace(fila["UltimoLogin"].ToString()))
+                    {
+                        usuario.UltimoLogin = (DateTime)fila["UltimoLogin"];
+                    }
+                    else
+                    {
+                       usuario.UltimoLogin = default(DateTime?);
+                    }
+                    usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -295,10 +286,6 @@ namespace DAL
                     tipoUsuario.Cod_Tipo = short.Parse(fila["Cod_Tipo"].ToString());
                     tipoUsuario.Descripcion_Tipo = fila["DescripcionTipo"].ToString();
                     usuario.TipoUsuario = tipoUsuario;
-                    usuario.Idioma = new IdiomaBE();
-                    usuario.Idioma.IdIdioma = short.Parse(fila["IdIdioma"].ToString());
-                    usuario.Idioma.CodIdioma = fila["CodIdioma"].ToString();
-                    usuario.Idioma.DescripcionIdioma = fila["DescripcionIdioma"].ToString();
                     usuario.Telefono = fila["Telefono"].ToString();
                     usuario.Mail = fila["Mail"].ToString();
                     if (!string.IsNullOrWhiteSpace(fila["FechaNacimiento"].ToString()))
@@ -307,10 +294,18 @@ namespace DAL
                     }
                     else
                     {
-                        Nullable<DateTime> fNull = default(DateTime?);
-                        usuario.FechaNacimiento = fNull;
+                        usuario.FechaNacimiento = default(DateTime?);
                     }
                     usuario.Inactivo = (bool)fila["Inactivo"];
+                    if (!string.IsNullOrWhiteSpace(fila["UltimoLogin"].ToString()))
+                    {
+                        usuario.UltimoLogin = (DateTime)fila["UltimoLogin"];
+                    }
+                    else
+                    {
+                       usuario.UltimoLogin = default(DateTime?);
+                    }
+                    usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -350,10 +345,6 @@ namespace DAL
                     tipoUsuario.Cod_Tipo = short.Parse(fila["Cod_Tipo"].ToString());
                     tipoUsuario.Descripcion_Tipo = fila["DescripcionTipo"].ToString();
                     usuario.TipoUsuario = tipoUsuario;
-                    usuario.Idioma = new IdiomaBE();
-                    usuario.Idioma.IdIdioma = short.Parse(fila["IdIdioma"].ToString());
-                    usuario.Idioma.CodIdioma = fila["CodIdioma"].ToString();
-                    usuario.Idioma.DescripcionIdioma = fila["DescripcionIdioma"].ToString();
                     usuario.Telefono = fila["Telefono"].ToString();
                     usuario.Mail = fila["Mail"].ToString();
                     if (!string.IsNullOrWhiteSpace(fila["FechaNacimiento"].ToString()))
@@ -366,6 +357,15 @@ namespace DAL
                         usuario.FechaNacimiento = fNull;
                     }
                     usuario.Inactivo = (bool)fila["Inactivo"];
+                    if (!string.IsNullOrWhiteSpace(fila["UltimoLogin"].ToString()))
+                    {
+                        usuario.UltimoLogin = (DateTime)fila["UltimoLogin"];
+                    }
+                    else
+                    {
+                        usuario.UltimoLogin = default(DateTime?);
+                    }
+                    usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -405,10 +405,6 @@ namespace DAL
                     tipoUsuario.Cod_Tipo = short.Parse(fila["Cod_Tipo"].ToString());
                     tipoUsuario.Descripcion_Tipo = fila["DescripcionTipo"].ToString();
                     usuario.TipoUsuario = tipoUsuario;
-                    usuario.Idioma = new IdiomaBE();
-                    usuario.Idioma.IdIdioma = short.Parse(fila["IdIdioma"].ToString());
-                    usuario.Idioma.CodIdioma = fila["CodIdioma"].ToString();
-                    usuario.Idioma.DescripcionIdioma = fila["DescripcionIdioma"].ToString();
                     usuario.Telefono = fila["Telefono"].ToString();
                     usuario.Mail = fila["Mail"].ToString();
                     if (!string.IsNullOrWhiteSpace(fila["FechaNacimiento"].ToString()))
