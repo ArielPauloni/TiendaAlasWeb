@@ -39,7 +39,7 @@
             </div>
             <div class="form-footer">
                 <asp:Label ID="lblRecuperoPass" runat="server" Text="-Olvidó su contraseña?"></asp:Label>
-                &nbsp;<asp:LinkButton ID="lnkRecuperoPass" runat="server" Text="-Recuperar contraseña"></asp:LinkButton>
+                &nbsp;<asp:LinkButton ID="lnkRecuperoPass" runat="server" Text="-Recuperar contraseña" OnClick="lnkRecuperoPass_Click"></asp:LinkButton>
             </div>
         </div>
     </div>

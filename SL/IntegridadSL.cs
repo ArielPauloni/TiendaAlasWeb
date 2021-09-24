@@ -20,15 +20,15 @@ namespace SL
                 //m1.Listar();
                 m2.Listar();
             }
-            catch (DAL.ProductoModificadoException ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry("Se modificó producto por fuera de la aplicación. " + ex.Message, EventLogEntryType.Error, 101, 1);
-                }
-                throw new SL.ProductoModificadoException(ex.Message);
-            }
+            //catch (DAL.ProductoModificadoException ex)
+            //{
+            //    using (EventLog eventLog = new EventLog("Application"))
+            //    {
+            //        eventLog.Source = "Application";
+            //        eventLog.WriteEntry("Se modificó producto por fuera de la aplicación. " + ex.Message, EventLogEntryType.Error, 101, 1);
+            //    }
+            //    throw new SL.ProductoModificadoException(ex.Message);
+            //}
             catch (DAL.UsuarioModificadoException ex)
             {
                 using (EventLog eventLog = new EventLog("Application"))

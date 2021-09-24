@@ -8,24 +8,16 @@ namespace SL
 {
     public class UsuarioModificadoException : Exception
     {
-        public UsuarioModificadoException()
-        {
-        }
+        public UsuarioModificadoException() { }
 
-        public UsuarioModificadoException(string message) : base(message)
-        {
-        }
+        public UsuarioModificadoException(string message) : base(message) { }
     }
 
-    public class ProductoModificadoException : Exception
+    public class UsuarioBloqueadoException : Exception
     {
-        public ProductoModificadoException()
-        {
-        }
+        public UsuarioBloqueadoException() { }
 
-        public ProductoModificadoException(string message) : base(message)
-        {
-        }
+        public UsuarioBloqueadoException(string message) : base(message) { }
     }
 
     public class SinPermisosException : Exception
@@ -37,12 +29,8 @@ namespace SL
 
     public class BackupException : Exception
     {
-        public BackupException()
-        {
-        }
+        public BackupException() { }
 
-        public BackupException(string message) : base(message)
-        {
-        }
+        public BackupException(string message) : base(message) { }
     }
 }

@@ -7,17 +7,22 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using SL.PatronObserver;
 using SL;
+using BLL;
 using BE;
+using System.Web.Services;
 
 namespace GUI
 {
     public partial class SiteMaster : MasterPage, IObserver
     {
         private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+        private UsuarioBLL gestorUsuario = new UsuarioBLL();
 
         public void ChequearPermisos()
         {
-            aLogout.Visible = false;
+            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { aLogout.Visible = aUserName.Visible = false; aSignUp.Visible = aLogin.Visible = true; }
+            else { aLogout.Visible = aUserName.Visible = true; aSignUp.Visible = aLogin.Visible = false; }
+            
             aBackup.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Generar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Restaurar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aIdiomas.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
@@ -63,8 +68,18 @@ namespace GUI
             aIdiomas.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
 
             aSignUp.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
-            aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10) + " ";
-            aLogout.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 13) + " ";
+            aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10);
+            aLogout.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 13);
+
+            if ((UsuarioBE)Session["UsuarioAutenticado"] != null)
+            {
+                aUserName.InnerText = " " + ((UsuarioBE)Session["UsuarioAutenticado"]).ToString() + " ";
+                var span2 = new HtmlGenericControl("span");
+                span2.Attributes["class"] = "glyphicon glyphicon-chevron-down";
+                aUserName.Controls.Add(span2);
+            }
+
+            
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -108,8 +123,25 @@ namespace GUI
             };
             Session["IdiomaSel"] = gestorIdioma.ListarIdioma(nuevoIdiomaSeleccionado);
 
+            if ((UsuarioBE)Session["UsuarioAutenticado"] != null)
+            {
+                ((UsuarioBE)Session["UsuarioAutenticado"]).Idioma = (IdiomaBE)Session["IdiomaSel"];
+                int i = gestorUsuario.ActualizarIdioma((UsuarioBE)Session["UsuarioAutenticado"]);
+                if (i > 0)
+                {
+                    //gestorBitacora.GrabarBitacora((short)EventosBE.Eventos.CambioDeIdioma, (short)EventosBE.Criticidad.Baja);
+                }
+            }
+
             Subject.Notify();
             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+        }
+
+        protected void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            Session["UsuarioAutenticado"] = null;
+            Session.Remove("UsuarioAutenticado");
+            Response.Redirect(@"~/Bienvenido.aspx");
         }
     }
 }

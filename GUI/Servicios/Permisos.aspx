@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Permisos.aspx.cs" Inherits="GUI.Servicios.Permisos.Permisos" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
+
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <div style="text-align: center;">
         <br />
@@ -15,15 +17,17 @@
         </div>
         <div class="form-group col-md-2" style="text-align: center;">
             <br />
-            <br /> 
             <br />
-            <br /> 
+            <br />
+            <br />
             <br />
             <br />
             <asp:Button ID="btnAsignarPermiso" runat="server" Text="-Agregar ->" OnClick="btnAsignarPermiso_Click" />
+            <%--fa fa-arrow-right || fa fa-hand-point-right--%>
             <br />
             <br />
             <asp:Button ID="btnQuitarPermiso" runat="server" Text="-<- Quitar" OnClick="btnQuitarPermiso_Click" />
+            <%--fa fa-arrow-left || fa fa-hand-point-left--%>
         </div>
         <div class="form-group col-md-5">
             <asp:Label ID="lblTipoUsuario" runat="server" Text="-Tipo de Usuario"></asp:Label>
@@ -40,14 +44,16 @@
         <br />
     </div>
     <br />
-    <div class="container" id="divEditarPermisos" runat="server" visible="false">
+    <div class="container bg-info" id="divEditarPermisos" runat="server" visible="false">
         <div class="form-group col-md-4">
             <asp:Label ID="lblNuevoPermiso" runat="server" Text="-Permiso"></asp:Label>
             <asp:TextBox ID="txtNuevoPermiso" CssClass="form-control" runat="server"></asp:TextBox>
             <br />
             <asp:Button ID="btnCrearPermiso" runat="server" Text="-Crear Permiso" OnClick="btnCrearPermiso_Click" />
+            <%--fa fa-plus--%>
             &nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnEliminarPermiso" runat="server" Text="-Eliminar Permiso" OnClick="btnEliminarPermiso_Click" />
+            <%--fa fa-trash-alt || fa fa-trash-o || fa fa-trash--%>
         </div>
         <div class="form-group col-md-4">
             <asp:Label ID="lblPermisoPadre" runat="server" Text="-Permiso Padre"></asp:Label>
@@ -56,10 +62,29 @@
             <asp:TextBox ID="txtPermisoHijo" CssClass="form-control" runat="server"></asp:TextBox>
             <br />
             <asp:Button ID="btnVincular" runat="server" Text="-Vincular" OnClick="btnVincular_Click" />
+            <%--fa fa-link--%>
             &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnDesvincular" runat="server" Text="-Desvincular" OnClick="btnDesvincular_Click" /> 
+            <asp:Button ID="btnDesvincular" runat="server" Text="-Desvincular" OnClick="btnDesvincular_Click" />
+            <%--fa fa-unlink--%>
             &nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnLimpiar" runat="server" Text="-Limpiar" OnClick="btnLimpiar_Click" />
+            <%--fa fa-broom--%>
         </div>
     </div>
+
+    <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-labelledby="MensajeModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <asp:UpdatePanel runat="server" ID="UpPanelDialog" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <uc1:uc_mensajemodal runat="server" id="UC_MensajeModal" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+            function mostrarMensaje() {
+                $('#MensajeModal').modal({ backdrop: 'static', keyboard: false, toggle: true });
+            }
+        </script>
 </asp:Content>

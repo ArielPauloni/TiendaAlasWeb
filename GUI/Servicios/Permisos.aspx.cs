@@ -39,10 +39,13 @@ namespace GUI.Servicios.Permisos
 
         public void ChequearPermisos()
         {
+            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
+
         }
 
         public void TraducirTexto()
         {
+
         }
 
         private void EnlazarArbolPermisos()
@@ -61,7 +64,9 @@ namespace GUI.Servicios.Permisos
             else
             {
                 //Sin permisos:
-
+                //TODO: Setear un ViewState para el texto sin permisos y usarlo en estos mensajes
+                UC_MensajeModal.SetearMensaje("-Probando mensaje...");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -136,6 +141,7 @@ namespace GUI.Servicios.Permisos
                 };
                 EnlazarArbolPermisosPorTipoUsuario(tipoUsuario);
                 Subject.Notify();
+                Response.Redirect(Request.RawUrl);
             }
             else
             {
@@ -158,6 +164,7 @@ namespace GUI.Servicios.Permisos
                 };
                 EnlazarArbolPermisosPorTipoUsuario(tipoUsuario);
                 Subject.Notify();
+                Response.Redirect(Request.RawUrl);
             }
             else
             {

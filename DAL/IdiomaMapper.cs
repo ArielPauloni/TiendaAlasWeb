@@ -18,25 +18,25 @@ public class IdiomaMapper
         return AccesoSQL.Escribir("pr_Insertar_Idioma", parametros);
     }
 
-    //public void SetearIdioma(ref UsuarioBE usuario)
-    //{
-    //    AccesoSQL AccesoSQL = new AccesoSQL();
-    //    List<SqlParameter> parametros = new List<SqlParameter>();
-    //    parametros.Add(AccesoSQL.CrearParametroInt("IdIdioma", usuario.Idioma.IdIdioma));
-    //    DataTable tabla = AccesoSQL.Leer("pr_Listar_TextosPorIdioma", parametros);
-    //    if (tabla != null)
-    //    {
-    //        usuario.Idioma.Textos = new List<TextoBE>();
-    //        foreach (DataRow fila in tabla.Rows)
-    //        {
-    //            //TextoBE frase = new TextoBE();
-    //            frase.IdFrase = short.Parse(fila["IdFrase"].ToString());
-    //            frase.Texto = fila["Texto"].ToString();
+    public void SetearIdioma(ref UsuarioBE usuario)
+    {
+        AccesoSQL AccesoSQL = new AccesoSQL();
+        List<SqlParameter> parametros = new List<SqlParameter>();
+        parametros.Add(AccesoSQL.CrearParametroInt("IdIdioma", usuario.Idioma.IdIdioma));
+        DataTable tabla = AccesoSQL.Leer("pr_Listar_TextosPorIdioma", parametros);
+        if (tabla != null)
+        {
+            usuario.Idioma.Textos = new List<TextoBE>();
+            foreach (DataRow fila in tabla.Rows)
+            {
+                TextoBE frase = new TextoBE();
+                frase.IdFrase = short.Parse(fila["IdFrase"].ToString());
+                frase.Texto = fila["Texto"].ToString();
 
-    //            usuario.Idioma.Textos.Add(frase);
-    //        }
-    //    }
-    //}
+                usuario.Idioma.Textos.Add(frase);
+            }
+        }
+    }
 
     public List<IdiomaBE> Listar(IdiomaBE idiomaActual)
     {

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SL.PatronObserver;
 using SL;
+using BE;
 using System.Threading.Tasks;
 
 namespace GUI.Servicios
@@ -17,6 +18,8 @@ namespace GUI.Servicios
 
         public void ChequearPermisos()
         {
+            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
+
         }
 
         public void TraducirTexto()

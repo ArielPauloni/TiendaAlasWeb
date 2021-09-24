@@ -65,7 +65,7 @@ namespace SL
                 document.Add(newline);
                 //*****************************************************//
                 // Table
-                int numCol = 0;
+                //int numCol = 0;
                 //foreach (DataGridViewColumn dc in gridView.Columns) { if (dc.Visible) { numCol++; } }
                 //Table table = new Table(numCol, false);
 

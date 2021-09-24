@@ -5,21 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using BE;
 
 namespace SL
 {
     public class MailSL
     {
-        public bool EnviarMail(string remitente, string destinatario, string PalabraSecreta, string fromPassword)
+        public bool EnviarMailRecuperoPass(string remitenteMail, string remitentePass, UsuarioBE usuarioDestinatario, string NuevaPass)
         {
             bool retVal = true;
             try
             {
-                var fromAddress = new MailAddress(remitente, "Sistema Tienda Alada");
-                var toAddress = new MailAddress(destinatario, "SuperAdmin Tienda Alada");
-                string subject = "(Trabajo de Diploma 2020) Clave Secreta";
+                var fromAddress = new MailAddress(remitenteMail, "Sistema Tienda Alas");
+                var toAddress = new MailAddress(usuarioDestinatario.Mail, usuarioDestinatario.ToString());
+                string subject = "(Trabajo Final de Ingeniería 2021) Nueva Pass";
                
-                string body = string.Format("La clave secreta para poder acceder al restore de la base de datos es <b>{0}</b>", PalabraSecreta);
+                string body = string.Format("La nueva clave para su usuario <b>{0}</b> es: <b>{1}</b>", usuarioDestinatario.Alias, NuevaPass);
 
                 var smtp = new SmtpClient
                 {
@@ -29,7 +30,7 @@ namespace SL
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
                     Timeout = 100000,
-                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                    Credentials = new NetworkCredential(fromAddress.Address, remitentePass)
                 };
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
@@ -41,7 +42,7 @@ namespace SL
                     smtp.Send(message);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 retVal = false;
             }

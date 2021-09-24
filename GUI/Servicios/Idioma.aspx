@@ -56,5 +56,6 @@
         <br />
         <asp:Button ID="btnCrearNuevoIdioma" CssClass="btn btn-primary" runat="server" Text="-Crear Nuevo Idioma" OnClick="btnCrearNuevoIdioma_Click" />
     </div>
+
 </asp:Content>
 

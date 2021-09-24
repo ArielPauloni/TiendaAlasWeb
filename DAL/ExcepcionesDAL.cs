@@ -13,25 +13,16 @@ namespace DAL
         public UsuarioModificadoException(string message) : base(message) { }
     }
 
-    public class ProductoModificadoException : Exception
+    public class UsuarioBloqueadoException : Exception
     {
-        public ProductoModificadoException() { }
+        public UsuarioBloqueadoException() { }
 
-        public ProductoModificadoException(string message) : base(message) { }
-    }
-
-    public class PromocionModificadaException : Exception
-    {
-        public PromocionModificadaException() { }
-
-        public PromocionModificadaException(string message) : base(message) { }
+        public UsuarioBloqueadoException(string message) : base(message) { }
     }
 
     public class BackupException : Exception
     {
-        public BackupException()
-        {
-        }
+        public BackupException() { }
 
         public BackupException(string message) : base(message)
         {

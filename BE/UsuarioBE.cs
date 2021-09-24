@@ -72,13 +72,13 @@ namespace BE
             set { dvh = value; }
         }
 
-        //private IdiomaBE idioma;
+        private IdiomaBE idioma;
 
-        //public IdiomaBE Idioma
-        //{
-        //    get { return idioma; }
-        //    set { idioma = value; }
-        //}
+        public IdiomaBE Idioma
+        {
+            get { return idioma; }
+            set { idioma = value; }
+        }
 
         private string telefono;
 

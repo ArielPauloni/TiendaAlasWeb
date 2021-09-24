@@ -146,5 +146,13 @@ namespace BLL
                 throw new BLL.UsuarioModificadoException(ex.Message);
             }
         }
+
+        public int ActualizarIdioma(UsuarioBE usuario)
+        {
+            int retVal = 0;
+            UsuarioMapper m = new UsuarioMapper();
+            retVal = m.ActualizarIdioma(usuario);
+            return retVal;
+        }
     }
 }

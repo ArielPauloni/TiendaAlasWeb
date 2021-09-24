@@ -13,6 +13,7 @@ namespace GUI.Servicios
     public partial class Idioma : System.Web.UI.Page, IObserver
     {
         private IdiomaSL gestorIdioma = new IdiomaSL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
 
         public void TraducirTexto()
         {
@@ -40,6 +41,10 @@ namespace GUI.Servicios
 
         public void ChequearPermisos()
         {
+            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
+            btnCrearNuevoIdioma.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnMostrarFiltros.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            grvTexto.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -163,7 +168,7 @@ namespace GUI.Servicios
 
         protected void grvTexto_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            //NewEditIndex se usa pa determinar el índice a editar
+            //NewEditIndex se usa para determinar el índice a editar
             grvTexto.EditIndex = e.NewEditIndex;
             MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
         }

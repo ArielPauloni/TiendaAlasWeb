@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SL.PatronObserver;
 using SL;
+using BE;
 using System.IO;
 
 namespace GUI.Servicios.Seguridad
@@ -34,6 +35,8 @@ namespace GUI.Servicios.Seguridad
 
         public void ChequearPermisos()
         {
+            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
+
         }
 
         protected void Page_Load(object sender, EventArgs e)

@@ -12,4 +12,11 @@ namespace BLL
 
         public UsuarioModificadoException(string message) : base(message) { }
     }
+
+    public class UsuarioBloqueadoException : Exception
+    {
+        public UsuarioBloqueadoException() { }
+
+        public UsuarioBloqueadoException(string message) : base(message) { }
+    }
 }

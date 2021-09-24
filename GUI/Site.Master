@@ -1,7 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="GUI.SiteMaster" %>
 
-<%--<!DOCTYPE html>--%>
-
 <html lang="en">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -70,9 +68,15 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li runat="server"><a id="aSignUp" class="fa fa fa-user" runat="server" href="#"><span class="glyphicon glyphicon-user" runat="server"></span>-Sign Up</a></li>
-                        <li runat="server"><a id="aLogin" class="fa fa-sign-in" runat="server" href="~/Login.aspx"><span class="glyphicon glyphicon-log-in" runat="server"></span>-Login</a></li>
-                        <li runat="server"><a id="aLogout" class="fa fa-sign-out" runat="server" href="#"><span class="glyphicon glyphicon-log-out" runat="server"></span>-Logout</a></li>
+                        <li runat="server"><a id="aSignUp" class="fa fa fa-user" runat="server" href="#">-Sign Up</a></li>
+                        <li runat="server"><a id="aLogin" class="fa fa-sign-in" runat="server" href="~/Login.aspx">-Login</a></li>
+                        <li class="dropdown">
+                            <a id="aUserName" runat="server" class="dropdown-toggle fa fa-id-badge" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="aMisDatos" class="fa fa-cog" runat="server" href="~/Negocio/Usuario/MisDatos.aspx">-Mis Datos</a></li>
+                                <li runat="server"><a id="aLogout" class="fa fa-sign-out" runat="server" style="cursor: pointer;" onclick="confirmarLogout()">-Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right marg">
                         <li runat="server">
@@ -94,6 +98,37 @@
                     <asp:Label ID="lblNombreSitio" runat="server" Text="-Tienda Alas"></asp:Label>
             </footer>
         </div>
+
+        <!-- Modal Mensaje -->
+        <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-labelledby="MensajeModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="MensajeModalTitle" runat="server">-Mensaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-info" style="text-align: center;">
+                        <br />
+                        <div>
+                            <asp:Label ID="lblMensaje" runat="server" Text="-Mensaje de confirmación"></asp:Label>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnConfirmar" runat="server" class="btn btn-primary fa fa-check-circle" onserverclick="btnConfirmar_Click"></button>
+                        <button id="btnCancelar" runat="server" class="btn btn-secondary fa fa-window-close-o" data-dismiss="modal"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function confirmarLogout() {
+                $('#MensajeModal').modal({ backdrop: 'static', keyboard: false, toggle: true });
+            }
+        </script>
     </form>
 </body>
 </html>

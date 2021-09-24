@@ -13,7 +13,7 @@ namespace SL
 
         public void ConfigurarEnvioMails(ref string remitente, ref string mailAdmin, ref string pass, string palabraSecreta)
         {
-            //Todas las variables de configuración (nombre y valor) están encriptadas en el app.config
+            //Todas las variables de configuración (nombre y valor) están encriptadas en el web.config
             string NombreTagMailAdminEncriptado = gestorEncriptacion.SimpleEncrypt("MailAdmin");
             string MailAdminEncriptado = ConfigurationManager.AppSettings[NombreTagMailAdminEncriptado];
             string NombreTagRemitenteEncriptado = gestorEncriptacion.SimpleEncrypt("MailSender");
@@ -38,7 +38,19 @@ namespace SL
 
             remitente = gestorEncriptacion.SimpleDecrypt(RemitenteEncriptado);
             mailAdmin = gestorEncriptacion.SimpleDecrypt(MailAdminEncriptado);
-            pass = gestorEncriptacion.SimpleDecrypt(PassEncriptado);
+            pass = gestorEncriptacion.SimpleDecrypt(gestorEncriptacion.SimpleDecrypt(PassEncriptado));
+        }
+
+        public void ConfigurarRemitenteEnvioMail(ref string remitenteMail, ref string remitentePass)
+        {
+            //Todas las variables de configuración (nombre y valor) están encriptadas en el web.config, la pass, doblemente encriptada
+            string NombreTagRemitenteEncriptado = gestorEncriptacion.SimpleEncrypt("MailSender");
+            string RemitenteEncriptado = ConfigurationManager.AppSettings[NombreTagRemitenteEncriptado];
+            string NombreTagPassEncriptado = gestorEncriptacion.SimpleEncrypt("EmailPassword");
+            string PassEncriptado = ConfigurationManager.AppSettings[NombreTagPassEncriptado];
+
+            remitenteMail = gestorEncriptacion.SimpleDecrypt(RemitenteEncriptado);
+            remitentePass = gestorEncriptacion.SimpleDecrypt(gestorEncriptacion.SimpleDecrypt(PassEncriptado));
         }
     }
 }
