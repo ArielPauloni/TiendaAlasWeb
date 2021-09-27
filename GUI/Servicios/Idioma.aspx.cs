@@ -14,6 +14,7 @@ namespace GUI.Servicios
     {
         private IdiomaSL gestorIdioma = new IdiomaSL();
         private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+        private BitacoraSL gestorBitacora = new BitacoraSL();
 
         public void TraducirTexto()
         {
@@ -191,8 +192,11 @@ namespace GUI.Servicios
                     IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
                 };
                 int i = gestorIdioma.ActualizarTexto(idiomaSeleccionado, texto);
-                //if (i == 0) { MessageBox.Show(noPudoGrabarText, errorText, MessageBoxButtons.OK, MessageBoxIcon.Error); }
-                //else { CargarIdioma((IdiomaBE)cboIdioma.SelectedItem); }
+                if (i == 0)
+                {
+                   //No se Pudo Grabar
+                }
+                else { gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CambioTextoIdioma, (short)EventosBE.Criticidad.Baja); }
             }
             grvTexto.EditIndex = -1;
             MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);

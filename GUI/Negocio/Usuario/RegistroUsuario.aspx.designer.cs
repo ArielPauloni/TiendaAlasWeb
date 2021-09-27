@@ -7,73 +7,100 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GUI.Servicios {
+namespace GUI.Negocio.Usuario {
     
     
-    public partial class CrearIdioma {
+    public partial class RegistroUsuario {
         
         /// <summary>
-        /// Control lblCodIdioma.
+        /// Control lblRegistrarse.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCodIdioma;
+        protected global::System.Web.UI.WebControls.Label lblRegistrarse;
         
         /// <summary>
-        /// Control txtCodIdioma.
+        /// Control lblAlias.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCodIdioma;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblAlias;
         
         /// <summary>
-        /// Control lblDescripcionIdioma.
+        /// Control txtAlias.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescripcionIdioma;
+        protected global::System.Web.UI.WebControls.TextBox txtAlias;
         
         /// <summary>
-        /// Control txtDescripcionIdioma.
+        /// Control lblPassword1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescripcionIdioma;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblPassword1;
         
         /// <summary>
-        /// Control chkTraducir.
+        /// Control txtPassword1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTraducir;
+        protected global::System.Web.UI.WebControls.TextBox txtPassword1;
         
         /// <summary>
-        /// Control lblTraducir.
+        /// Control btnShowHidePass1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTraducir;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnShowHidePass1;
         
         /// <summary>
-        /// Control btnGuardar.
+        /// Control lblPassword2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnGuardar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblPassword2;
+        
+        /// <summary>
+        /// Control txtPassword2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPassword2;
+        
+        /// <summary>
+        /// Control btnShowHidePass2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnShowHidePass2;
+        
+        /// <summary>
+        /// Control btnGrabar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnGrabar;
         
         /// <summary>
         /// Control btnCancelar.
@@ -85,12 +112,12 @@ namespace GUI.Servicios {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelar;
         
         /// <summary>
-        /// Control UC_Procesando.
+        /// Control UC_MensajeModal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::GUI.User_Controls.UC_Procesando UC_Procesando;
+        protected global::GUI.User_Controls.UC_MensajeModal UC_MensajeModal;
     }
 }

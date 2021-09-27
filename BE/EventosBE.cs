@@ -14,22 +14,16 @@ namespace BE
             AltaDeUsuario,
             ModificaciónUsuario,
             BajaDeUsuario,
-            AltaDeProducto,
-            ModificaciónProducto,
-            BajaDeProducto,
             CambioDeIdioma,
             CreaciónDeIdioma,
-            CompraRealizada,
-            CalculoDeStock,
             ErrorEnIntegridadUsuario,
-            ErrorEnIntegridadProductos,
-            RealizarPedidoCompra,
             GenerarBackup,
             RestaurarBackup,
             ChequeoIntegridadExitoso,
-            VentaRealizada,
-            ErrorEnIntegridadPromociones,
-            EncuestaRespondida
+            NuevoPermisoCreado,
+            RecuperoDePass,
+            CambioTextoIdioma,
+            PermisoEliminado
         }
 
         public enum Criticidad

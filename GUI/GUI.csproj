@@ -129,7 +129,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\solid.css" />
     <Content Include="Content\solid.min.css" />
-    <Content Include="Content\StylesPopup.css" />
+    <Content Include="Content\CustomStyles.css" />
     <Content Include="Content\StyleSheetBanner.css" />
     <Content Include="Content\svg-with-js.css" />
     <Content Include="Content\svg-with-js.min.css" />
@@ -151,6 +151,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Negocio\Usuario\MisDatos.aspx" />
     <Content Include="Negocio\Usuario\NuevoUsuario.aspx" />
+    <Content Include="Negocio\Usuario\RegistroUsuario.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -264,6 +265,7 @@
     <Content Include="Servicios\Integridad.aspx" />
     <Content Include="Negocio\Usuario\ABMUsuario.aspx" />
     <Content Include="User_Controls\UC_MensajeModal.ascx" />
+    <Content Include="User_Controls\UC_Procesando.ascx" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
@@ -383,6 +385,13 @@
     <Compile Include="Negocio\Usuario\NuevoUsuario.aspx.designer.cs">
       <DependentUpon>NuevoUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\Usuario\RegistroUsuario.aspx.cs">
+      <DependentUpon>RegistroUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\Usuario\RegistroUsuario.aspx.designer.cs">
+      <DependentUpon>RegistroUsuario.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\Bitacora.aspx.cs">
       <DependentUpon>Bitacora.aspx</DependentUpon>
@@ -460,6 +469,13 @@
     </Compile>
     <Compile Include="User_Controls\UC_MensajeModal.ascx.designer.cs">
       <DependentUpon>UC_MensajeModal.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\UC_Procesando.ascx.cs">
+      <DependentUpon>UC_Procesando.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\UC_Procesando.ascx.designer.cs">
+      <DependentUpon>UC_Procesando.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

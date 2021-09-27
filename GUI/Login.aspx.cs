@@ -15,6 +15,7 @@ namespace GUI
     public partial class Login : System.Web.UI.Page, IObserver
     {
         private LoginSL gestorLogin = new LoginSL();
+        private BitacoraSL gestorBitacora = new BitacoraSL();
         private ConfiguracionSL gestorConfiguracion = new ConfiguracionSL();
         private MailSL gestorMail = new MailSL();
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
@@ -90,10 +91,7 @@ namespace GUI
 
                 if (usuarioAutenticado != null)
                 {
-                    //BitacoraBE bitacoraBE = new BitacoraBE();
-                    //bitacoraBE.Cod_Usuario = usuarioAutenticado.Cod_Usuario;
-                    //bitacoraBE.Cod_Evento = (short)EventosBE.Eventos.Login;
-                    //gestorBitacora.Insertar(bitacoraBE, usuarioAutenticado);
+                    gestorBitacora.GrabarBitacora(usuarioAutenticado, (short)EventosBE.Eventos.Login, (short)EventosBE.Criticidad.Baja);
 
                     Session["UsuarioAutenticado"] = usuarioAutenticado;
                     Session["IdiomaSel"] = usuarioAutenticado.Idioma;

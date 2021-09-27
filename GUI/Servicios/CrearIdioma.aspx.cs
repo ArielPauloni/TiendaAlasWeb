@@ -15,6 +15,7 @@ namespace GUI.Servicios
     {
         private IdiomaSL gestorIdioma = new IdiomaSL();
         private IdiomaBE idiomaCreado = new IdiomaBE();
+        private BitacoraSL gestorBitacora = new BitacoraSL();
 
         public void ChequearPermisos()
         {
@@ -29,7 +30,6 @@ namespace GUI.Servicios
             lblCodIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 22);
             lblDescripcionIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 23);
             lblTraducir.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 24);
-            lblWait.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 25);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace GUI.Servicios
                         };
                         int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
                         //ActualizarListaIdiomas();
-                        //gestorBitacora.GrabarBitacora((short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
+                        gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
                     }
                     catch (Exception ex)
                     {

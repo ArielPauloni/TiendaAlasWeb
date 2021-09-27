@@ -12,8 +12,10 @@
     <div class="container">
         <div class="form-group col-md-5">
             <asp:Label ID="lblPermisosArbol" runat="server" Text="-Permisos"></asp:Label>
-            <asp:TreeView ID="trvPermisos" runat="server" ShowCheckBoxes="All" Height="50%" OnSelectedNodeChanged="trvPermisos_SelectedNodeChanged" BackColor="#CCFFFF" BorderColor="Black">
-            </asp:TreeView>
+            <asp:Panel runat="server" ScrollBars="Auto" Height="50%">
+                <asp:TreeView ID="trvPermisos" runat="server" ShowCheckBoxes="All" OnSelectedNodeChanged="trvPermisos_SelectedNodeChanged" BackColor="#CCFFFF" BorderColor="Black">
+                </asp:TreeView>
+            </asp:Panel>
         </div>
         <div class="form-group col-md-2" style="text-align: center;">
             <br />
@@ -33,8 +35,10 @@
             <asp:Label ID="lblTipoUsuario" runat="server" Text="-Tipo de Usuario"></asp:Label>
             <asp:DropDownList ID="ddlTipoUsuarios" runat="server" OnSelectedIndexChanged="ddlTipoUsuarios_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
             <br />
-            <asp:TreeView ID="trvPermisosUsuario" runat="server" ShowCheckBoxes="All" Height="50%" BackColor="#CCFFFF" BorderColor="Black">
-            </asp:TreeView>
+            <asp:Panel runat="server" ScrollBars="Auto" Height="50%">
+                <asp:TreeView ID="trvPermisosUsuario" runat="server" ShowCheckBoxes="All" BackColor="#CCFFFF" BorderColor="Black">
+                </asp:TreeView>
+            </asp:Panel>
         </div>
     </div>
     <hr />
@@ -76,15 +80,15 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <asp:UpdatePanel runat="server" ID="UpPanelDialog" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <uc1:uc_mensajemodal runat="server" id="UC_MensajeModal" />
+                    <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
     </div>
 
     <script type="text/javascript">
-            function mostrarMensaje() {
-                $('#MensajeModal').modal({ backdrop: 'static', keyboard: false, toggle: true });
-            }
-        </script>
+        function mostrarMensaje() {
+            $('#MensajeModal').modal({ backdrop: 'static', keyboard: false, toggle: true });
+        }
+    </script>
 </asp:Content>

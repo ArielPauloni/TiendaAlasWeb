@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Bienvenido.aspx.cs" Inherits="GUI.Bienvenido" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
+
+
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
     <!-------Banner Script/Style---------->
@@ -182,6 +185,18 @@
         <span data-u="arrowleft" class="jssora22l" style="top: 0px; left: 8px; width: 40px; height: 58px;" data-autocenter="2"></span>
         <span data-u="arrowright" class="jssora22r" style="top: 0px; right: 8px; width: 40px; height: 58px;" data-autocenter="2"></span>
     </div>
+
+    <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function mostrarMensaje() {
+            $('#MensajeModal').modal({ backdrop: 'static', keyboard: false });
+        }
+    </script>
 
     <script type="text/javascript">jssor_1_slider_init();</script>
 </asp:Content>

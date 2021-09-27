@@ -17,7 +17,7 @@
             <div class="form-header">
                 <asp:Label ID="lblLogin" runat="server" Text="-Login page" Font-Bold="true"></asp:Label>
             </div>
-            <!--Email Input-->
+            <!--Alias Input-->
             <div class="form-group">
                 <label id="lblAlias" runat="server">-Alias</label>
                 <asp:TextBox ID="txtAlias" runat="server" CssClass="form-input" AutoPostBack="true"></asp:TextBox>

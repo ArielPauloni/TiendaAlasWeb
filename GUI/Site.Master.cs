@@ -17,12 +17,13 @@ namespace GUI
     {
         private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
+        private BitacoraSL gestorBitacora = new BitacoraSL();
 
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { aLogout.Visible = aUserName.Visible = false; aSignUp.Visible = aLogin.Visible = true; }
             else { aLogout.Visible = aUserName.Visible = true; aSignUp.Visible = aLogin.Visible = false; }
-            
+
             aBackup.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Generar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Restaurar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aIdiomas.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
@@ -33,7 +34,15 @@ namespace GUI
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Quitar permisos"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Permisos Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"])));
-            aSecurity.Visible = ((aPermisos.Visible) || (aIdiomas.Visible) || (aBackup.Visible));
+            aBitacora.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            aSecurity.Visible = ((aPermisos.Visible) || (aIdiomas.Visible) || (aBackup.Visible) || (aBitacora.Visible));
+            aABMUsuarios.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("ABM Usuarios"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])));
+            aNuevoUsuario.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("ABM Usuarios"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])));
+            aUsuarios.Visible = ((aABMUsuarios.Visible) || (aNuevoUsuario.Visible));
         }
 
         public void TraducirTexto()
@@ -60,12 +69,13 @@ namespace GUI
 
             aSecurity.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 5) + " ";
             var span1 = new HtmlGenericControl("span");
-            span1.Attributes["class"] = "glyphicon glyphicon-chevron-down";
+            span1.Attributes["class"] = "caret";
             aSecurity.Controls.Add(span1);
 
             aPermisos.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 6);
             aBackup.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 7);
             aIdiomas.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
+            aBitacora.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 3);
 
             aSignUp.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
             aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10);
@@ -79,7 +89,7 @@ namespace GUI
                 aUserName.Controls.Add(span2);
             }
 
-            
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -127,18 +137,16 @@ namespace GUI
             {
                 ((UsuarioBE)Session["UsuarioAutenticado"]).Idioma = (IdiomaBE)Session["IdiomaSel"];
                 int i = gestorUsuario.ActualizarIdioma((UsuarioBE)Session["UsuarioAutenticado"]);
-                if (i > 0)
-                {
-                    //gestorBitacora.GrabarBitacora((short)EventosBE.Eventos.CambioDeIdioma, (short)EventosBE.Criticidad.Baja);
-                }
+                if (i > 0) { gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CambioDeIdioma, (short)EventosBE.Criticidad.Baja); }
             }
 
             Subject.Notify();
             Page.Response.Redirect(Page.Request.Url.ToString(), true);
         }
 
-        protected void btnConfirmar_Click(object sender, EventArgs e)
+        protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
+            gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.Logout, (short)EventosBE.Criticidad.Baja);
             Session["UsuarioAutenticado"] = null;
             Session.Remove("UsuarioAutenticado");
             Response.Redirect(@"~/Bienvenido.aspx");

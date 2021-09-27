@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CrearIdioma.aspx.cs" Async="true" Inherits="GUI.Servicios.CrearIdioma" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Src="~/User_Controls/UC_Procesando.ascx" TagPrefix="uc1" TagName="UC_Procesando" %>
+
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
     <div class="container">
@@ -27,18 +29,7 @@
     <!-- Modal Procesando -->
     <div class="modal fade" id="processingModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="text-align: center;">
-                    <br />
-                    <br />
-                    <div>
-                        <asp:Label ID="lblWait" runat="server" Text="-Please wait... " />
-                        <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Imagenes/processing.gif" />
-                    </div>
-                    <br />
-                    <br />
-                </div>
-            </div>
+            <uc1:UC_Procesando runat="server" id="UC_Procesando" />
         </div>
     </div>
 

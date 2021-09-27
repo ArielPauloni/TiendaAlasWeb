@@ -1,0 +1,65 @@
+﻿body, html, form {
+}
+
+.itemInit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.th {
+    text-align: center;
+    background-color: lightgrey;
+    font-weight: bold;
+}
+
+caption {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: lightgrey;
+    text-align: center;
+    font-weight: bold;
+}
+
+.menu {
+    font-weight: bold;
+    background-color: lightgray;
+}
+
+.myTable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th {
+    text-align: center;
+    background-color: lightgrey;
+    font-weight: bold;
+}
+
+body {
+}
+
+.Background {
+    background-color: Black;
+    filter: alpha(opacity=90);
+    opacity: 0.8;
+}
+
+.Popup {
+    background-color: #FFFFFF;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 400px;
+    height: 350px;
+}
+
+.lblAlert {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+}

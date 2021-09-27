@@ -14,6 +14,8 @@ namespace GUI.Servicios.Seguridad
 {
     public partial class Backup : System.Web.UI.Page, IObserver
     {
+        private BitacoraSL gestorBitacora = new BitacoraSL();
+
         public void TraducirTexto()
         {
             IdiomaSL gestorIdioma = new IdiomaSL();
@@ -61,6 +63,7 @@ namespace GUI.Servicios.Seguridad
             {
                 string date = DateTime.Now.ToString("yyyyMMdd_HH.mm.ss");
                 BackupSL.realizarBackup(txtNombreBkp.Text + "_" + date);
+                gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.GenerarBackup, (short)EventosBE.Criticidad.Alta);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "modalMensaje()", true);
             }
             catch (SL.BackupException ex)
@@ -91,6 +94,7 @@ namespace GUI.Servicios.Seguridad
             {
                 string fileName = ddlArchivosBkp.SelectedValue;
                 BackupSL.restaurarBackup(fileName.Remove(fileName.Length - 4, 4));
+                gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.RestaurarBackup, (short)EventosBE.Criticidad.Alta);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "modalMensaje()", true);
             }
             catch (Exception ex)

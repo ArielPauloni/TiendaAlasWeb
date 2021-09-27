@@ -11,7 +11,7 @@ namespace GUI.User_Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         public void SetearMensaje(string Mensaje)

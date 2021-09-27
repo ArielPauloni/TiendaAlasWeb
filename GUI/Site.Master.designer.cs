@@ -76,6 +76,42 @@ namespace GUI {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aIdiomas;
         
         /// <summary>
+        /// Control aBitacora.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aBitacora;
+        
+        /// <summary>
+        /// Control aUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aUsuarios;
+        
+        /// <summary>
+        /// Control aABMUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aABMUsuarios;
+        
+        /// <summary>
+        /// Control aNuevoUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aNuevoUsuario;
+        
+        /// <summary>
         /// Control aSignUp.
         /// </summary>
         /// <remarks>
@@ -148,13 +184,13 @@ namespace GUI {
         protected global::System.Web.UI.WebControls.Label lblNombreSitio;
         
         /// <summary>
-        /// Control MensajeModalTitle.
+        /// Control ConfirmaLogoutTitle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MensajeModalTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ConfirmaLogoutTitle;
         
         /// <summary>
         /// Control lblMensaje.
@@ -166,21 +202,21 @@ namespace GUI {
         protected global::System.Web.UI.WebControls.Label lblMensaje;
         
         /// <summary>
-        /// Control btnConfirmar.
+        /// Control btnConfirmarLogout.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnConfirmar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnConfirmarLogout;
         
         /// <summary>
-        /// Control btnCancelar.
+        /// Control btnCancelarLogout.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelarLogout;
     }
 }

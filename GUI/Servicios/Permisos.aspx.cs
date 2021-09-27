@@ -16,11 +16,16 @@ namespace GUI.Servicios.Permisos
         private PermisoSL gestorPermiso = new PermisoSL();
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
         private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+        private BitacoraSL gestorBitacora = new BitacoraSL();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                Subject.CleanObserversAll();
+                Subject.AddObserver(this);
+                Subject.Notify();
+
                 EnlazarArbolPermisos();
                 ddlTipoUsuarios.DataSource = gestorTipoUsuario.Listar();
                 ddlTipoUsuarios.DataTextField = "Descripcion_Tipo";
@@ -225,6 +230,7 @@ namespace GUI.Servicios.Permisos
                 }
                 else
                 {
+                    gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.NuevoPermisoCreado, (short)EventosBE.Criticidad.Media);
                     EnlazarArbolPermisos();
                     txtNuevoPermiso.Text = string.Empty;
                 }
@@ -262,6 +268,7 @@ namespace GUI.Servicios.Permisos
                     else
                     {
                         EnlazarArbolPermisos();
+                        gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.PermisoEliminado, (short)EventosBE.Criticidad.Media);
                         TipoUsuarioBE tipoUsuario = new TipoUsuarioBE
                         {
                             Descripcion_Tipo = ddlTipoUsuarios.SelectedItem.Text.ToString(),

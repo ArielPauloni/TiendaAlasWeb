@@ -35,6 +35,14 @@ namespace GUI
                 Subject.AddObserver(this);
                 Subject.Notify();
             }
+
+            if ((Request.UrlReferrer != null) &&(Request.UrlReferrer.AbsolutePath.Contains("")) &&
+                (Session["UsuarioCreado"] != null) && ((Boolean)Session["UsuarioCreado"]))
+            {
+                UC_MensajeModal.SetearMensaje("-Modifique sus datos o solicite a un administrador que los actualice");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                Session["UsuarioCreado"] = false;
+            }
         }
 
         //private void IniciaSesionUsuario()
