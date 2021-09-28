@@ -14,6 +14,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using BE;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace SL
 {
@@ -22,7 +23,7 @@ namespace SL
         IdiomaSL GestorIdioma = new IdiomaSL();
 
         public void GuardarPDF(string filePath, string headerText, string subHeaderText,
-                               string textoLibre, GridView gridView)
+                               string textoLibre, DataTable dt, string pageFormatStr)
         {
             try
             {
@@ -31,7 +32,7 @@ namespace SL
                 Document document = new Document(pdf, PageSize.A4, false);
 
                 document.ShowTextAligned(new Paragraph(String
-                       .Format("Tienda Alada")),
+                       .Format("Tienda Alas")),
                         35, 806, 1, TextAlignment.LEFT,
                         VerticalAlignment.TOP, 0);
                 document.ShowTextAligned(new Paragraph(String
@@ -65,50 +66,55 @@ namespace SL
                 document.Add(newline);
                 //*****************************************************//
                 // Table
-                //int numCol = 0;
-                //foreach (DataGridViewColumn dc in gridView.Columns) { if (dc.Visible) { numCol++; } }
-                //Table table = new Table(numCol, false);
+                if (dt.Rows.Count > 0)
+                {
+                    int numCol = dt.Columns.Count;
+                    string colName = string.Empty;
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(numCol, false);
 
-                //foreach (DataGridViewColumn dc in gridView.Columns)
-                //{
-                //    if (dc.Visible)
-                //    {
-                //        Cell cell = new Cell(1, 1)
-                //           .SetBackgroundColor(ColorConstants.GRAY)
-                //           .SetTextAlignment(TextAlignment.CENTER)
-                //           .Add(new Paragraph(dc.HeaderText));
-                //        table.AddCell(cell);
-                //    }
-                //}
+                    //Seteo los encabezados:
+                    for (int i = 0; i < 1; i++)
+                    {
+                        DataRow myRow = dt.Rows[i];
+                        for (int j = 0; j < dt.Columns.Count; j++)
+                        {
+                            Cell cell = new Cell(1, 1)
+                               .SetBackgroundColor(ColorConstants.GRAY)
+                               .SetTextAlignment(TextAlignment.CENTER)
+                               .Add(new Paragraph(dt.Columns[j].ColumnName));
+                            table.AddCell(cell);
+                        }
+                    }
 
-                //foreach (DataGridViewRow row in gridView.Rows)
-                //{
-                //    foreach (DataGridViewCell cell in row.Cells)
-                //    {
-                //        if (cell.Visible) { table.AddCell(cell.Value.ToString()); }
-                //    }
-                //}
-                //table.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+                    //Seteo los datos:
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataRow myRow = dt.Rows[i];
+                        for (int j = 0; j < dt.Columns.Count; j++) { table.AddCell(myRow.ItemArray[j].ToString()); }
+                    }
 
-                //document.Add(table);
+                    table.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+                    document.Add(table);
+                }
+
                 document.Add(newline);
                 //*****************************************************//
                 // Page numbers
-                //int n = pdf.GetNumberOfPages();
-                //for (int i = 1; i <= n; i++)
-                //{
-                //    document.ShowTextAligned(new Paragraph(String
-                //       .Format(GestorIdioma.TraducirTexto(SesionSL.Instancia.Usuario.Idioma, 167), i, n)),
-                //        559, 15, i, TextAlignment.RIGHT,
-                //        VerticalAlignment.BOTTOM, 0);
-                //    document.ShowTextAligned(new Paragraph(String
-                //       .Format("©Tienda Alada")),
-                //        35, 15, i, TextAlignment.LEFT,
-                //        VerticalAlignment.BOTTOM, 0);
-                //}
+                int n = pdf.GetNumberOfPages();
+                for (int i = 1; i <= n; i++)
+                {
+                    document.ShowTextAligned(new Paragraph(String
+                       .Format(pageFormatStr, i, n)),
+                        559, 15, i, TextAlignment.RIGHT,
+                        VerticalAlignment.BOTTOM, 0);
+                    document.ShowTextAligned(new Paragraph(String
+                       .Format("©Tienda Alada")),
+                        35, 15, i, TextAlignment.LEFT,
+                        VerticalAlignment.BOTTOM, 0);
+                }
                 //*****************************************************//
                 document.Close();
-                System.Diagnostics.Process.Start("chrome.EXE", filePath);
+                //System.Diagnostics.Process.Start("chrome.EXE", filePath);
             }
             catch (Exception)
             {

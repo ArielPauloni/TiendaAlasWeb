@@ -70,7 +70,7 @@ namespace GUI.Servicios.Permisos
             {
                 //Sin permisos:
                 //TODO: Setear un ViewState para el texto sin permisos y usarlo en estos mensajes
-                UC_MensajeModal.SetearMensaje("-Probando mensaje...");
+                UC_MensajeModal.SetearMensaje("-Sin permisos");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
