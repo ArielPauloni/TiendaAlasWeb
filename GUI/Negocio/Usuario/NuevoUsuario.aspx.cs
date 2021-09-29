@@ -92,7 +92,13 @@ namespace GUI.Negocio.Usuario
                         usuario.Contraseña = gestorEncriptacion.SimpleEncrypt(txtPass1.Text);
                         usuario.Telefono = txtTelefono.Text;
                         usuario.Mail = txtMail.Text;
-                        usuario.FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text);
+                        try
+                        {
+                            if (!string.IsNullOrWhiteSpace(txtFechaNacimiento.Text))
+                            { usuario.FechaNacimiento = Convert.ToDateTime(txtFechaNacimiento.Text); }
+                            else { usuario.FechaNacimiento = default(DateTime?); }
+                        }
+                        catch (Exception) { usuario.FechaNacimiento = default(DateTime?); }
                         TipoUsuarioBE tipoUsuario = new TipoUsuarioBE
                         {
                             Descripcion_Tipo = ddlTipoUsuario.SelectedItem.Text.ToString(),

@@ -3,8 +3,6 @@
 <%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
 <%@ Register Src="~/User_Controls/UC_Procesando.ascx" TagPrefix="uc1" TagName="UC_Procesando" %>
 
-
-
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
      <div class="container">

@@ -41,6 +41,14 @@ namespace BLL
             return retVal;
         }
 
+        public int EditarSinPermisos(UsuarioBE usuario)
+        {
+            int retVal = 0;
+            UsuarioMapper m = new UsuarioMapper();
+            retVal = m.Editar(usuario);
+            return retVal;
+        }
+
         public int Editar(UsuarioBE usuario, UsuarioBE usuarioAutenticado)
         {
             int retVal = 0;

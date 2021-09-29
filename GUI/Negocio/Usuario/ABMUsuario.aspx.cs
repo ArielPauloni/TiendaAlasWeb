@@ -283,7 +283,7 @@ namespace GUI.Servicios.Usuarios
                     if (((UsuarioBE)e.Row.DataItem).FechaNacimiento.HasValue)
                     {
                         TextBox txtFechaNacimiento = (e.Row.FindControl("txt_FechaNacimiento") as TextBox);
-                        txtFechaNacimiento.Text = ((UsuarioBE)e.Row.DataItem).FechaNacimiento.Value.ToString("dd/MM/yyyy");
+                        txtFechaNacimiento.Text = ((UsuarioBE)e.Row.DataItem).FechaNacimiento.Value.ToString("yyyy-MM-dd");
                     }
                 }
             }
