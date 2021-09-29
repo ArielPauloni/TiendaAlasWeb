@@ -75,18 +75,24 @@ namespace GUI
 
                 usuario.Alias = loginAlias;
                 usuario.Contraseña = loginPass;
+                bool huboExcepcion = false;
                 try
                 {
                     usuarioAutenticado = gestorLogin.ObtenerUsuarioAutenticado(usuario);
                 }
                 catch (SL.UsuarioModificadoException ex)
                 {
-                    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + ex.Message + "');", true);
                     usuarioAutenticado = null;
+                    huboExcepcion = true;
+                    UC_MensajeModal.SetearMensaje("-Error" + "\r\n" + ex.Message);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 catch (SL.UsuarioBloqueadoException)
                 {
                     usuarioAutenticado = null;
+                    huboExcepcion = true;
+                    UC_MensajeModal.SetearMensaje("-Usuario Bloqueado, solicite a un administrador su desbloqueo");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
 
                 if (usuarioAutenticado != null)
@@ -99,12 +105,16 @@ namespace GUI
 
                     Response.Redirect(@"~/Bienvenido.aspx");
                 }
+                else if (!huboExcepcion)
+                {
+                    UC_MensajeModal.SetearMensaje("-Datos incorrectos");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                }
             }
             else
             {
-                //string myStringVariable = "Datos incorrectos";
-                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
-                Response.Redirect(Request.RawUrl);
+                UC_MensajeModal.SetearMensaje("-Datos incorrectos");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -133,7 +143,6 @@ namespace GUI
 
         protected void lnkRecuperoPass_Click(object sender, EventArgs e)
         {
-            //TODO: Si el usuario está bloqueado???
             try
             {
                 if (!string.IsNullOrWhiteSpace(txtAlias.Text))
@@ -150,16 +159,20 @@ namespace GUI
 
                     gestorConfiguracion.ConfigurarRemitenteEnvioMail(ref RemitenteMail, ref RemitentePass);
                     gestorMail.EnviarMailRecuperoPass(RemitenteMail, RemitentePass, usuarioDestinatario, NuevoPass);
+
+                    UC_MensajeModal.SetearMensaje("-Contraseña enviada a: " + usuarioDestinatario.Mail);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
                 {
-                    //Colocar datos
+                    UC_MensajeModal.SetearMensaje("-Datos incorrectos");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Manejo de excepciones de bloqueo, etc
-                throw;
+                UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
     }

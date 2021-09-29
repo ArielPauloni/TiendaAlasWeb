@@ -71,6 +71,7 @@ namespace DAL
             parametros.Add(AccesoSQL.CrearParametroStr("Telefono", usuario.Telefono));
             parametros.Add(AccesoSQL.CrearParametroStr("Mail", usuario.Mail));
             parametros.Add(AccesoSQL.CrearParametroDate("FechaNacimiento", usuario.FechaNacimiento));
+            parametros.Add(AccesoSQL.CrearParametroBit("Inactivo", usuario.Inactivo));
             parametros.Add(AccesoSQL.CrearParametroInt("IntentosEquivocados", usuario.IntentosEquivocados));
             parametros.Add(AccesoSQL.CrearParametroDate("UltimoLogin", usuario.UltimoLogin));
             CalcularDVHUsuario(ref usuario);
@@ -144,13 +145,13 @@ namespace DAL
             return valAscii * (numCol + 1);
         }
 
-        public int Eliminar(BE.UsuarioBE usuario)
-        {
-            AccesoSQL AccesoSQL = new AccesoSQL();
-            List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Usuario", usuario.Cod_Usuario));
-            return AccesoSQL.Escribir("pr_Eliminar_Usuario", parametros);
-        }
+        //public int Eliminar(BE.UsuarioBE usuario)
+        //{
+        //    AccesoSQL AccesoSQL = new AccesoSQL();
+        //    List<SqlParameter> parametros = new List<SqlParameter>();
+        //    parametros.Add(AccesoSQL.CrearParametroInt("Cod_Usuario", usuario.Cod_Usuario));
+        //    return AccesoSQL.Escribir("pr_Eliminar_Usuario", parametros);
+        //}
 
         public UsuarioBE ObtenerUsuarioLogin(UsuarioBE usuarioBE)
         {

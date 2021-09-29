@@ -42,7 +42,8 @@ namespace GUI
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aNuevoUsuario.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("ABM Usuarios"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])));
-            aUsuarios.Visible = ((aABMUsuarios.Visible) || (aNuevoUsuario.Visible));
+            aTipoUsuario.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear TipoUsuario"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            aUsuarios.Visible = ((aABMUsuarios.Visible) || (aNuevoUsuario.Visible) || (aTipoUsuario.Visible));
         }
 
         public void TraducirTexto()

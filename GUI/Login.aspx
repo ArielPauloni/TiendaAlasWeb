@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="GUI.Login" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
+<%@ Register Src="~/User_Controls/UC_Procesando.ascx" TagPrefix="uc1" TagName="UC_Procesando" %>
+
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <style>
         .btnShowHidePass {
@@ -39,8 +42,37 @@
             </div>
             <div class="form-footer">
                 <asp:Label ID="lblRecuperoPass" runat="server" Text="-Olvidó su contraseña?"></asp:Label>
-                &nbsp;<asp:LinkButton ID="lnkRecuperoPass" runat="server" Text="-Recuperar contraseña" OnClick="lnkRecuperoPass_Click"></asp:LinkButton>
+                &nbsp;<asp:LinkButton ID="lnkRecuperoPass" runat="server" Text="-Recuperar contraseña" OnClick="lnkRecuperoPass_Click" OnClientClick="processingShow();"></asp:LinkButton>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-labelledby="MensajeModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <asp:UpdatePanel runat="server" ID="UpPanelDialog" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function mostrarMensaje() {
+            $('#MensajeModal').modal({ backdrop: 'static', keyboard: false, toggle: true });
+        }
+    </script>
+
+    <!-- Modal Procesando -->
+    <div class="modal fade" id="processingModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <uc1:UC_Procesando runat="server" ID="UC_Procesando" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function processingShow() {
+            $('#processingModal').modal({ backdrop: 'static', keyboard: false });
+        }
+    </script>
 </asp:Content>

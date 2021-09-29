@@ -59,9 +59,6 @@ namespace GUI.Servicios
                 {
                     try
                     {
-                        //Task miTask = new Task(Traducir_EnNuevoHilo);
-                        //miTask.Start();
-                        //await miTask;
                         IdiomaBE español = new IdiomaBE
                         {
                             CodIdioma = "es",
@@ -71,16 +68,21 @@ namespace GUI.Servicios
                         int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
                         //ActualizarListaIdiomas();
                         gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
+
+                        UC_MensajeModal.SetearMensaje("-Operación exitosa");
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     catch (Exception ex)
                     {
-                        //MessageBox.Show(ex.Message, errorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                 }
             }
             else
             {
-                //datosIncorrectos
+                UC_MensajeModal.SetearMensaje("-datosIncorrectos");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
     }

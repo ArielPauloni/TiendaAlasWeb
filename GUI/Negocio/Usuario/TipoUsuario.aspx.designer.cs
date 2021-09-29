@@ -7,28 +7,37 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GUI.Servicios.Usuarios {
+namespace GUI.Negocio.Usuario {
     
     
-    public partial class ABMUsuario {
+    public partial class TipoUsuario {
         
         /// <summary>
-        /// Control grvUsuarios.
+        /// Control lblTipoUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grvUsuarios;
+        protected global::System.Web.UI.WebControls.Label lblTipoUsuario;
         
         /// <summary>
-        /// Control btnCrearNuevoUsuario.
+        /// Control txtTipoUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCrearNuevoUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtTipoUsuario;
+        
+        /// <summary>
+        /// Control btnGuardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnGuardar;
         
         /// <summary>
         /// Control UpPanelDialog.
@@ -47,14 +56,5 @@ namespace GUI.Servicios.Usuarios {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::GUI.User_Controls.UC_MensajeModal UC_MensajeModal;
-        
-        /// <summary>
-        /// Control UC_Procesando.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::GUI.User_Controls.UC_Procesando UC_Procesando;
     }
 }

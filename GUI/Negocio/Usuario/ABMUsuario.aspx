@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ABMUsuario.aspx.cs" Inherits="GUI.Servicios.Usuarios.ABMUsuario" MasterPageFile="~/Site.Master" %>
 
 <%@ Register Src="~/User_Controls/UC_Procesando.ascx" TagPrefix="uc1" TagName="UC_Procesando" %>
-
+<%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
 
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
@@ -89,6 +89,31 @@
                         <asp:TextBox ID="txt_FechaNacimiento" runat="server" TextMode="Date" Width="100%" Text='<%#Eval("FechaNacimiento") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Password">
+                    <ItemTemplate>
+                        <asp:Label ID="lbl_Password" runat="server" Text='<%#Eval("Contraseña") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Inactivo">
+                    <ItemTemplate>
+                        <asp:Label ID="lbl_Inactivo" runat="server" Text='<%#Eval("Inactivo") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="-Bloqueado" HeaderStyle-CssClass="th" ItemStyle-HorizontalAlign="Center">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chk_Bloqueado" runat="server" Enabled="false" Checked='<%# int.Parse(Eval("IntentosEquivocados").ToString()) >= 3%>'></asp:CheckBox>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="IntentosEquivocados">
+                    <ItemTemplate>
+                        <asp:Label ID="lbl_IntentosEquivocados" runat="server" Text='<%#Eval("IntentosEquivocados") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="UltimoLogin">
+                    <ItemTemplate>
+                        <asp:Label ID="lbl_UltimoLogin" runat="server" Text='<%#Eval("UltimoLogin") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <hr />
@@ -99,6 +124,21 @@
         <asp:Button ID="btnCrearNuevoUsuario" CssClass="btn btn-primary" runat="server" Text="-Crear Nuevo Usuario" OnClick="btnCrearNuevoUsuario_Click" />
     </div>
 
+    <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-labelledby="MensajeModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <asp:UpdatePanel runat="server" ID="UpPanelDialog" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function mostrarMensaje() {
+            $('#MensajeModal').modal({ backdrop: 'static', keyboard: false, toggle: true });
+        }
+    </script>
 
     <!-- Modal Procesando -->
     <div class="modal fade" id="processingModal" tabindex="-1" role="dialog" aria-hidden="true">

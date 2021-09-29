@@ -152,6 +152,7 @@
     <Content Include="Negocio\Usuario\MisDatos.aspx" />
     <Content Include="Negocio\Usuario\NuevoUsuario.aspx" />
     <Content Include="Negocio\Usuario\RegistroUsuario.aspx" />
+    <Content Include="Negocio\Usuario\TipoUsuario.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -395,6 +396,13 @@
     </Compile>
     <Compile Include="Negocio\Usuario\RegistroUsuario.aspx.designer.cs">
       <DependentUpon>RegistroUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Usuario\TipoUsuario.aspx.cs">
+      <DependentUpon>TipoUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\Usuario\TipoUsuario.aspx.designer.cs">
+      <DependentUpon>TipoUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\Bitacora.aspx.cs">

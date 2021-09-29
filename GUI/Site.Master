@@ -72,6 +72,7 @@
                             <ul class="dropdown-menu">
                                 <li><a id="aABMUsuarios" class="fa fa-users" runat="server" href="~/Negocio/Usuario/ABMUsuario.aspx">-ABM Usuarios</a></li>
                                 <li><a id="aNuevoUsuario" class="fa fa-user-plus" runat="server" href="~/Negocio/Usuario/NuevoUsuario.aspx">-Nuevo Usuario</a></li>
+                                <li><a id="aTipoUsuario" class="fa fa-user-circle" runat="server" href="~/Negocio/Usuario/TipoUsuario.aspx">-Tipo Usuario</a></li>                            
                             </ul>
                         </li>
                     </ul>

@@ -17,6 +17,7 @@ namespace GUI.Negocio.Usuario
         private string contieneNumero = @"[0-9]+";
         private string contieneMayuscula = @"[A-Z]+";
         private string contieneSeisCaracteres = @".{6,}";
+        private string eMailPattern = @"^[\w._%-]+@[\w.-]+\.[a-zA-Z]{2,4}$";
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
         private LoginSL gestorLogin = new LoginSL();
@@ -49,7 +50,7 @@ namespace GUI.Negocio.Usuario
         {
             Session["UsuarioCreado"] = false;
             if ((!string.IsNullOrWhiteSpace(txtPassword1.Text)) || (!string.IsNullOrWhiteSpace(txtPassword2.Text)) ||
-              (!string.IsNullOrWhiteSpace(txtAlias.Text)))
+              (!string.IsNullOrWhiteSpace(txtAlias.Text)) || (!string.IsNullOrWhiteSpace(txtMail.Text)))
             {
                 if (string.Compare(txtPassword1.Text, txtPassword2.Text, false) != 0)
                 {
@@ -63,6 +64,11 @@ namespace GUI.Negocio.Usuario
                     UC_MensajeModal.SetearMensaje("-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
+                else if ((!Regex.IsMatch(txtMail.Text, eMailPattern)))
+                {
+                    UC_MensajeModal.SetearMensaje("-Datos Incorrectos + " + ": " + "-Mail no tiene formato correcto");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                }
                 else
                 {
                     UsuarioBE usuario = new UsuarioBE();
@@ -73,7 +79,7 @@ namespace GUI.Negocio.Usuario
                     usuario.Alias = txtAlias.Text;
                     usuario.Contraseña = gestorEncriptacion.SimpleEncrypt(txtPassword1.Text);
                     usuario.Telefono = string.Empty;
-                    usuario.Mail = string.Empty;
+                    usuario.Mail = txtMail.Text;
                     usuario.FechaNacimiento = fNull;
                     TipoUsuarioBE tipoUsuario = new TipoUsuarioBE();
                     tipoUsuario.Cod_Tipo = 2;

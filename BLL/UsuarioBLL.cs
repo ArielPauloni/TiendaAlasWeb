@@ -70,7 +70,10 @@ namespace BLL
                 else
                 {
                     UsuarioMapper m = new UsuarioMapper();
-                    retVal = m.Eliminar(usuario);
+                    UsuarioBE usuaElim = new UsuarioBE();
+                    usuaElim = m.ObtenerUsuarioPorCod(usuario);
+                    usuaElim.Inactivo = true;
+                    retVal = m.Editar(usuaElim);
                 }
             }
             else { throw new SL.SinPermisosException(); }

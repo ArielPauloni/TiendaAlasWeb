@@ -112,6 +112,15 @@ namespace GUI {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aNuevoUsuario;
         
         /// <summary>
+        /// Control aTipoUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aTipoUsuario;
+        
+        /// <summary>
         /// Control aSignUp.
         /// </summary>
         /// <remarks>

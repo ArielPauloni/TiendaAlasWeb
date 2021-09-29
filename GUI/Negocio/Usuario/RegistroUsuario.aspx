@@ -19,10 +19,15 @@
             <div class="form-header">
                 <asp:Label ID="lblRegistrarse" runat="server" Text="-Register page" Font-Bold="true"></asp:Label>
             </div>
-            <!--Email Input-->
+            <!--Aliad Input-->
             <div class="form-group">
                 <label id="lblAlias" runat="server">-Alias</label>
                 <asp:TextBox ID="txtAlias" runat="server" CssClass="form-input" AutoPostBack="true"></asp:TextBox>
+            </div>
+            <!--Email Input-->
+            <div class="form-group">
+                <label id="lblMail" runat="server">-Mail</label>
+                <asp:TextBox ID="txtMail" runat="server" CssClass="form-input" AutoPostBack="true"></asp:TextBox>
             </div>
             <!--Password Input-->
             <div class="form-group">
