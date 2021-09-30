@@ -6,11 +6,31 @@
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
     <div class="form-group col-md-12">
+        <button runat="server" id="btnMostrarFiltros" class="btn btn-primary fa fa-filter" onserverclick="btnMostrarFiltros_Click">
+        </button>
+    </div>
+
+    <div id="divFiltros" runat="server" class="form-group col-md-12 bg-info" visible="false">
+        <asp:Label ID="lblUsuario" runat="server" Text="-Usuario">: </asp:Label>
+        <asp:DropDownList ID="ddlUsuarios" runat="server"></asp:DropDownList>
+        <asp:Label ID="lblFechaDesde" runat="server" Text="-Fecha desde">: </asp:Label>
+        <asp:DropDownList ID="ddlFechaDesde" runat="server"></asp:DropDownList>
+       <asp:Label ID="lblFechaHasta" runat="server" Text="-Fecha hasta">: </asp:Label>
+        <asp:DropDownList ID="ddlFechaHasta" runat="server"></asp:DropDownList>
+        <asp:Label ID="lblEvento" runat="server" Text="-Evento">: </asp:Label>
+        <asp:DropDownList ID="ddlEventos" runat="server"></asp:DropDownList>
+        <asp:Label ID="lblCriticidad" runat="server" Text="-Criticidad">: </asp:Label>
+        <asp:DropDownList ID="ddlCriticidad" runat="server"></asp:DropDownList>
+        <button id="btnFiltrar" runat="server" class="btn btn-info btn-sm fa fa-filter" onserverclick="btnFiltrar_Click"></button>
+        <button id="btnLimpiarFiltros" runat="server" class="btn btn-info btn-sm fa fa-undo" onserverclick="btnLimpiarFiltros_Click"></button>
+    </div>
+
+    <div class="form-group col-md-12">
         <asp:Panel runat="server" ScrollBars="Vertical" Height="400px">
             <asp:GridView ID="grvBitacora" runat="server" AllowSorting="True" Caption="-Bitacora sistema"
-                AutoGenerateColumns="False" EnableTheming="True" OnPageIndexChanging="grvBitacora_PageIndexChanging">
+                AutoGenerateColumns="False" EnableTheming="True" >
                 <AlternatingRowStyle BackColor="#CCFFFF" />
-                <%--AllowPaging="True" PageSize="20"--%>
+                <%--AllowPaging="True" PageSize="20" OnPageIndexChanging="grvBitacora_PageIndexChanging"--%>
                 <Columns>
                     <asp:BoundField DataField="Cod_Usuario" HeaderText="-Cod_Usuario!"></asp:BoundField>
                     <asp:BoundField DataField="Cod_Evento" HeaderText="-Cod_Evento!"></asp:BoundField>
