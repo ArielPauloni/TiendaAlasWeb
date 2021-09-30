@@ -19,6 +19,7 @@ namespace GUI
         private ConfiguracionSL gestorConfiguracion = new ConfiguracionSL();
         private MailSL gestorMail = new MailSL();
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
 
         public void ChequearPermisos()
@@ -28,7 +29,7 @@ namespace GUI
 
         public void TraducirTexto()
         {
-
+            ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -84,14 +85,14 @@ namespace GUI
                 {
                     usuarioAutenticado = null;
                     huboExcepcion = true;
-                    UC_MensajeModal.SetearMensaje("-Error" + "\r\n" + ex.Message);
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 catch (SL.UsuarioBloqueadoException)
                 {
                     usuarioAutenticado = null;
                     huboExcepcion = true;
-                    UC_MensajeModal.SetearMensaje("-Usuario Bloqueado, solicite a un administrador su desbloqueo");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Usuario Bloqueado, solicite a un administrador su desbloqueo");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
 
@@ -107,13 +108,13 @@ namespace GUI
                 }
                 else if (!huboExcepcion)
                 {
-                    UC_MensajeModal.SetearMensaje("-Datos incorrectos");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos incorrectos");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
             else
             {
-                UC_MensajeModal.SetearMensaje("-Datos incorrectos");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos incorrectos");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
@@ -160,18 +161,18 @@ namespace GUI
                     gestorConfiguracion.ConfigurarRemitenteEnvioMail(ref RemitenteMail, ref RemitentePass);
                     gestorMail.EnviarMailRecuperoPass(RemitenteMail, RemitentePass, usuarioDestinatario, NuevoPass);
 
-                    UC_MensajeModal.SetearMensaje("-Contraseña enviada a: " + usuarioDestinatario.Mail);
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-Contraseña enviada a: " + usuarioDestinatario.Mail);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
                 {
-                    UC_MensajeModal.SetearMensaje("-Datos incorrectos");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos incorrectos");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
             catch (Exception ex)
             {
-                UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

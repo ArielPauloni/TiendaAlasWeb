@@ -211,7 +211,7 @@ namespace DAL
                     }
                     else
                     {
-                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! \r\nAlgun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
+                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! <br>Algun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
                         catch (DAL.UsuarioModificadoException) { throw; }
                     }
                 }
@@ -276,7 +276,7 @@ namespace DAL
                     }
                     else
                     {
-                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! \r\nAlgun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
+                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! <br>Algun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
                         catch (DAL.UsuarioModificadoException) { throw; }
                     }
                 }
@@ -342,7 +342,7 @@ namespace DAL
                     }
                     else
                     {
-                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! \r\nAlgun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
+                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! <br>Algun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
                         catch (DAL.UsuarioModificadoException) { throw; }
                     }
                 }
@@ -408,7 +408,7 @@ namespace DAL
                     }
                     else
                     {
-                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! \r\nAlgun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
+                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! <br>Algun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
                         catch (DAL.UsuarioModificadoException) { throw; }
                     }
                 }
@@ -422,7 +422,7 @@ namespace DAL
 
                     if (!(filaDVV == SumaDVH))
                     {
-                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! \r\nAlgun dato de usuario fue eliminado o insertado externamente a la aplicación"); }
+                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! <br>Algun dato de usuario fue eliminado o insertado externamente a la aplicación"); }
                         catch (DAL.UsuarioModificadoException) { throw; }
                     }
                 }

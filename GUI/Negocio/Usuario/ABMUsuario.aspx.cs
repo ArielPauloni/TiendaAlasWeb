@@ -18,6 +18,7 @@ namespace GUI.Servicios.Usuarios
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
         private string eMailPattern = @"^[\w._%-]+@[\w.-]+\.[a-zA-Z]{2,4}$";
 
         public void ChequearPermisos()
@@ -28,7 +29,8 @@ namespace GUI.Servicios.Usuarios
 
         public void TraducirTexto()
         {
-
+            ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
+            ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -57,7 +59,7 @@ namespace GUI.Servicios.Usuarios
             }
             catch (BLL.UsuarioModificadoException ex)
             {
-                UC_MensajeModal.SetearMensaje("-Error" + "\r\n" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
@@ -112,7 +114,7 @@ namespace GUI.Servicios.Usuarios
                 {
                     if (!Regex.IsMatch(txtMail.Text, eMailPattern))
                     {
-                        UC_MensajeModal.SetearMensaje("-Email Invalido");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["MailIncorrecto"].ToString());
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
 
@@ -164,7 +166,7 @@ namespace GUI.Servicios.Usuarios
                         int r = gestorUsuario.Editar(usuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                         if (r == 0)
                         {
-                            UC_MensajeModal.SetearMensaje("-No se Pudo Grabar");
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se Pudo Grabar");
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         }
                         else
@@ -174,7 +176,7 @@ namespace GUI.Servicios.Usuarios
                     }
                     catch (SinPermisosException)
                     {
-                        UC_MensajeModal.SetearMensaje("-Sin Permisos");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin Permisos");
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     if (usuario.Cod_Usuario == ((UsuarioBE)Session["UsuarioAutenticado"]).Cod_Usuario)
@@ -186,13 +188,13 @@ namespace GUI.Servicios.Usuarios
                 }
                 else
                 {
-                    UC_MensajeModal.SetearMensaje("-No se puede Grabar Con Datos Vacios");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se puede Grabar Con Datos Vacios");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
             catch (Exception ex)
             {
-                UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
             grvUsuarios.EditIndex = -1;
@@ -219,7 +221,7 @@ namespace GUI.Servicios.Usuarios
                     int r = gestorUsuario.Eliminar(usuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                     if (r == 0)
                     {
-                        UC_MensajeModal.SetearMensaje("-No se Pudo Grabar");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se Pudo Grabar");
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     else
@@ -229,7 +231,7 @@ namespace GUI.Servicios.Usuarios
                 }
                 catch (SinPermisosException)
                 {
-                    UC_MensajeModal.SetearMensaje("-Sin Permisos");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin Permisos");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 if (usuario.Cod_Usuario == ((UsuarioBE)Session["UsuarioAutenticado"]).Cod_Usuario)
@@ -241,7 +243,7 @@ namespace GUI.Servicios.Usuarios
             }
             catch (Exception ex)
             {
-                UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
 

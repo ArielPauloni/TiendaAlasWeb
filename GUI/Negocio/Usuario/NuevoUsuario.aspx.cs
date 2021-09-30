@@ -18,6 +18,7 @@ namespace GUI.Negocio.Usuario
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
         private string contieneNumero = @"[0-9]+";
         private string contieneMayuscula = @"[A-Z]+";
         private string contieneSeisCaracteres = @".{6,}";
@@ -30,7 +31,8 @@ namespace GUI.Negocio.Usuario
 
         public void TraducirTexto()
         {
-
+            ViewState["DatosGrabadosOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 12);
+            ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -63,14 +65,14 @@ namespace GUI.Negocio.Usuario
             {
                 if (string.Compare(txtPass1.Text, txtPass2.Text, false) != 0)
                 {
-                    UC_MensajeModal.SetearMensaje("-Contraseñas No Coinciden");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Contraseñas No Coinciden");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if ((!Regex.IsMatch(txtPass1.Text, contieneNumero)) ||
                          (!Regex.IsMatch(txtPass1.Text, contieneMayuscula)) ||
                          (!Regex.IsMatch(txtPass1.Text, contieneSeisCaracteres)))
                 {
-                    UC_MensajeModal.SetearMensaje("-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
@@ -78,7 +80,7 @@ namespace GUI.Negocio.Usuario
                     Boolean ret = false;
                     if (!Regex.IsMatch(txtMail.Text, eMailPattern))
                     {
-                        UC_MensajeModal.SetearMensaje("-Mail inválido");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["MailIncorrecto"].ToString());
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         ret = true;
                     }
@@ -110,19 +112,19 @@ namespace GUI.Negocio.Usuario
                             int r = gestorUsuario.Insertar(usuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                             if (r == 0)
                             {
-                                UC_MensajeModal.SetearMensaje("-No se pudo grabar");
+                                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se pudo grabar");
                                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                             }
                             else
                             {
                                 gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.AltaDeUsuario, (short)EventosBE.Criticidad.Media);
-                                UC_MensajeModal.SetearMensaje("-Datos grabados correctamente");
+                                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["DatosGrabadosOk"].ToString());
                                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                             }
                         }
                         catch (SinPermisosException)
                         {
-                            UC_MensajeModal.SetearMensaje("-Sin Permisos");
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin Permisos");
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         }
                         LimpiarDatos();
@@ -131,7 +133,7 @@ namespace GUI.Negocio.Usuario
             }
             else
             {
-                UC_MensajeModal.SetearMensaje("-No se puede Grabar Con Datos Vacios");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se puede Grabar Con Datos Vacios");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

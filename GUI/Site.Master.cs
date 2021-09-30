@@ -35,7 +35,8 @@ namespace GUI
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Permisos Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aBitacora.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]);
-            aSecurity.Visible = ((aPermisos.Visible) || (aIdiomas.Visible) || (aBackup.Visible) || (aBitacora.Visible));
+            aIntegridad.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Integridad"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            aSecurity.Visible = ((aPermisos.Visible) || (aIdiomas.Visible) || (aBackup.Visible) || (aBitacora.Visible) || (aIntegridad.Visible));
             aABMUsuarios.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("ABM Usuarios"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
@@ -77,6 +78,16 @@ namespace GUI
             aBackup.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 7);
             aIdiomas.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
             aBitacora.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 3);
+            aIntegridad.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 46);
+
+            aUsuarios.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 48) + " ";
+            var span2 = new HtmlGenericControl("span");
+            span2.Attributes["class"] = "caret";
+            aUsuarios.Controls.Add(span2);
+
+            aABMUsuarios.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 49);
+            aNuevoUsuario.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 50);
+            aTipoUsuario.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
 
             aSignUp.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
             aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10);
@@ -85,9 +96,9 @@ namespace GUI
             if ((UsuarioBE)Session["UsuarioAutenticado"] != null)
             {
                 aUserName.InnerText = " " + ((UsuarioBE)Session["UsuarioAutenticado"]).ToString() + " ";
-                var span2 = new HtmlGenericControl("span");
-                span2.Attributes["class"] = "glyphicon glyphicon-chevron-down";
-                aUserName.Controls.Add(span2);
+                var span3 = new HtmlGenericControl("span");
+                span3.Attributes["class"] = "caret";
+                aUserName.Controls.Add(span3);
             }
 
 

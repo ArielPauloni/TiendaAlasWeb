@@ -21,11 +21,12 @@ namespace GUI.Negocio.Usuario
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
         private LoginSL gestorLogin = new LoginSL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
 
         public void TraducirTexto()
         {
-
+            ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
         }
 
         public void ChequearPermisos()
@@ -54,19 +55,19 @@ namespace GUI.Negocio.Usuario
             {
                 if (string.Compare(txtPassword1.Text, txtPassword2.Text, false) != 0)
                 {
-                    UC_MensajeModal.SetearMensaje("-Contraseñas No Coinciden");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Contraseñas No Coinciden");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if ((!Regex.IsMatch(txtPassword1.Text, contieneNumero)) ||
                          (!Regex.IsMatch(txtPassword1.Text, contieneMayuscula)) ||
                          (!Regex.IsMatch(txtPassword1.Text, contieneSeisCaracteres)))
                 {
-                    UC_MensajeModal.SetearMensaje("-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if ((!Regex.IsMatch(txtMail.Text, eMailPattern)))
                 {
-                    UC_MensajeModal.SetearMensaje("-Datos Incorrectos + " + ": " + "-Mail no tiene formato correcto");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["MailIncorrecto"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
@@ -88,7 +89,7 @@ namespace GUI.Negocio.Usuario
                     int r = gestorUsuario.InsertarDatosBasicosSinPermisos(usuario);
                     if (r <= 0)
                     {
-                        UC_MensajeModal.SetearMensaje("-No se Pudo Grabar");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se Pudo Grabar");
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     else
@@ -107,7 +108,7 @@ namespace GUI.Negocio.Usuario
             }
             else
             {
-                UC_MensajeModal.SetearMensaje("-No se puede Grabar Con Datos Vacios");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se puede Grabar Con Datos Vacios");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

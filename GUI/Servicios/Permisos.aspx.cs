@@ -17,6 +17,7 @@ namespace GUI.Servicios.Permisos
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
         private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,7 +71,7 @@ namespace GUI.Servicios.Permisos
             {
                 //Sin permisos:
                 //TODO: Setear un ViewState para el texto sin permisos y usarlo en estos mensajes
-                UC_MensajeModal.SetearMensaje("-Sin permisos");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin permisos");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

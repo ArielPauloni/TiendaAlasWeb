@@ -3,5 +3,5 @@
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
     <br />
-    <asp:Label ID="lblErrorMsg" runat="server" Text="-ErrorMsg"></asp:Label>
+    <asp:Label ID="lblErrorMsg" runat="server"></asp:Label>
 </asp:Content>

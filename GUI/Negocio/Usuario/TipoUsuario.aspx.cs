@@ -7,12 +7,14 @@ using System.Web.UI.WebControls;
 using SL.PatronObserver;
 using BE;
 using BLL;
+using SL;
 
 namespace GUI.Negocio.Usuario
 {
     public partial class TipoUsuario : System.Web.UI.Page, IObserver
     {
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
 
         public void ChequearPermisos()
         {
@@ -44,24 +46,24 @@ namespace GUI.Negocio.Usuario
                 int r = gestorTipoUsuario.Insertar(tipoUsuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                 if ((r == 0) || (r == -1))
                 {
-                    UC_MensajeModal.SetearMensaje("-noPudoGrabar");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-noPudoGrabar");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if (r == -2)
                 {
-                    UC_MensajeModal.SetearMensaje("-sinPermisosText");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-sinPermisosText");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
                 {
                     txtTipoUsuario.Text = string.Empty;
-                    UC_MensajeModal.SetearMensaje("-operacionExitosaText");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-operacionExitosaText");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
             else
             {
-                UC_MensajeModal.SetearMensaje("-datosIncorrectosText");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-datosIncorrectosText");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
 

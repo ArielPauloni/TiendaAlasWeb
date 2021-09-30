@@ -16,6 +16,7 @@ namespace GUI
     {
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
 
         public void TraducirTexto()
         {
@@ -39,7 +40,7 @@ namespace GUI
             if ((Request.UrlReferrer != null) &&(Request.UrlReferrer.AbsolutePath.Contains("")) &&
                 (Session["UsuarioCreado"] != null) && ((Boolean)Session["UsuarioCreado"]))
             {
-                UC_MensajeModal.SetearMensaje("-Modifique sus datos o solicite a un administrador que los actualice");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-Modifique sus datos o solicite a un administrador que los actualice");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 Session["UsuarioCreado"] = false;
             }

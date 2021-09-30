@@ -59,16 +59,17 @@
                         <li><a id="aAbout" class="fa fa-info" runat="server" href="~/AcercaDe.aspx">-Acerca de</a></li>
                         <li><a id="aContact" class="fa fa-address-book" runat="server" href="~/Contacto.aspx">-Contacto</a></li>
                         <li class="dropdown">
-                            <a id="aSecurity" runat="server" class="dropdown-toggle fa fa-shield" data-toggle="dropdown" href="#">-Seguridad<span class="caret"></span></a>
+                            <a id="aSecurity" runat="server" class="dropdown-toggle fa fa-shield" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a id="aBackup" class="fa fa-database" runat="server" href="~/Servicios/Backup.aspx">-Backups</a></li>
                                 <li><a id="aPermisos" class="fa fa-lock" runat="server" href="~/Servicios/Permisos.aspx">-Permisos</a></li>
                                 <li><a id="aIdiomas" class="fa fa-language" runat="server" href="~/Servicios/Idioma.aspx">-Idiomas</a></li>
                                 <li><a id="aBitacora" class="fa fa-map" runat="server" href="~/Servicios/Bitacora.aspx">-Bitacora</a></li>
+                                <li><a id="aIntegridad" class="fa fa-check-square-o" runat="server" href="~/Servicios/Integridad.aspx">-Integridad</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a id="aUsuarios" runat="server" class="dropdown-toggle fa fa-users" data-toggle="dropdown" href="#">-Usuarios<span class="caret"></span></a>
+                            <a id="aUsuarios" runat="server" class="dropdown-toggle fa fa-users" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a id="aABMUsuarios" class="fa fa-users" runat="server" href="~/Negocio/Usuario/ABMUsuario.aspx">-ABM Usuarios</a></li>
                                 <li><a id="aNuevoUsuario" class="fa fa-user-plus" runat="server" href="~/Negocio/Usuario/NuevoUsuario.aspx">-Nuevo Usuario</a></li>

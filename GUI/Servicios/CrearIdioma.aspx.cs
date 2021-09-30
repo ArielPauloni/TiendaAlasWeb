@@ -30,6 +30,7 @@ namespace GUI.Servicios
             lblCodIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 22);
             lblDescripcionIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 23);
             lblTraducir.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 24);
+            ViewState["OperacionExitosa"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -69,19 +70,19 @@ namespace GUI.Servicios
                         //ActualizarListaIdiomas();
                         gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
 
-                        UC_MensajeModal.SetearMensaje("-Operación exitosa");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString());
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     catch (Exception ex)
                     {
-                        UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                 }
             }
             else
             {
-                UC_MensajeModal.SetearMensaje("-datosIncorrectos");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-datosIncorrectos");
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

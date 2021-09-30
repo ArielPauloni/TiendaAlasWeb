@@ -15,6 +15,7 @@ namespace GUI.Servicios.Seguridad
     public partial class Backup : System.Web.UI.Page, IObserver
     {
         private BitacoraSL gestorBitacora = new BitacoraSL();
+        private IdiomaSL gestorIdioma = new IdiomaSL();
 
         public void TraducirTexto()
         {

@@ -43,6 +43,7 @@ namespace GUI.Servicios.Bitacora
             ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
             ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
             btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
+            ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
         }
 
         public void ChequearPermisos()
@@ -209,7 +210,7 @@ namespace GUI.Servicios.Bitacora
             }
             catch (Exception ex)
             {
-                UC_MensajeModal.SetearMensaje("-No se pudo grabar. Error: " + "\r\n" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, "-No se pudo grabar. Error: " + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
@@ -256,7 +257,7 @@ namespace GUI.Servicios.Bitacora
             }
             catch (Exception ex)
             {
-                UC_MensajeModal.SetearMensaje("-Error: " + "\r\n" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
