@@ -34,30 +34,33 @@ namespace GUI.Servicios.Bitacora
 
         public void TraducirTexto()
         {
-            lblUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 71);
-            lblFechaDesde.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 94);
-            lblFechaHasta.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 95);
-            lblEvento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 92); ;
-            lblCriticidad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 89);
-            btnMostrarFiltros.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 38);
-            btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
-            btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
+            if (Session["IdiomaSel"] != null)
+            {
+                lblUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 71);
+                lblFechaDesde.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 94);
+                lblFechaHasta.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 95);
+                lblEvento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 92); ;
+                lblCriticidad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 89);
+                btnMostrarFiltros.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 38);
+                btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
+                btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
 
-            ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
-            ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
-            btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
-            ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
-            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
-            ViewState["NombreUsuario"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 71);
-            ViewState["CriticidadTexto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 89);
-            ViewState["DescripcionEvento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 90);
-            ViewState["FechaEvento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 91);
-            ViewState["BitacoraCaption"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 93);
-            ViewState["PagFooter"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 99);
+                ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
+                ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
+                btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
+                ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
+                ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+                ViewState["NombreUsuario"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 71);
+                ViewState["CriticidadTexto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 89);
+                ViewState["DescripcionEvento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 90);
+                ViewState["FechaEvento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 91);
+                ViewState["BitacoraCaption"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 93);
+                ViewState["PagFooter"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 99);
 
-            btnExportarXML.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 98);
-            btnExportarJson.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 97);
-            btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
+                btnExportarXML.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 98);
+                btnExportarJson.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 97);
+                btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
+            }
         }
 
         public void ChequearPermisos()
@@ -220,7 +223,7 @@ namespace GUI.Servicios.Bitacora
 
                 DataTable dt = GetDataTable(grvBitacora);
                 GestorReportes.GuardarPDF(tmpPath + @"\" + filename, ViewState["BitacoraCaption"].ToString(), string.Empty, string.Empty, dt, ViewState["PagFooter"].ToString());
-                
+
                 Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
             }
             catch (Exception ex)

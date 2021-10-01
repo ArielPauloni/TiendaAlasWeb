@@ -18,10 +18,13 @@ namespace GUI.Servicios.Seguridad
 
         public void TraducirTexto()
         {
-            ViewState["MensajeOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
-            ViewState["ContacteAdministrador"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 44);
-            btnChequearIntegridad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 43);
-            lblIntegridad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 46);
+            if (Session["IdiomaSel"] != null)
+            {
+                ViewState["MensajeOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
+                ViewState["ContacteAdministrador"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 44);
+                btnChequearIntegridad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 43);
+                lblIntegridad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 46);
+            }
         }
 
         public void ChequearPermisos()

@@ -58,6 +58,7 @@ namespace SL
         {
             string TextoTraducido = string.Empty;
 
+            if ((idioma !=null) && (idioma.Textos != null))
             foreach (TextoBE texto in idioma.Textos)
             {
                 if (texto.IdFrase == codTexto)

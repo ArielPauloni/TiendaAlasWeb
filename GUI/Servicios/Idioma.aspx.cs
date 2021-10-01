@@ -18,26 +18,29 @@ namespace GUI.Servicios
 
         public void TraducirTexto()
         {
-            grvTexto.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
-            lblIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
-            grvTexto.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
-            ViewState["tooltipEdit"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
-            ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
-            ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
-            btnCrearNuevoIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 29);
+            if (Session["IdiomaSel"] != null)
+            {
+                grvTexto.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 26);
+                lblIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 8);
+                grvTexto.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
+                ViewState["tooltipEdit"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
+                ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
+                ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
+                btnCrearNuevoIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 29);
 
-            lblBuscarTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
-            ViewState["ddlItemContiene"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 34);
-            ViewState["ddlItemComienza"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 35);
-            ViewState["ddlItemIgual"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 36);
-            ViewState["ddlItemTermina"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 37);
+                lblBuscarTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
+                ViewState["ddlItemContiene"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 34);
+                ViewState["ddlItemComienza"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 35);
+                ViewState["ddlItemIgual"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 36);
+                ViewState["ddlItemTermina"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 37);
 
-            btnMostrarFiltros.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 38);
-            ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
-            ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
-            btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
-            btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
-            btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
+                btnMostrarFiltros.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 38);
+                ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
+                ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
+                btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
+                btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
+                btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
+            }
         }
 
         public void ChequearPermisos()

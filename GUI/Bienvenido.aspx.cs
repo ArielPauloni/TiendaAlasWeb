@@ -20,6 +20,9 @@ namespace GUI
 
         public void TraducirTexto()
         {
+            if (Session["IdiomaSel"] != null)
+            {
+            }
         }
 
         public void ChequearPermisos()
@@ -37,7 +40,7 @@ namespace GUI
                 Subject.Notify();
             }
 
-            if ((Request.UrlReferrer != null) &&(Request.UrlReferrer.AbsolutePath.Contains("")) &&
+            if ((Request.UrlReferrer != null) && (Request.UrlReferrer.AbsolutePath.Contains("")) &&
                 (Session["UsuarioCreado"] != null) && ((Boolean)Session["UsuarioCreado"]))
             {
                 UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-Modifique sus datos o solicite a un administrador que los actualice");

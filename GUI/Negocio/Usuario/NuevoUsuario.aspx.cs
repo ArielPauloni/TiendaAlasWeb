@@ -31,25 +31,28 @@ namespace GUI.Negocio.Usuario
 
         public void TraducirTexto()
         {
-            ViewState["DatosGrabadosOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 12);
-            ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
-            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
-            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
-            ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
-            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
-            ViewState["ContraseniasNoCoinciden"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 60);
-            ViewState["ContraseniaPatron"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 61);
-            lblNombre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
-            lblApellido.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
-            lblTelefono.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
-            lblMail.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
-            lblAlias.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
-            lblPass1.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
-            lblPass2.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 75);
-            lblTipoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
-            lblFechaNacimiento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
-            btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
-            btnCancelar.InnerText = " "+ gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            if (Session["IdiomaSel"] != null)
+            {
+                ViewState["DatosGrabadosOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 12);
+                ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
+                ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+                ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
+                ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+                ViewState["ContraseniasNoCoinciden"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 60);
+                ViewState["ContraseniaPatron"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 61);
+                lblNombre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
+                lblApellido.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
+                lblTelefono.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
+                lblMail.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
+                lblAlias.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+                lblPass1.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
+                lblPass2.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 75);
+                lblTipoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
+                lblFechaNacimiento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
+                btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+                btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)

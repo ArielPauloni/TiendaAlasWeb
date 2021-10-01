@@ -51,7 +51,10 @@ namespace GUI.Servicios.Permisos
 
         public void TraducirTexto()
         {
-            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+            if (Session["IdiomaSel"] != null)
+            {
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+            }
         }
 
         private void EnlazarArbolPermisos()

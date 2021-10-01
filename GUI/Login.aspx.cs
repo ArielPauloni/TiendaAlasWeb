@@ -29,19 +29,22 @@ namespace GUI
 
         public void TraducirTexto()
         {
-            ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
-            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
-            ViewState["UsuarioBloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 72);
-            ViewState["Mostrar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 79);
-            ViewState["Ocultar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 80);
+            if (Session["IdiomaSel"] != null)
+            {
+                ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
+                ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+                ViewState["UsuarioBloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 72);
+                ViewState["Mostrar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 79);
+                ViewState["Ocultar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 80);
 
-            lblAlias.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
-            lblPassword.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
-            lblLogin.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 81);
-            btnLogin.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 82);
-            lblRecordarDatos.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 83);
-            lblRecuperoPass.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 84);
-            lnkRecuperoPass.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 85);
+                lblAlias.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+                lblPassword.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
+                lblLogin.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 81);
+                btnLogin.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 82);
+                lblRecordarDatos.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 83);
+                lblRecuperoPass.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 84);
+                lnkRecuperoPass.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 85);
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)

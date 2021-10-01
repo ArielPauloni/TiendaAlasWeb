@@ -29,28 +29,31 @@ namespace GUI.Servicios.Usuarios
 
         public void TraducirTexto()
         {
-            ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
-            ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
-            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
-            ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
-            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
-            ViewState["Editar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
-            ViewState["Deshacer"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
-            ViewState["Confirmar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
-            ViewState["Eliminar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 87);
+            if (Session["IdiomaSel"] != null)
+            {
+                ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
+                ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+                ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
+                ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+                ViewState["Editar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
+                ViewState["Deshacer"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
+                ViewState["Confirmar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
+                ViewState["Eliminar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 87);
 
-            ViewState["lblNombre"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
-            ViewState["lblApellido"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
-            ViewState["lblTelefono"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
-            ViewState["lblMail"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
-            ViewState["lblAlias"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
-            ViewState["lblTipoUsuario"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
-            ViewState["lblFechaNacimiento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
-            ViewState["Accion"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 77);
-            ViewState["Bloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 78);
-            ViewState["Usuarios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 48);
+                ViewState["lblNombre"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
+                ViewState["lblApellido"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
+                ViewState["lblTelefono"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
+                ViewState["lblMail"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
+                ViewState["lblAlias"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+                ViewState["lblTipoUsuario"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
+                ViewState["lblFechaNacimiento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
+                ViewState["Accion"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 77);
+                ViewState["Bloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 78);
+                ViewState["Usuarios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 48);
 
-            btnCrearNuevoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 88);
+                btnCrearNuevoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 88);
+            }
         }
 
         public enum grvUsuariosColumns

@@ -18,17 +18,20 @@ namespace GUI
 
         public void TraducirTexto()
         {
-            btnEnviar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 62);
-            ViewState["OperacionExitosa"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
-            ViewState["NoGrabarDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
-            ViewState["IngreseSumaCorrecta"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 70);
-            lblNombre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63) + " " +
-                gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
-            lblEmpresa.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 65);
-            lblTelefono.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
-            lblMail.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
-            lblMensaje.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 68);
-            lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 69);
+            if (Session["IdiomaSel"] != null)
+            {
+                btnEnviar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 62);
+                ViewState["OperacionExitosa"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
+                ViewState["NoGrabarDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
+                ViewState["IngreseSumaCorrecta"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 70);
+                lblNombre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63) + " " +
+                    gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
+                lblEmpresa.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 65);
+                lblTelefono.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
+                lblMail.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
+                lblMensaje.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 68);
+                lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 69);
+            }
             Random rnd = new Random();
             lblNumeroA.Text = rnd.Next(1, 9).ToString();
             lblNumeroB.Text = rnd.Next(1, 9).ToString();

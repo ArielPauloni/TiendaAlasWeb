@@ -17,7 +17,9 @@ namespace GUI
 
         public void TraducirTexto()
         {
-            
+            if (Session["IdiomaSel"] != null)
+            {
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)

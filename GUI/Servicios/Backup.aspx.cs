@@ -19,21 +19,22 @@ namespace GUI.Servicios.Seguridad
 
         public void TraducirTexto()
         {
-            IdiomaSL gestorIdioma = new IdiomaSL();
-
-            CrearBkpModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
-            lblBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
-            btnBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 17);
-            btnRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
-            btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
-            btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
-            lblNombreBkp.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
-            lblMensaje.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 31);
-            btnAceptarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
-            btnCancelarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
-            RestaurarModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
-            MensajeModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 32);
-            lblArchivoRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
+            if (Session["IdiomaSel"] != null)
+            {
+                CrearBkpModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
+                lblBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 16);
+                btnBackup.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 17);
+                btnRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
+                btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+                btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+                lblNombreBkp.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
+                lblMensaje.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 31);
+                btnAceptarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
+                btnCancelarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+                RestaurarModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
+                MensajeModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 32);
+                lblArchivoRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
+            }
         }
 
         public void ChequearPermisos()
