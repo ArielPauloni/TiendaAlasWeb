@@ -31,6 +31,44 @@ namespace GUI.Servicios.Usuarios
         {
             ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
             ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
+            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+            ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
+            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+            ViewState["Editar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
+            ViewState["Deshacer"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
+            ViewState["Confirmar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
+            ViewState["Eliminar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 87);
+
+            ViewState["lblNombre"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
+            ViewState["lblApellido"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
+            ViewState["lblTelefono"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
+            ViewState["lblMail"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
+            ViewState["lblAlias"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+            ViewState["lblTipoUsuario"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
+            ViewState["lblFechaNacimiento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
+            ViewState["Accion"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 77);
+            ViewState["Bloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 78);
+            ViewState["Usuarios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 48);
+
+            btnCrearNuevoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 88);
+        }
+
+        public enum grvUsuariosColumns
+        {
+            Accion,
+            Cod_Usuario,
+            Apellido,
+            Nombre,
+            Alias,
+            TipoUsuario,
+            Telefono,
+            Mail,
+            FechaNac,
+            Password,
+            Inactivo,
+            Bloqueado,
+            Intentos,
+            UltimoLogin
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -51,11 +89,12 @@ namespace GUI.Servicios.Usuarios
             {
                 grvUsuarios.DataSource = gestorUsuario.Listar();
                 grvUsuarios.DataBind();
-                grvUsuarios.Columns[1].Visible = false;
-                grvUsuarios.Columns[9].Visible = false;
-                grvUsuarios.Columns[10].Visible = false;
-                grvUsuarios.Columns[12].Visible = false;
-                grvUsuarios.Columns[13].Visible = false;
+                grvUsuarios.Caption = ViewState["Usuarios"].ToString();
+                grvUsuarios.Columns[(int)grvUsuariosColumns.Cod_Usuario].Visible = false;
+                grvUsuarios.Columns[(int)grvUsuariosColumns.Password].Visible = false;
+                grvUsuarios.Columns[(int)grvUsuariosColumns.Inactivo].Visible = false;
+                grvUsuarios.Columns[(int)grvUsuariosColumns.Intentos].Visible = false;
+                grvUsuarios.Columns[(int)grvUsuariosColumns.UltimoLogin].Visible = false;
             }
             catch (BLL.UsuarioModificadoException ex)
             {
@@ -166,7 +205,7 @@ namespace GUI.Servicios.Usuarios
                         int r = gestorUsuario.Editar(usuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                         if (r == 0)
                         {
-                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se Pudo Grabar");
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoGrabar"].ToString());
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         }
                         else
@@ -176,7 +215,7 @@ namespace GUI.Servicios.Usuarios
                     }
                     catch (SinPermisosException)
                     {
-                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin Permisos");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     if (usuario.Cod_Usuario == ((UsuarioBE)Session["UsuarioAutenticado"]).Cod_Usuario)
@@ -188,7 +227,7 @@ namespace GUI.Servicios.Usuarios
                 }
                 else
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se puede Grabar Con Datos Vacios");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinDatosVacios"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
@@ -221,7 +260,7 @@ namespace GUI.Servicios.Usuarios
                     int r = gestorUsuario.Eliminar(usuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                     if (r == 0)
                     {
-                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se Pudo Grabar");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoGrabar"].ToString());
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     else
@@ -231,7 +270,7 @@ namespace GUI.Servicios.Usuarios
                 }
                 catch (SinPermisosException)
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin Permisos");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 if (usuario.Cod_Usuario == ((UsuarioBE)Session["UsuarioAutenticado"]).Cod_Usuario)
@@ -256,19 +295,19 @@ namespace GUI.Servicios.Usuarios
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 LinkButton controlEdit = (LinkButton)e.Row.FindControl("btn_Edit");
-                if (controlEdit != null) { controlEdit.ToolTip = "-Editar"; }
+                if (controlEdit != null) { controlEdit.ToolTip = ViewState["Editar"].ToString(); }
 
                 LinkButton controlUpdate = (LinkButton)e.Row.FindControl("btn_Update");
                 if (controlUpdate != null)
-                { controlUpdate.ToolTip = "-Confirmar"; }
+                { controlUpdate.ToolTip = ViewState["Confirmar"].ToString(); }
 
                 LinkButton controlUndo = (LinkButton)e.Row.FindControl("btn_Undo");
                 if (controlUndo != null)
-                { controlUndo.ToolTip = "-Deshacer"; }
+                { controlUndo.ToolTip = ViewState["Deshacer"].ToString(); }
 
                 LinkButton controlDelete = (LinkButton)e.Row.FindControl("btn_Delete");
                 if (controlDelete != null)
-                { controlDelete.ToolTip = "-Eliminar"; }
+                { controlDelete.ToolTip = ViewState["Eliminar"].ToString(); }
 
                 if ((e.Row.RowState & DataControlRowState.Edit) == DataControlRowState.Edit)
                 {
@@ -288,6 +327,18 @@ namespace GUI.Servicios.Usuarios
                         txtFechaNacimiento.Text = ((UsuarioBE)e.Row.DataItem).FechaNacimiento.Value.ToString("yyyy-MM-dd");
                     }
                 }
+            }
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[(int)grvUsuariosColumns.Accion].Text = ViewState["Accion"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.Nombre].Text = ViewState["lblNombre"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.Apellido].Text = ViewState["lblApellido"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.Mail].Text = ViewState["lblMail"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.Telefono].Text = ViewState["lblTelefono"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.TipoUsuario].Text = ViewState["lblTipoUsuario"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.Alias].Text = ViewState["lblAlias"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.FechaNac].Text = ViewState["lblFechaNacimiento"].ToString();
+                e.Row.Cells[(int)grvUsuariosColumns.Bloqueado].Text = ViewState["Bloqueado"].ToString();
             }
         }
     }

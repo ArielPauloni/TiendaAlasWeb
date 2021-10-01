@@ -30,6 +30,18 @@ namespace GUI
         public void TraducirTexto()
         {
             ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
+            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+            ViewState["UsuarioBloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 72);
+            ViewState["Mostrar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 79);
+            ViewState["Ocultar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 80);
+
+            lblAlias.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+            lblPassword.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
+            lblLogin.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 81);
+            btnLogin.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 82);
+            lblRecordarDatos.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 83);
+            lblRecuperoPass.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 84);
+            lnkRecuperoPass.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 85);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -47,7 +59,7 @@ namespace GUI
                 if (Request.Cookies["user"] != null && Request.Cookies["pwd"] != null)
                     chkRecordarDatos.Checked = true;
 
-                btnShowHidePass.Attributes.Add("Title", "-Mostrar");
+                btnShowHidePass.Attributes.Add("Title", ViewState["Mostrar"].ToString());
             }
         }
 
@@ -92,7 +104,7 @@ namespace GUI
                 {
                     usuarioAutenticado = null;
                     huboExcepcion = true;
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Usuario Bloqueado, solicite a un administrador su desbloqueo");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["UsuarioBloqueado"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
 
@@ -108,13 +120,13 @@ namespace GUI
                 }
                 else if (!huboExcepcion)
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos incorrectos");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
             else
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos incorrectos");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
@@ -128,7 +140,7 @@ namespace GUI
                 btnShowHidePass.Attributes.Add("customAttribute", "true");
                 btnShowHidePass.Attributes.Add("class", "btnShowHidePass fa fa-eye-slash");
                 txtPassword.TextMode = TextBoxMode.SingleLine;
-                btnShowHidePass.Attributes.Add("Title", "-Ocultar");
+                btnShowHidePass.Attributes.Add("Title", ViewState["Ocultar"].ToString());
             }
             else
             {
@@ -138,7 +150,7 @@ namespace GUI
                 string pass = txtPassword.Text;
                 txtPassword.TextMode = TextBoxMode.Password;
                 txtPassword.Attributes.Add("Value", pass);
-                btnShowHidePass.Attributes.Add("Title", "-Mostrar");
+                btnShowHidePass.Attributes.Add("Title", ViewState["Mostrar"].ToString());
             }
         }
 
@@ -166,7 +178,7 @@ namespace GUI
                 }
                 else
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos incorrectos");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }

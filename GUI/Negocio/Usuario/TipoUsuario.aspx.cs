@@ -23,7 +23,10 @@ namespace GUI.Negocio.Usuario
 
         public void TraducirTexto()
         {
-
+            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+            lblTipoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
+            btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -51,7 +54,7 @@ namespace GUI.Negocio.Usuario
                 }
                 else if (r == -2)
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-sinPermisosText");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
@@ -63,7 +66,7 @@ namespace GUI.Negocio.Usuario
             }
             else
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-datosIncorrectosText");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
 

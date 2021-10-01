@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -11,6 +12,8 @@ namespace SL
 {
     public class IdiomaSL
     {
+        private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
+
         public int Insertar(IdiomaBE idioma)
         {
             IdiomaMapper m = new IdiomaMapper();
@@ -120,10 +123,9 @@ namespace SL
                 //**************************************
                 //TODO: Agregar esta parte correctamente
                 //**************************************
-                //string NombreTagRemitenteEncriptado = gestorEncriptacion.SimpleEncrypt("MailSender");
-                //string RemitenteEncriptado = ConfigurationManager.AppSettings[NombreTagRemitenteEncriptado];
-                //string remitente = gestorEncriptacion.SimpleDecrypt(RemitenteEncriptado);
-                string remitente = "aripaudev@gmail.com";
+                string NombreTagRemitenteEncriptado = gestorEncriptacion.SimpleEncrypt("MailSender");
+                string RemitenteEncriptado = ConfigurationManager.AppSettings[NombreTagRemitenteEncriptado];
+                string remitente = gestorEncriptacion.SimpleDecrypt(RemitenteEncriptado);
 
                 foreach (TextoBE text in textosOrigen)
                 {

@@ -51,7 +51,7 @@ namespace GUI.Servicios.Permisos
 
         public void TraducirTexto()
         {
-
+            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
         }
 
         private void EnlazarArbolPermisos()
@@ -71,7 +71,7 @@ namespace GUI.Servicios.Permisos
             {
                 //Sin permisos:
                 //TODO: Setear un ViewState para el texto sin permisos y usarlo en estos mensajes
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin permisos");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

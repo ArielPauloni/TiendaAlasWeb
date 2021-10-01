@@ -34,16 +34,30 @@ namespace GUI.Servicios.Bitacora
 
         public void TraducirTexto()
         {
-            lblUsuario.Text = "-Usuario";
-            lblFechaDesde.Text = "-Fecha Desde";
-            lblFechaHasta.Text = "-Fecha Hasta";
-            lblEvento.Text = "-Evento";
-            lblCriticidad.Text = "-Criticidad";
+            lblUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 71);
+            lblFechaDesde.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 94);
+            lblFechaHasta.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 95);
+            lblEvento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 92); ;
+            lblCriticidad.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 89);
+            btnMostrarFiltros.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 38);
+            btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
+            btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
 
             ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
             ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
             btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
             ViewState["ErrorMsg"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
+            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+            ViewState["NombreUsuario"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 71);
+            ViewState["CriticidadTexto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 89);
+            ViewState["DescripcionEvento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 90);
+            ViewState["FechaEvento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 91);
+            ViewState["BitacoraCaption"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 93);
+            ViewState["PagFooter"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 99);
+
+            btnExportarXML.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 98);
+            btnExportarJson.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 97);
+            btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
         }
 
         public void ChequearPermisos()
@@ -102,7 +116,7 @@ namespace GUI.Servicios.Bitacora
                 {
                     filtradosPorFechaDesde =
                         from BitacoraBE evento in filtradosPorEvento
-                        where DateTime.Parse(evento.FechaEvento.ToString("dd/MM/yyyy"), CultureInfo.CurrentCulture) >= 
+                        where DateTime.Parse(evento.FechaEvento.ToString("dd/MM/yyyy"), CultureInfo.CurrentCulture) >=
                               DateTime.Parse(filtros[2].ToString(), CultureInfo.CurrentCulture)
                         select evento;
                 }
@@ -141,6 +155,7 @@ namespace GUI.Servicios.Bitacora
             grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Usuario].Visible = false;
             grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Evento].Visible = false;
             grvBitacora.Columns[(int)grvBitacoraColumns.Criticidad].Visible = false;
+            grvBitacora.Caption = ViewState["BitacoraCaption"].ToString();
 
             var nombresBitacora = datosBitacora.Select(o => o.NombreUsuario).Distinct().OrderBy(NombreUsuario => NombreUsuario).ToList();
             List<string> nombres = new List<string>();
@@ -204,13 +219,14 @@ namespace GUI.Servicios.Bitacora
                 string filename = String.Format("TiendaAlas_Bitacora_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
 
                 DataTable dt = GetDataTable(grvBitacora);
-                GestorReportes.GuardarPDF(tmpPath + @"\" + filename, "-Bitacora", string.Empty, string.Empty, dt, "-Pág. {0} de {1}");
-
+                GestorReportes.GuardarPDF(tmpPath + @"\" + filename, ViewState["BitacoraCaption"].ToString(), string.Empty, string.Empty, dt, ViewState["PagFooter"].ToString());
+                
                 Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
             }
             catch (Exception ex)
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, "-No se pudo grabar. Error: " + "<br>" + ex.Message);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["NoSePudoGrabar"].ToString() + ". " +
+                                              ViewState["ErrorMsg"].ToString() + ": " + "<br>" + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
@@ -330,6 +346,17 @@ namespace GUI.Servicios.Bitacora
         {
             List<string> listaVacia = new List<string>();
             EnlazarGrillaBitacora(listaVacia);
+        }
+
+        protected void grvBitacora_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[(int)grvBitacoraColumns.NombreUsuario].Text = ViewState["NombreUsuario"].ToString();
+                e.Row.Cells[(int)grvBitacoraColumns.CriticidadTexto].Text = ViewState["CriticidadTexto"].ToString();
+                e.Row.Cells[(int)grvBitacoraColumns.DescripcionEvento].Text = ViewState["DescripcionEvento"].ToString();
+                e.Row.Cells[(int)grvBitacoraColumns.FechaEvento].Text = ViewState["FechaEvento"].ToString();
+            }
         }
     }
 }

@@ -33,6 +33,21 @@ namespace GUI.Negocio.Usuario
         {
             ViewState["DatosGrabadosOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 12);
             ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
+            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+            ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+            ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
+            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+            ViewState["ContraseniasNoCoinciden"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 60);
+            ViewState["ContraseniaPatron"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 61);
+            lblNombre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
+            lblApellido.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
+            lblTelefono.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
+            lblMail.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
+            lblAlias.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+            lblPass1.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
+            lblPass2.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 75);
+            lblFechaNacimiento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
+            btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -77,14 +92,15 @@ namespace GUI.Negocio.Usuario
             {
                 if (string.Compare(txtPass1.Text, txtPass2.Text, false) != 0)
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Contraseñas No Coinciden");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["ContraseniasNoCoinciden"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if ((!Regex.IsMatch(txtPass1.Text, contieneNumero)) ||
                          (!Regex.IsMatch(txtPass1.Text, contieneMayuscula)) ||
                          (!Regex.IsMatch(txtPass1.Text, contieneSeisCaracteres)))
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString() + ": " +
+                                                  ViewState["ContraseniaPatron"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
@@ -130,7 +146,7 @@ namespace GUI.Negocio.Usuario
                             int r = gestorUsuario.EditarSinPermisos(usuario);
                             if (r == 0)
                             {
-                                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se pudo grabar");
+                                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoGrabar"].ToString());
                                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                             }
                             else
@@ -145,7 +161,7 @@ namespace GUI.Negocio.Usuario
                         }
                         catch (SinPermisosException)
                         {
-                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Sin Permisos");
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         }
                         CargarDatosUsuarioAutenticado();
@@ -154,7 +170,7 @@ namespace GUI.Negocio.Usuario
             }
             else
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se puede Grabar Con Datos Vacios");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinDatosVacios"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

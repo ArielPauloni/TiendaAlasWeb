@@ -64,6 +64,14 @@ body {
     background: #ffffff;
 }
 
+.contact-form {
+    width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    padding: 2rem;
+    background: #ffffff;
+}
+
 .form-input {
     background: #fafafa;
     border: 1px solid #eeeeee;
@@ -85,6 +93,10 @@ body {
 
 .form-group {
     margin-bottom: 1rem;
+}
+
+.form-textboxMultiline {
+    resize: none;
 }
 
 .form-button {

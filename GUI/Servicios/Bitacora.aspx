@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Bitacora.aspx.cs" Inherits="GUI.Servicios.Bitacora.Bitacora" MasterPageFile="~/Site.Master" %>
 
 <%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
-
+<%@ Register Src="~/User_Controls/UC_Procesando.ascx" TagPrefix="uc1" TagName="UC_Procesando" %>
 
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
@@ -28,7 +28,7 @@
     <div class="form-group col-md-12">
         <asp:Panel runat="server" ScrollBars="Vertical" Height="400px">
             <asp:GridView ID="grvBitacora" runat="server" AllowSorting="True" Caption="-Bitacora sistema"
-                AutoGenerateColumns="False" EnableTheming="True" >
+                AutoGenerateColumns="False" EnableTheming="True" OnRowDataBound="grvBitacora_RowDataBound" >
                 <AlternatingRowStyle BackColor="#CCFFFF" />
                 <%--AllowPaging="True" PageSize="20" OnPageIndexChanging="grvBitacora_PageIndexChanging"--%>
                 <Columns>

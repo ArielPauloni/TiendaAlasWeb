@@ -27,6 +27,21 @@ namespace GUI.Negocio.Usuario
         public void TraducirTexto()
         {
             ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
+            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+            ViewState["SinDatosVacios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 58);
+            ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
+            ViewState["ContraseniasNoCoinciden"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 60);
+            ViewState["ContraseniaPatron"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 61);
+            ViewState["Mostrar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 79);
+            ViewState["Ocultar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 80);
+
+            lblRegistrarse.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
+            lblMail.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 67);
+            lblAlias.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
+            lblPassword1.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
+            lblPassword2.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 75);
+            btnGrabar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+            btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
         }
 
         public void ChequearPermisos()
@@ -42,8 +57,8 @@ namespace GUI.Negocio.Usuario
                 Subject.AddObserver(this);
                 Subject.Notify();
 
-                btnShowHidePass1.Attributes.Add("Title", "-Mostrar");
-                btnShowHidePass2.Attributes.Add("Title", "-Mostrar");
+                btnShowHidePass1.Attributes.Add("Title", ViewState["Mostrar"].ToString());
+                btnShowHidePass2.Attributes.Add("Title", ViewState["Mostrar"].ToString());
             }
         }
 
@@ -55,14 +70,15 @@ namespace GUI.Negocio.Usuario
             {
                 if (string.Compare(txtPassword1.Text, txtPassword2.Text, false) != 0)
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Contraseñas No Coinciden");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["ContraseniasNoCoinciden"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if ((!Regex.IsMatch(txtPassword1.Text, contieneNumero)) ||
                          (!Regex.IsMatch(txtPassword1.Text, contieneMayuscula)) ||
                          (!Regex.IsMatch(txtPassword1.Text, contieneSeisCaracteres)))
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-Datos Incorrectos + " + ": " + "-Contraseña debe contener mayúscula, número y longitud mayor a seis");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString() + ": " +
+                                                  ViewState["ContraseniaPatron"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if ((!Regex.IsMatch(txtMail.Text, eMailPattern)))
@@ -89,7 +105,7 @@ namespace GUI.Negocio.Usuario
                     int r = gestorUsuario.InsertarDatosBasicosSinPermisos(usuario);
                     if (r <= 0)
                     {
-                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se Pudo Grabar");
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoGrabar"].ToString());
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     else
@@ -108,7 +124,7 @@ namespace GUI.Negocio.Usuario
             }
             else
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-No se puede Grabar Con Datos Vacios");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinDatosVacios"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
@@ -127,7 +143,7 @@ namespace GUI.Negocio.Usuario
                 btnShowHidePass1.Attributes.Add("customAttribute", "true");
                 btnShowHidePass1.Attributes.Add("class", "btnShowHidePass fa fa-eye-slash");
                 txtPassword1.TextMode = TextBoxMode.SingleLine;
-                btnShowHidePass1.Attributes.Add("Title", "-Ocultar");
+                btnShowHidePass1.Attributes.Add("Title", ViewState["Ocultar"].ToString());
             }
             else
             {
@@ -137,7 +153,7 @@ namespace GUI.Negocio.Usuario
                 string pass = txtPassword1.Text;
                 txtPassword1.TextMode = TextBoxMode.Password;
                 txtPassword1.Attributes.Add("Value", pass);
-                btnShowHidePass1.Attributes.Add("Title", "-Mostrar");
+                btnShowHidePass1.Attributes.Add("Title", ViewState["Mostrar"].ToString());
             }
         }
 
@@ -150,7 +166,7 @@ namespace GUI.Negocio.Usuario
                 btnShowHidePass2.Attributes.Add("customAttribute", "true");
                 btnShowHidePass2.Attributes.Add("class", "btnShowHidePass fa fa-eye-slash");
                 txtPassword2.TextMode = TextBoxMode.SingleLine;
-                btnShowHidePass2.Attributes.Add("Title", "-Ocultar");
+                btnShowHidePass2.Attributes.Add("Title", ViewState["Ocultar"].ToString());
             }
             else
             {
@@ -160,7 +176,7 @@ namespace GUI.Negocio.Usuario
                 string pass = txtPassword2.Text;
                 txtPassword2.TextMode = TextBoxMode.Password;
                 txtPassword2.Attributes.Add("Value", pass);
-                btnShowHidePass2.Attributes.Add("Title", "-Mostrar");
+                btnShowHidePass2.Attributes.Add("Title", ViewState["Mostrar"].ToString());
             }
         }
     }

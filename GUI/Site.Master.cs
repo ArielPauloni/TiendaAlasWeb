@@ -92,6 +92,14 @@ namespace GUI
             aSignUp.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
             aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10);
             aLogout.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 13);
+            aMisDatos.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 56);
+
+            btnConfirmarLogout.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 2);
+            btnCancelarLogout.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+            lblMensajeConfirmacion.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 86);
+            ConfirmaLogoutTitle.Attributes.Add("class", "modal-title fa fa-info-circle");
+            ConfirmaLogoutTitle.Attributes.Add("style", "color: black; font-weight:bold; vertical-align:central; text-align: center;");
+            ConfirmaLogoutTitle.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 52);
 
             if ((UsuarioBE)Session["UsuarioAutenticado"] != null)
             {

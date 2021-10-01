@@ -31,6 +31,8 @@ namespace GUI.Servicios
             lblDescripcionIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 23);
             lblTraducir.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 24);
             ViewState["OperacionExitosa"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
+            ViewState["CantidadFrases"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 54);
+            ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -67,11 +69,20 @@ namespace GUI.Servicios
                             IdIdioma = 1
                         };
                         int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
-                        //ActualizarListaIdiomas();
-                        gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
 
-                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString());
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                        if (frasesTraducidas > 0)
+                        {
+                            gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
+
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString() + "<br>" +
+                                                          ViewState["CantidadFrases"].ToString() + ": " + frasesTraducidas.ToString());
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                        }
+                        else
+                        {
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -82,7 +93,7 @@ namespace GUI.Servicios
             }
             else
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-datosIncorrectos");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

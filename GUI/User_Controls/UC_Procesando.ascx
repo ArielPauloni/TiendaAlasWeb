@@ -5,7 +5,7 @@
         <br />
         <br />
         <div>
-            <asp:Label ID="lblWait" runat="server" Text="-Please wait... " />
+            <asp:Label ID="lblWait" runat="server" Text="-Por favor espere... " />
             <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Imagenes/processing.gif" />
         </div>
         <br />

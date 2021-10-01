@@ -73,7 +73,7 @@
                             <ul class="dropdown-menu">
                                 <li><a id="aABMUsuarios" class="fa fa-users" runat="server" href="~/Negocio/Usuario/ABMUsuario.aspx">-ABM Usuarios</a></li>
                                 <li><a id="aNuevoUsuario" class="fa fa-user-plus" runat="server" href="~/Negocio/Usuario/NuevoUsuario.aspx">-Nuevo Usuario</a></li>
-                                <li><a id="aTipoUsuario" class="fa fa-user-circle" runat="server" href="~/Negocio/Usuario/TipoUsuario.aspx">-Tipo Usuario</a></li>                            
+                                <li><a id="aTipoUsuario" class="fa fa-user-circle" runat="server" href="~/Negocio/Usuario/TipoUsuario.aspx">-Tipo Usuario</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -105,7 +105,7 @@
             <footer>
                 <p>
                     &copy; <%: DateTime.Now.Year %> -
-                    <asp:Label ID="lblNombreSitio" runat="server" Text="-Tienda Alas"></asp:Label>
+                    <asp:Label ID="lblNombreSitio" runat="server"></asp:Label>
             </footer>
         </div>
 
@@ -122,7 +122,7 @@
                     <div class="modal-body bg-info" style="text-align: center;">
                         <br />
                         <div>
-                            <asp:Label ID="lblMensaje" runat="server" Text="-Mensaje de confirmación"></asp:Label>
+                            <asp:Label ID="lblMensajeConfirmacion" runat="server" Text="-Mensaje de confirmación"></asp:Label>
                         </div>
                         <br />
                     </div>
