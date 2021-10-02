@@ -150,8 +150,9 @@ internal class AccesoSQL
     {
         Abrir();
         string backupPath = ConfigurationManager.AppSettings["BackupPath"];
+        string nombreBase = ConfigurationManager.AppSettings["NombreBaseDatos"];
         fileName = backupPath + fileName;
-        SqlCommand command = new SqlCommand(string.Format(@"BACKUP DATABASE TiendaAlas TO disk='{0}.bak' WITH NOFORMAT, NOINIT, NAME = N'backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10", fileName), myConnection);
+        SqlCommand command = new SqlCommand(string.Format(@"BACKUP DATABASE {1} TO disk='{0}.bak' WITH NOFORMAT, NOINIT, NAME = N'backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10", fileName, nombreBase), myConnection);
         command.ExecuteNonQuery();
         Cerrar();
     }
@@ -160,8 +161,9 @@ internal class AccesoSQL
     {
         Abrir();
         string backupPath = ConfigurationManager.AppSettings["BackupPath"];
+        string nombreBase = ConfigurationManager.AppSettings["NombreBaseDatos"];
         fileName = backupPath + fileName;
-        SqlCommand command = new SqlCommand(string.Format(@"ALTER DATABASE TiendaAlas SET SINGLE_USER WITH ROLLBACK IMMEDIATE; USE master; RESTORE DATABASE TiendaAlas FROM disk='{0}.bak' WITH REPLACE, NOUNLOAD, STATS = 10", fileName), myConnection);
+        SqlCommand command = new SqlCommand(string.Format(@"ALTER DATABASE {1} SET SINGLE_USER WITH ROLLBACK IMMEDIATE; USE master; RESTORE DATABASE {1} FROM disk='{0}.bak' WITH REPLACE, NOUNLOAD, STATS = 10", fileName, nombreBase), myConnection);
         command.ExecuteNonQuery();
         Cerrar();
     }
