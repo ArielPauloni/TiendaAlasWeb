@@ -24,12 +24,10 @@
             <br />
             <br />
             <br />
-            <asp:Button ID="btnAsignarPermiso" runat="server" Text="-Agregar ->" OnClick="btnAsignarPermiso_Click" />
-            <%--fa fa-arrow-right || fa fa-hand-point-right--%>
+            <button runat="server" id="btnAsignarPermiso" class="btn btn-primary fa fa-arrow-circle-right" onserverclick="btnAsignarPermiso_Click"></button>
             <br />
             <br />
-            <asp:Button ID="btnQuitarPermiso" runat="server" Text="-<- Quitar" OnClick="btnQuitarPermiso_Click" />
-            <%--fa fa-arrow-left || fa fa-hand-point-left--%>
+            <button runat="server" id="btnQuitarPermiso" class="btn btn-primary fa fa-arrow-circle-left" onserverclick="btnQuitarPermiso_Click"></button>
         </div>
         <div class="form-group col-md-5">
             <asp:Label ID="lblTipoUsuario" runat="server" Text="-Tipo de Usuario"></asp:Label>
@@ -53,11 +51,9 @@
             <asp:Label ID="lblNuevoPermiso" runat="server" Text="-Permiso"></asp:Label>
             <asp:TextBox ID="txtNuevoPermiso" CssClass="form-control" runat="server"></asp:TextBox>
             <br />
-            <asp:Button ID="btnCrearPermiso" runat="server" Text="-Crear Permiso" OnClick="btnCrearPermiso_Click" />
-            <%--fa fa-plus--%>
+            <button runat="server" id="btnCrearPermiso" class="btn btn-primary fa fa-plus" onserverclick="btnCrearPermiso_Click"></button>
             &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnEliminarPermiso" runat="server" Text="-Eliminar Permiso" OnClick="btnEliminarPermiso_Click" />
-            <%--fa fa-trash-alt || fa fa-trash-o || fa fa-trash--%>
+            <button runat="server" id="btnEliminarPermiso" class="btn btn-primary fa fa-trash" onserverclick="btnEliminarPermiso_Click"></button>
         </div>
         <div class="form-group col-md-4">
             <asp:Label ID="lblPermisoPadre" runat="server" Text="-Permiso Padre"></asp:Label>
@@ -65,14 +61,11 @@
             <asp:Label ID="lblPermisoHijo" runat="server" Text="-Permiso Hijo"></asp:Label>
             <asp:TextBox ID="txtPermisoHijo" CssClass="form-control" runat="server"></asp:TextBox>
             <br />
-            <asp:Button ID="btnVincular" runat="server" Text="-Vincular" OnClick="btnVincular_Click" />
-            <%--fa fa-link--%>
+            <button runat="server" id="btnVincular" class="btn btn-primary fa fa-link" onserverclick="btnVincular_Click"></button>
             &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnDesvincular" runat="server" Text="-Desvincular" OnClick="btnDesvincular_Click" />
-            <%--fa fa-unlink--%>
+            <button runat="server" id="btnDesvincular" class="btn btn-primary fa fa-unlink" onserverclick="btnDesvincular_Click"></button>
             &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnLimpiar" runat="server" Text="-Limpiar" OnClick="btnLimpiar_Click" />
-            <%--fa fa-broom--%>
+            <button runat="server" id="btnLimpiar" class="btn btn-primary fa fa-eraser" onserverclick="btnLimpiar_Click"></button>
         </div>
     </div>
 

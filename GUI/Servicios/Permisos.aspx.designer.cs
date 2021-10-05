@@ -46,7 +46,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAsignarPermiso;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAsignarPermiso;
         
         /// <summary>
         /// Control btnQuitarPermiso.
@@ -55,7 +55,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnQuitarPermiso;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnQuitarPermiso;
         
         /// <summary>
         /// Control lblTipoUsuario.
@@ -136,7 +136,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCrearPermiso;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCrearPermiso;
         
         /// <summary>
         /// Control btnEliminarPermiso.
@@ -145,7 +145,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarPermiso;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnEliminarPermiso;
         
         /// <summary>
         /// Control lblPermisoPadre.
@@ -190,7 +190,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVincular;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnVincular;
         
         /// <summary>
         /// Control btnDesvincular.
@@ -199,7 +199,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDesvincular;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDesvincular;
         
         /// <summary>
         /// Control btnLimpiar.
@@ -208,7 +208,7 @@ namespace GUI.Servicios.Permisos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLimpiar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnLimpiar;
         
         /// <summary>
         /// Control UpPanelDialog.

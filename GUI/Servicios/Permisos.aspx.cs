@@ -38,8 +38,6 @@ namespace GUI.Servicios.Permisos
                     Cod_Tipo = short.Parse(ddlTipoUsuarios.SelectedItem.Value)
                 };
                 EnlazarArbolPermisosPorTipoUsuario(tipoUsuario);
-                //ddlTipoUsuarios.SelectedIndex = ddlTipoUsuarios.FindStringExact(SesionSL.Instancia.Usuario.TipoUsuario.Descripcion_Tipo);
-                //EnlazarArbolPermisosPorTipoUsuario((TipoUsuarioBE)ddlTipoUsuarios.SelectedItem);
             }
         }
 
@@ -54,6 +52,25 @@ namespace GUI.Servicios.Permisos
             if (Session["IdiomaSel"] != null)
             {
                 ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+                ViewState["IngreseNombreValido"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 112);
+                ViewState["NoSePudoCrearPermiso"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 113);
+                ViewState["ReferenciaCircular"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 114);
+
+                btnAsignarPermiso.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 104);
+                btnQuitarPermiso.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 108);
+                btnCrearPermiso.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 110);
+                btnEliminarPermiso.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 87);
+                btnVincular.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 105);
+                btnDesvincular.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 106);
+                btnLimpiar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 107);
+
+                lblPermisoPadre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 102);
+                lblPermisoHijo.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 103);
+                lblNuevoPermiso.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 101);
+                lblEditarPermisos.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 100);
+                lblTipoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 109);
+                lblPermisosArbol.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 6);
+                lblPermisos.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 111);
             }
         }
 
@@ -73,7 +90,6 @@ namespace GUI.Servicios.Permisos
             else
             {
                 //Sin permisos:
-                //TODO: Setear un ViewState para el texto sin permisos y usarlo en estos mensajes
                 UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
@@ -155,6 +171,8 @@ namespace GUI.Servicios.Permisos
             else
             {
                 //Sin permisos
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -178,6 +196,8 @@ namespace GUI.Servicios.Permisos
             else
             {
                 //Sin permisos
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -198,7 +218,8 @@ namespace GUI.Servicios.Permisos
                     if ((gestorPermiso.EliminarPermisoPorTipoUsuario(tipoUsuario, permiso, (UsuarioBE)Session["UsuarioAutenticado"])) < 0)
                     {
                         //Sin permisos:
-
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                 }
                 else
@@ -206,7 +227,8 @@ namespace GUI.Servicios.Permisos
                     if ((gestorPermiso.InsertarPermisoPorTipoUsuario(tipoUsuario, permiso, (UsuarioBE)Session["UsuarioAutenticado"])) < 0)
                     {
                         //Sin permisos:
-
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                 }
             }
@@ -226,11 +248,13 @@ namespace GUI.Servicios.Permisos
                 if (insPermiso == -2)
                 {
                     //Sin permisos:
-
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if (insPermiso == -1)
                 {
-                    //noSePudoCrearPermiso
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoCrearPermiso"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
                 {
@@ -241,8 +265,8 @@ namespace GUI.Servicios.Permisos
             }
             else
             {
-                //Por favor, ingrese un nombre de permiso
-
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["IngreseNombreValido"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -267,7 +291,8 @@ namespace GUI.Servicios.Permisos
                     if (gestorPermiso.EliminarPermiso(permisoEliminar, (UsuarioBE)Session["UsuarioAutenticado"]) < 0)
                     {
                         //Sin permisos:
-
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                     else
                     {
@@ -284,12 +309,14 @@ namespace GUI.Servicios.Permisos
                 }
                 else
                 {
-                    //Por favor, ingrese un nombre de permiso válido
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["IngreseNombreValido"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }
             else
             {
-                //Por favor, ingrese un nombre de permiso
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["IngreseNombreValido"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -311,11 +338,13 @@ namespace GUI.Servicios.Permisos
                 if (res < 0)
                 {
                     //Sin permisos:
-
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if (res == 0)
                 {
-                    //No se pudo insertar la relación. Revise la rama actual para evitar referencias circulares
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["ReferenciaCircular"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
                 {
@@ -340,7 +369,8 @@ namespace GUI.Servicios.Permisos
                 if (gestorPermiso.QuitarRelacionPermisos((PermisoBE)Session["PermisoPadre"], (PermisoBE)Session["PermisoHijo"], (UsuarioBE)Session["UsuarioAutenticado"]) < 0)
                 {
                     //Sin permisos:
-
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else
                 {
