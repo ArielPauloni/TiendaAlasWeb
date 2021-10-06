@@ -18,6 +18,7 @@ namespace GUI.Servicios.Bitacora
     {
         private BitacoraSL gestorBitacora = new BitacoraSL();
         private PersistenciaSL gestorPersistencia = new PersistenciaSL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
         private ReporteSL GestorReportes = new ReporteSL();
         private IdiomaSL gestorIdioma = new IdiomaSL();
 
@@ -45,6 +46,7 @@ namespace GUI.Servicios.Bitacora
                 btnFiltrar.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 40));
                 btnLimpiarFiltros.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 41));
 
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
                 ViewState["MostrarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 39);
                 ViewState["OcultarFiltros"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 42);
                 btnMostrarFiltros.Attributes.Add("title", ViewState["MostrarFiltros"].ToString());
@@ -66,6 +68,9 @@ namespace GUI.Servicios.Bitacora
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
+            btnExportarJson.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnExportarPDF.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnExportarXML.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -206,25 +211,45 @@ namespace GUI.Servicios.Bitacora
 
         protected void btnExportarJson_Click(object sender, EventArgs e)
         {
-            GrabarArchivoBitacora("json");
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]))
+            { GrabarArchivoBitacora("json"); }
+            else
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
         }
 
         protected void btnExportarXML_Click(object sender, EventArgs e)
         {
-            GrabarArchivoBitacora("xml");
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]))
+            { GrabarArchivoBitacora("xml"); }
+            else
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
         }
 
         protected void btnExportarPDF_Click(object sender, EventArgs e)
         {
             try
             {
-                string tmpPath = Server.MapPath("~/");
-                string filename = String.Format("TiendaAlas_Bitacora_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
+                if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]))
+                {
+                    string tmpPath = Server.MapPath("~/");
+                    string filename = String.Format("TiendaAlas_Bitacora_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
 
-                DataTable dt = GetDataTable(grvBitacora);
-                GestorReportes.GuardarPDF(tmpPath + @"\" + filename, ViewState["BitacoraCaption"].ToString(), string.Empty, string.Empty, dt, ViewState["PagFooter"].ToString());
+                    DataTable dt = GetDataTable(grvBitacora);
+                    GestorReportes.GuardarPDF(tmpPath + @"\" + filename, ViewState["BitacoraCaption"].ToString(), string.Empty, string.Empty, dt, ViewState["PagFooter"].ToString());
 
-                Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
+                    Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
+                }
+                else
+                {
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                }
             }
             catch (Exception ex)
             {

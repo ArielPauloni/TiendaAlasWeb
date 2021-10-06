@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Backup.aspx.cs" Inherits="GUI.Servicios.Seguridad.Backup" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
+
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <div style="text-align: center;">
         <br />
@@ -40,23 +42,11 @@
     <!-- Modal Mensaje -->
     <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-labelledby="MensajeModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="MensajeModalTitle" runat="server">-Mensaje</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    <br />
-                    <br />
-                    <div>
-                        <asp:Label ID="lblMensaje" runat="server" Text="-Mensaje"></asp:Label>
-                    </div>
-                    <br />
-                    <br />
-                </div>
-            </div>
+             <asp:UpdatePanel runat="server" ID="UpPanelDialog" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
 
@@ -95,7 +85,7 @@
     </script>
 
     <script type="text/javascript">
-        function modalMensaje() {
+        function mostrarMensaje() {
             $('#MensajeModal').modal();
         }
     </script>

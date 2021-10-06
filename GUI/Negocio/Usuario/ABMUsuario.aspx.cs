@@ -17,6 +17,7 @@ namespace GUI.Servicios.Usuarios
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
         private IdiomaSL gestorIdioma = new IdiomaSL();
         private string eMailPattern = @"^[\w._%-]+@[\w.-]+\.[a-zA-Z]{2,4}$";
@@ -24,7 +25,9 @@ namespace GUI.Servicios.Usuarios
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
-
+            btnCrearNuevoUsuario.Enabled = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Usuario"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            grvUsuarios.Enabled = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                                   (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])));
         }
 
         public void TraducirTexto()

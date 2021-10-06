@@ -15,6 +15,7 @@ namespace GUI.Servicios.Seguridad
     public partial class Backup : System.Web.UI.Page, IObserver
     {
         private BitacoraSL gestorBitacora = new BitacoraSL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
         private IdiomaSL gestorIdioma = new IdiomaSL();
 
         public void TraducirTexto()
@@ -28,19 +29,21 @@ namespace GUI.Servicios.Seguridad
                 btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
                 btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
                 lblNombreBkp.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
-                lblMensaje.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 31);
                 btnAceptarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
                 btnCancelarRestore.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
                 RestaurarModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 18);
-                MensajeModalTitle.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 32);
                 lblArchivoRestore.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 21);
+
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+                ViewState["OperacionExitosa"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 31);
             }
         }
 
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
-
+            btnBackup.Enabled = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Generar Backup"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnRestore.Enabled = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Restaurar Backup"), (UsuarioBE)Session["UsuarioAutenticado"]);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -64,14 +67,22 @@ namespace GUI.Servicios.Seguridad
             try
             {
                 string date = DateTime.Now.ToString("yyyyMMdd_HH.mm.ss");
-                BackupSL.realizarBackup(txtNombreBkp.Text + "_" + date);
+                BackupSL.realizarBackup(txtNombreBkp.Text + "_" + date, (UsuarioBE)Session["UsuarioAutenticado"]);
                 gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.GenerarBackup, (short)EventosBE.Criticidad.Alta);
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "modalMensaje()", true);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
             catch (SL.BackupException ex)
             {
-                Session["ErrorMsg"] = ex.Message;
-                Response.Redirect(@"~/ErrorPage.aspx");
+                //Session["ErrorMsg"] = ex.Message;
+                //Response.Redirect(@"~/ErrorPage.aspx");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ex.Message);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
+            catch (SL.SinPermisosException)
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -95,14 +106,22 @@ namespace GUI.Servicios.Seguridad
             try
             {
                 string fileName = ddlArchivosBkp.SelectedValue;
-                BackupSL.restaurarBackup(fileName.Remove(fileName.Length - 4, 4));
+                BackupSL.restaurarBackup(fileName.Remove(fileName.Length - 4, 4), (UsuarioBE)Session["UsuarioAutenticado"]);
                 gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.RestaurarBackup, (short)EventosBE.Criticidad.Alta);
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "modalMensaje()", true);
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
+            catch (SL.SinPermisosException)
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
             catch (Exception ex)
             {
-                Session["ErrorMsg"] = ex.Message;
-                Response.Redirect(@"~/ErrorPage.aspx");
+                //Session["ErrorMsg"] = ex.Message;
+                //Response.Redirect(@"~/ErrorPage.aspx");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ex.Message);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
     }

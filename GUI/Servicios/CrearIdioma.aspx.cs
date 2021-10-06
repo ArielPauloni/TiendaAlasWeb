@@ -35,6 +35,7 @@ namespace GUI.Servicios
                 ViewState["OperacionExitosa"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 45);
                 ViewState["CantidadFrases"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 54);
                 ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
             }
         }
 
@@ -55,48 +56,56 @@ namespace GUI.Servicios
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            if ((!string.IsNullOrWhiteSpace(txtCodIdioma.Text) && (!string.IsNullOrWhiteSpace(txtDescripcionIdioma.Text))))
+            try
             {
-                idiomaCreado = new IdiomaBE();
-                idiomaCreado.CodIdioma = txtCodIdioma.Text;
-                idiomaCreado.DescripcionIdioma = txtDescripcionIdioma.Text;
-                gestorIdioma.Insertar(idiomaCreado);
-                if (chkTraducir.Checked)
+                if ((!string.IsNullOrWhiteSpace(txtCodIdioma.Text) && (!string.IsNullOrWhiteSpace(txtDescripcionIdioma.Text))))
                 {
-                    try
+                    idiomaCreado = new IdiomaBE();
+                    idiomaCreado.CodIdioma = txtCodIdioma.Text;
+                    idiomaCreado.DescripcionIdioma = txtDescripcionIdioma.Text;
+                    gestorIdioma.Insertar(idiomaCreado, (UsuarioBE)Session["UsuarioAutenticado"]);
+                    if (chkTraducir.Checked)
                     {
-                        IdiomaBE español = new IdiomaBE
+                        try
                         {
-                            CodIdioma = "es",
-                            DescripcionIdioma = "Español",
-                            IdIdioma = 1
-                        };
-                        int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
+                            IdiomaBE español = new IdiomaBE
+                            {
+                                CodIdioma = "es",
+                                DescripcionIdioma = "Español",
+                                IdIdioma = 1
+                            };
+                            int frasesTraducidas = gestorIdioma.TraducirIdiomaCompleto(español, idiomaCreado);
 
-                        if (frasesTraducidas > 0)
+                            if (frasesTraducidas > 0)
+                            {
+                                gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
+
+                                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString() + "<br>" +
+                                                              ViewState["CantidadFrases"].ToString() + ": " + frasesTraducidas.ToString());
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                            }
+                            else
+                            {
+                                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                            }
+                        }
+                        catch (Exception ex)
                         {
-                            gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CreaciónDeIdioma, (short)EventosBE.Criticidad.Baja);
-
-                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["OperacionExitosa"].ToString() + "<br>" +
-                                                          ViewState["CantidadFrases"].ToString() + ": " + frasesTraducidas.ToString());
+                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         }
-                        else
-                        {
-                            UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["ErrorMsg"].ToString() + "<br>" + ex.Message);
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                     }
                 }
+                else
+                {
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                }
             }
-            else
+            catch (SL.SinPermisosException)
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

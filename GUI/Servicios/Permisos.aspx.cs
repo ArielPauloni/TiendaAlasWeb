@@ -44,7 +44,13 @@ namespace GUI.Servicios.Permisos
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
-
+            btnAsignarPermiso.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Asignar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnQuitarPermiso.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Quitar permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnCrearPermiso.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnVincular.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Gestionar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnDesvincular.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Gestionar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnEliminarPermiso.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            chkEditarPermisos.Enabled = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Gestionar Permisos"), (UsuarioBE)Session["UsuarioAutenticado"]);
         }
 
         public void TraducirTexto()
@@ -111,7 +117,8 @@ namespace GUI.Servicios.Permisos
             else
             {
                 //Sin permisos:
-
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }
 
@@ -305,6 +312,8 @@ namespace GUI.Servicios.Permisos
                         };
                         EnlazarArbolPermisosPorTipoUsuario(tipoUsuario);
                         txtNuevoPermiso.Text = string.Empty;
+                        Subject.AddObserver(this);
+                        Subject.Notify();
                     }
                 }
                 else
@@ -357,6 +366,7 @@ namespace GUI.Servicios.Permisos
                         Cod_Tipo = short.Parse(ddlTipoUsuarios.SelectedItem.Value)
                     };
                     EnlazarArbolPermisosPorTipoUsuario(tipoUsuario);
+                    Subject.AddObserver(this);
                     Subject.Notify();
                 }
             }
@@ -383,6 +393,7 @@ namespace GUI.Servicios.Permisos
                         Cod_Tipo = short.Parse(ddlTipoUsuarios.SelectedItem.Value)
                     };
                     EnlazarArbolPermisosPorTipoUsuario(tipoUsuario);
+                    Subject.AddObserver(this);
                     Subject.Notify();
                 }
             }

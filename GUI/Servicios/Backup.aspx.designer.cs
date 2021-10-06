@@ -85,22 +85,22 @@ namespace GUI.Servicios.Seguridad {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelar;
         
         /// <summary>
-        /// Control MensajeModalTitle.
+        /// Control UpPanelDialog.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MensajeModalTitle;
+        protected global::System.Web.UI.UpdatePanel UpPanelDialog;
         
         /// <summary>
-        /// Control lblMensaje.
+        /// Control UC_MensajeModal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensaje;
+        protected global::GUI.User_Controls.UC_MensajeModal UC_MensajeModal;
         
         /// <summary>
         /// Control RestaurarModalTitle.

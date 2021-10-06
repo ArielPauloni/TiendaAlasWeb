@@ -4,16 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using BE;
 
 namespace SL
 {
     public class BackupSL
     {
-        public static void realizarBackup(string fileName)
+        public static void realizarBackup(string fileName, UsuarioBE usuarioAutenticado)
         {
+            AutorizacionSL gestorAutorizacion = new AutorizacionSL();
             try
             {
-                BackupMapper.realizarBackup(fileName);
+                if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Generar Backup"), usuarioAutenticado))
+                {
+                    BackupMapper.realizarBackup(fileName);
+                }
+                else { throw new SL.SinPermisosException(); }
             }
             catch (DAL.BackupException ex)
             {
@@ -21,9 +27,14 @@ namespace SL
             }
         }
 
-        public static void restaurarBackup(string fileName)
+        public static void restaurarBackup(string fileName, UsuarioBE usuarioAutenticado)
         {
-            BackupMapper.restaurarBackup(fileName);
+            AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Restaurar Backup"), usuarioAutenticado))
+            {
+                BackupMapper.restaurarBackup(fileName);
+            }
+            else { throw new SL.SinPermisosException(); }
         }
     }
 }

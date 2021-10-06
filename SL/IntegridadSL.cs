@@ -11,33 +11,39 @@ namespace SL
 {
     public class IntegridadSL
     {
-        public void ChequearIntegridad()
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+
+        public void ChequearIntegridad(UsuarioBE usuarioAutenticado)
         {
-            try
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Integridad"), usuarioAutenticado))
             {
-                //ProductoMapper m1 = new ProductoMapper();
-                UsuarioMapper m2 = new UsuarioMapper();
-                //m1.Listar();
-                m2.Listar();
-            }
-            //catch (DAL.ProductoModificadoException ex)
-            //{
-            //    using (EventLog eventLog = new EventLog("Application"))
-            //    {
-            //        eventLog.Source = "Application";
-            //        eventLog.WriteEntry("Se modificó producto por fuera de la aplicación. " + ex.Message, EventLogEntryType.Error, 101, 1);
-            //    }
-            //    throw new SL.ProductoModificadoException(ex.Message);
-            //}
-            catch (DAL.UsuarioModificadoException ex)
-            {
-                using (EventLog eventLog = new EventLog("Application"))
+                try
                 {
-                    eventLog.Source = "Application";
-                    eventLog.WriteEntry("Se modificó usuario por fuera de la aplicación. " + ex.Message, EventLogEntryType.Error, 101, 1);
+                    //ProductoMapper m1 = new ProductoMapper();
+                    UsuarioMapper m2 = new UsuarioMapper();
+                    //m1.Listar();
+                    m2.Listar();
                 }
-                throw new SL.UsuarioModificadoException(ex.Message);
+                //catch (DAL.ProductoModificadoException ex)
+                //{
+                //    using (EventLog eventLog = new EventLog("Application"))
+                //    {
+                //        eventLog.Source = "Application";
+                //        eventLog.WriteEntry("Se modificó producto por fuera de la aplicación. " + ex.Message, EventLogEntryType.Error, 101, 1);
+                //    }
+                //    throw new SL.ProductoModificadoException(ex.Message);
+                //}
+                catch (DAL.UsuarioModificadoException ex)
+                {
+                    using (EventLog eventLog = new EventLog("Application"))
+                    {
+                        eventLog.Source = "Application";
+                        eventLog.WriteEntry("Se modificó usuario por fuera de la aplicación. " + ex.Message, EventLogEntryType.Error, 101, 1);
+                    }
+                    throw new SL.UsuarioModificadoException(ex.Message);
+                }
             }
+            else { throw new SL.SinPermisosException(); }
         }
     }
 }

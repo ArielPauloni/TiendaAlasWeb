@@ -13,11 +13,16 @@ namespace SL
     public class IdiomaSL
     {
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
 
-        public int Insertar(IdiomaBE idioma)
+        public int Insertar(IdiomaBE idioma, UsuarioBE usuarioAutenticado)
         {
-            IdiomaMapper m = new IdiomaMapper();
-            return m.Insertar(idioma);
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), usuarioAutenticado))
+            {
+                IdiomaMapper m = new IdiomaMapper();
+                return m.Insertar(idioma);
+            }
+            else { throw new SL.SinPermisosException(); }
         }
 
         public List<IdiomaBE> ListarIdiomas(IdiomaBE idioma)
@@ -163,10 +168,14 @@ namespace SL
             return retVal;
         }
 
-        public int ActualizarTexto(IdiomaBE idioma, TextoBE texto)
+        public int ActualizarTexto(IdiomaBE idioma, TextoBE texto, UsuarioBE usuarioAutenticado)
         {
-            IdiomaMapper m = new IdiomaMapper();
-            return m.ActualizarTexto(idioma, texto);
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), usuarioAutenticado))
+            {
+                IdiomaMapper m = new IdiomaMapper();
+                return m.ActualizarTexto(idioma, texto);
+            }
+            else { throw new SL.SinPermisosException(); }
         }
     }
 }

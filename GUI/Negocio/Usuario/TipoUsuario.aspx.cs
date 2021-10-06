@@ -14,11 +14,13 @@ namespace GUI.Negocio.Usuario
     public partial class TipoUsuario : System.Web.UI.Page, IObserver
     {
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
         private IdiomaSL gestorIdioma = new IdiomaSL();
 
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
+            btnGuardar.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear TipoUsuario"), (UsuarioBE)Session["UsuarioAutenticado"]);
         }
 
         public void TraducirTexto()
@@ -27,6 +29,8 @@ namespace GUI.Negocio.Usuario
             {
                 ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
                 ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+                ViewState["DatosGrabadosOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 12);
+                ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
                 lblTipoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 51);
                 btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
             }
@@ -52,7 +56,7 @@ namespace GUI.Negocio.Usuario
                 int r = gestorTipoUsuario.Insertar(tipoUsuario, (UsuarioBE)Session["UsuarioAutenticado"]);
                 if ((r == 0) || (r == -1))
                 {
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, "-noPudoGrabar");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoGrabar"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else if (r == -2)
@@ -63,7 +67,7 @@ namespace GUI.Negocio.Usuario
                 else
                 {
                     txtTipoUsuario.Text = string.Empty;
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-operacionExitosaText");
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["DatosGrabadosOk"].ToString());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
             }

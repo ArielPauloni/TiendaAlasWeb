@@ -27,6 +27,8 @@ namespace GUI.Servicios
                 ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
                 ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
                 btnCrearNuevoIdioma.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 29);
+                ViewState["SinPermisos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 57);
+                ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
 
                 lblBuscarTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 33);
                 ViewState["ddlItemContiene"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 34);
@@ -46,9 +48,9 @@ namespace GUI.Servicios
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
-            btnCrearNuevoIdioma.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
-            btnMostrarFiltros.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
-            grvTexto.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnCrearNuevoIdioma.Enabled = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            btnMostrarFiltros.Disabled = !gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            grvTexto.Enabled = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Idioma"), (UsuarioBE)Session["UsuarioAutenticado"]);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -179,30 +181,39 @@ namespace GUI.Servicios
 
         protected void grvTexto_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            //Busco los controles de la grilla para la fila que voy a actualizar
-            Label id = grvTexto.Rows[e.RowIndex].FindControl("lbl_idFrase") as Label;
-            TextBox textoNuevo = grvTexto.Rows[e.RowIndex].FindControl("txt_Texto") as TextBox;
-
-            if (!string.IsNullOrWhiteSpace(textoNuevo.Text))
+            try
             {
-                //Grabar el nuevo texto
-                TextoBE texto = new TextoBE();
-                texto.IdFrase = short.Parse(id.Text);
-                texto.Texto = textoNuevo.Text;
-                IdiomaBE idiomaSeleccionado = new IdiomaBE
+                //Busco los controles de la grilla para la fila que voy a actualizar
+                Label id = grvTexto.Rows[e.RowIndex].FindControl("lbl_idFrase") as Label;
+                TextBox textoNuevo = grvTexto.Rows[e.RowIndex].FindControl("txt_Texto") as TextBox;
+
+                if (!string.IsNullOrWhiteSpace(textoNuevo.Text))
                 {
-                    DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
-                    IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
-                };
-                int i = gestorIdioma.ActualizarTexto(idiomaSeleccionado, texto);
-                if (i == 0)
-                {
-                   //No se Pudo Grabar
+                    //Grabar el nuevo texto
+                    TextoBE texto = new TextoBE();
+                    texto.IdFrase = short.Parse(id.Text);
+                    texto.Texto = textoNuevo.Text;
+                    IdiomaBE idiomaSeleccionado = new IdiomaBE
+                    {
+                        DescripcionIdioma = ddlIdiomas.SelectedItem.Text.ToString(),
+                        IdIdioma = short.Parse(ddlIdiomas.SelectedItem.Value)
+                    };
+                    int i = gestorIdioma.ActualizarTexto(idiomaSeleccionado, texto, (UsuarioBE)Session["UsuarioAutenticado"]);
+                    if (i == 0)
+                    {
+                        UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["NoSePudoGrabar"].ToString());
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                    }
+                    else { gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CambioTextoIdioma, (short)EventosBE.Criticidad.Baja); }
                 }
-                else { gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.CambioTextoIdioma, (short)EventosBE.Criticidad.Baja); }
+                grvTexto.EditIndex = -1;
+                MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
             }
-            grvTexto.EditIndex = -1;
-            MostrarDatosGrillaTexto((Boolean)Session["filtrosTexto"]);
+            catch (SL.SinPermisosException)
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
         }
 
         private void MostrarDatosGrillaTexto(Boolean hayFiltros)

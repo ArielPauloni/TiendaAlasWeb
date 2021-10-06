@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Idioma.aspx.cs" Inherits="GUI.Servicios.Idioma" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
+
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="form-group col-md-12">
         <br />
@@ -57,5 +59,21 @@
         <asp:Button ID="btnCrearNuevoIdioma" CssClass="btn btn-primary" runat="server" Text="-Crear Nuevo Idioma" OnClick="btnCrearNuevoIdioma_Click" />
     </div>
 
+    <!-- Modal Mensaje -->
+    <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-labelledby="MensajeModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+             <asp:UpdatePanel runat="server" ID="UpPanelDialog" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+     <script type="text/javascript">
+        function mostrarMensaje() {
+            $('#MensajeModal').modal();
+        }
+    </script>
 </asp:Content>
 
