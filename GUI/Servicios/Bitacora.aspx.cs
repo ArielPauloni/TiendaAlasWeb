@@ -217,10 +217,7 @@ namespace GUI.Servicios.Bitacora
             grvBitacora.DataSource = bitacoraOrdenable;
             grvBitacora.DataBind();
 
-            //grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Usuario]. = false;
-            //grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Evento].Visible = false;
-            //grvBitacora.Columns[(int)grvBitacoraColumns.Criticidad].Visible = false;
-            grvBitacora.Caption = ViewState["BitacoraCaption"].ToString();
+           grvBitacora.Caption = ViewState["BitacoraCaption"].ToString();
 
             var nombresBitacora = datosBitacora.Select(o => o.NombreUsuario).Distinct().OrderBy(NombreUsuario => NombreUsuario).ToList();
             List<string> nombres = new List<string>();
@@ -258,14 +255,7 @@ namespace GUI.Servicios.Bitacora
             ddlCriticidad.DataBind();
             if (ddlCriticidad.Items.Count == 2) { ddlCriticidad.SelectedIndex = 1; }
         }
-
-        //protected void grvBitacora_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    grvBitacora.PageIndex = e.NewPageIndex;
-        //    grvBitacora.EditIndex = -1;
-        //    EnlazarGrillaBitacora();
-        //}
-
+        
         protected void btnExportarJson_Click(object sender, EventArgs e)
         {
             if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]))

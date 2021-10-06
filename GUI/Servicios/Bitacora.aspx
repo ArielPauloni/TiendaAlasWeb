@@ -31,7 +31,6 @@
                 AutoGenerateColumns="False" EnableTheming="true" OnRowDataBound="grvBitacora_RowDataBound"
                 OnSorting="OnSorting" >
                 <AlternatingRowStyle BackColor="#CCFFFF" />
-                <%--AllowPaging="True" PageSize="20" OnPageIndexChanging="grvBitacora_PageIndexChanging"--%>
                 <Columns>
                     <asp:BoundField DataField="Cod_Usuario" HeaderText="-Cod_Usuario!" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                     <asp:BoundField DataField="Cod_Evento" HeaderText="-Cod_Evento!" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
