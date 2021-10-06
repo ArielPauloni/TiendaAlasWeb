@@ -27,26 +27,27 @@
 
     <div class="form-group col-md-12">
         <asp:Panel runat="server" ScrollBars="Vertical" Height="400px">
-            <asp:GridView ID="grvBitacora" runat="server" AllowSorting="True" Caption="-Bitacora sistema"
-                AutoGenerateColumns="False" EnableTheming="True" OnRowDataBound="grvBitacora_RowDataBound" >
+            <asp:GridView ID="grvBitacora" runat="server" AllowSorting="true" Caption="-Bitacora sistema"
+                AutoGenerateColumns="False" EnableTheming="true" OnRowDataBound="grvBitacora_RowDataBound"
+                OnSorting="OnSorting" >
                 <AlternatingRowStyle BackColor="#CCFFFF" />
                 <%--AllowPaging="True" PageSize="20" OnPageIndexChanging="grvBitacora_PageIndexChanging"--%>
                 <Columns>
-                    <asp:BoundField DataField="Cod_Usuario" HeaderText="-Cod_Usuario!"></asp:BoundField>
-                    <asp:BoundField DataField="Cod_Evento" HeaderText="-Cod_Evento!"></asp:BoundField>
-                    <asp:BoundField DataField="CriticidadTexto" HeaderText="-Criticidad" ItemStyle-HorizontalAlign="Center">
+                    <asp:BoundField DataField="Cod_Usuario" HeaderText="-Cod_Usuario!" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                    <asp:BoundField DataField="Cod_Evento" HeaderText="-Cod_Evento!" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                    <asp:BoundField DataField="CriticidadTexto" HeaderText="-Criticidad" ItemStyle-HorizontalAlign="Center" SortExpression="CriticidadTexto">
                         <HeaderStyle CssClass="th" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="NombreUsuario" HeaderText="-Usuario">
+                    <asp:BoundField DataField="NombreUsuario" HeaderText="-Usuario" SortExpression="NombreUsuario">
                         <HeaderStyle CssClass="th" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="DescripcionEvento" HeaderText="-Descripcion">
+                    <asp:BoundField DataField="DescripcionEvento" HeaderText="-Descripcion" SortExpression="DescripcionEvento">
                         <HeaderStyle CssClass="th" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="FechaEvento" HeaderText="-Fecha Evento">
+                    <asp:BoundField DataField="FechaEvento" HeaderText="-Fecha Evento" SortExpression="FechaEvento">
                         <HeaderStyle CssClass="th" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="Criticidad" HeaderText="-Criticidad!"></asp:BoundField>
+                    <asp:BoundField DataField="Criticidad" HeaderText="-Criticidad!" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                 </Columns>
             </asp:GridView>
         </asp:Panel>

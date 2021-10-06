@@ -11,6 +11,7 @@ using System.IO;
 using System.Data;
 using System.Net;
 using System.Globalization;
+using System.Drawing;
 
 namespace GUI.Servicios.Bitacora
 {
@@ -31,6 +32,30 @@ namespace GUI.Servicios.Bitacora
             DescripcionEvento,
             FechaEvento,
             Criticidad
+        }
+
+        private string sortDirByNombreUsuario
+        {
+            get { return ViewState["sortDirByNombreUsuario"] != null ? ViewState["sortDirByNombreUsuario"].ToString() : "DESC"; }
+            set { ViewState["sortDirByNombreUsuario"] = value; }
+        }
+
+        private string sortDirByDescripcionEvento
+        {
+            get { return ViewState["sortDirByDescripcionEvento"] != null ? ViewState["sortDirByDescripcionEvento"].ToString() : "DESC"; }
+            set { ViewState["sortDirByDescripcionEvento"] = value; }
+        }
+
+        private string sortDirByCriticidadTexto
+        {
+            get { return ViewState["sortDirByCriticidadTexto"] != null ? ViewState["sortDirByCriticidadTexto"].ToString() : "DESC"; }
+            set { ViewState["sortDirByCriticidadTexto"] = value; }
+        }
+
+        private string sortDirByFechaEvento
+        {
+            get { return ViewState["sortDirByFechaEvento"] != null ? ViewState["sortDirByFechaEvento"].ToString() : "DESC"; }
+            set { ViewState["sortDirByFechaEvento"] = value; }
         }
 
         public void TraducirTexto()
@@ -82,11 +107,11 @@ namespace GUI.Servicios.Bitacora
                 Subject.Notify();
 
                 List<string> listaVacia = new List<string>();
-                EnlazarGrillaBitacora(listaVacia);
+                EnlazarGrillaBitacora(listaVacia, string.Empty);
             }
         }
 
-        private void EnlazarGrillaBitacora(List<string> filtros)
+        private void EnlazarGrillaBitacora(List<string> filtros, string orderBy)
         {
             grvBitacora.DataSource = null;
             List<BitacoraBE> datosBitacora = new List<BitacoraBE>();
@@ -155,14 +180,46 @@ namespace GUI.Servicios.Bitacora
                 foreach (BitacoraBE eventoFiltrado in filtradosPorCriticidad)
                 { datosBitacora.Add(eventoFiltrado); }
             }
+
+            if (!string.IsNullOrWhiteSpace(orderBy))
+            {
+                if (string.Compare("CriticidadTexto", orderBy, true) == 0)
+                {
+                    if (string.Compare("ASC", this.sortDirByCriticidadTexto, true) == 0)
+                    { datosBitacora = datosBitacora.OrderBy(r => r.CriticidadTexto).ToList(); }
+                    else { datosBitacora = datosBitacora.OrderByDescending(r => r.CriticidadTexto).ToList(); } 
+                }
+                
+                if (string.Compare("NombreUsuario", orderBy, true) == 0)
+                {
+                    if (string.Compare("ASC", this.sortDirByNombreUsuario, true) == 0)
+                    { datosBitacora = datosBitacora.OrderBy(r => r.NombreUsuario).ToList(); }
+                    else { datosBitacora = datosBitacora.OrderByDescending(r => r.NombreUsuario).ToList(); }
+                }
+
+                if (string.Compare("DescripcionEvento", orderBy, true) == 0)
+                {
+                    if (string.Compare("ASC", this.sortDirByDescripcionEvento, true) == 0)
+                    { datosBitacora = datosBitacora.OrderBy(r => r.DescripcionEvento).ToList(); }
+                    else { datosBitacora = datosBitacora.OrderByDescending(r => r.DescripcionEvento).ToList(); }
+                }
+
+                if (string.Compare("FechaEvento", orderBy, true) == 0)
+                {
+                    if (string.Compare("ASC", this.sortDirByFechaEvento, true) == 0)
+                    { datosBitacora = datosBitacora.OrderBy(r => r.FechaEvento).ToList(); }
+                    else { datosBitacora = datosBitacora.OrderByDescending(r => r.FechaEvento).ToList(); }
+                }
+            }
+
             ListaOrdenable<BitacoraBE> bitacoraOrdenable = new ListaOrdenable<BitacoraBE>();
             bitacoraOrdenable = new ListaOrdenable<BitacoraBE>(datosBitacora);
             grvBitacora.DataSource = bitacoraOrdenable;
             grvBitacora.DataBind();
 
-            grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Usuario].Visible = false;
-            grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Evento].Visible = false;
-            grvBitacora.Columns[(int)grvBitacoraColumns.Criticidad].Visible = false;
+            //grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Usuario]. = false;
+            //grvBitacora.Columns[(int)grvBitacoraColumns.Cod_Evento].Visible = false;
+            //grvBitacora.Columns[(int)grvBitacoraColumns.Criticidad].Visible = false;
             grvBitacora.Caption = ViewState["BitacoraCaption"].ToString();
 
             var nombresBitacora = datosBitacora.Select(o => o.NombreUsuario).Distinct().OrderBy(NombreUsuario => NombreUsuario).ToList();
@@ -362,7 +419,7 @@ namespace GUI.Servicios.Bitacora
             filtros.Add(ddlFechaHasta.SelectedItem.ToString());
             filtros.Add(ddlCriticidad.SelectedItem.ToString());
 
-            EnlazarGrillaBitacora(filtros);
+            EnlazarGrillaBitacora(filtros, string.Empty);
         }
 
         protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
@@ -373,18 +430,68 @@ namespace GUI.Servicios.Bitacora
         private void LimpiarFiltros()
         {
             List<string> listaVacia = new List<string>();
-            EnlazarGrillaBitacora(listaVacia);
+            EnlazarGrillaBitacora(listaVacia, string.Empty);
         }
 
         protected void grvBitacora_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                e.Row.Cells[(int)grvBitacoraColumns.NombreUsuario].Text = ViewState["NombreUsuario"].ToString();
-                e.Row.Cells[(int)grvBitacoraColumns.CriticidadTexto].Text = ViewState["CriticidadTexto"].ToString();
-                e.Row.Cells[(int)grvBitacoraColumns.DescripcionEvento].Text = ViewState["DescripcionEvento"].ToString();
-                e.Row.Cells[(int)grvBitacoraColumns.FechaEvento].Text = ViewState["FechaEvento"].ToString();
+                LinkButton btnSort = (LinkButton)e.Row.Cells[(int)grvBitacoraColumns.NombreUsuario].Controls[0];
+                btnSort.Text = ViewState["NombreUsuario"].ToString();
+                btnSort = (LinkButton)e.Row.Cells[(int)grvBitacoraColumns.CriticidadTexto].Controls[0];
+                btnSort.Text = ViewState["CriticidadTexto"].ToString();
+                btnSort = (LinkButton)e.Row.Cells[(int)grvBitacoraColumns.DescripcionEvento].Controls[0];
+                btnSort.Text = ViewState["DescripcionEvento"].ToString();
+                btnSort = (LinkButton)e.Row.Cells[(int)grvBitacoraColumns.FechaEvento].Controls[0];
+                btnSort.Text = ViewState["FechaEvento"].ToString();
             }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                switch ((short)(DataBinder.Eval(e.Row.DataItem, "Criticidad")))
+                {
+                    case (short)EventosBE.Criticidad.Baja:
+                        e.Row.BackColor = Color.LightGreen;
+                        e.Row.ForeColor = Color.Black;
+                        break;
+                    case (short)EventosBE.Criticidad.Media:
+                        e.Row.BackColor = Color.Yellow;
+                        e.Row.ForeColor = Color.Black;
+                        break;
+                    case (short)EventosBE.Criticidad.Alta:
+                        e.Row.BackColor = Color.Orange;
+                        e.Row.ForeColor = Color.Black;
+                        break;
+                    case (short)EventosBE.Criticidad.MuyAlta:
+                        e.Row.BackColor = Color.Red;
+                        e.Row.ForeColor = Color.White;
+                        break;
+                }
+            }
+        }
+
+        protected void OnSorting(object sender, GridViewSortEventArgs e)
+        {
+            List<string> filtros = new List<string>();
+            filtros.Add(ddlUsuarios.SelectedItem.ToString());
+            filtros.Add(ddlEventos.SelectedItem.ToString());
+            filtros.Add(ddlFechaDesde.SelectedItem.ToString());
+            filtros.Add(ddlFechaHasta.SelectedItem.ToString());
+            filtros.Add(ddlCriticidad.SelectedItem.ToString());
+
+            if (string.Compare("CriticidadTexto", e.SortExpression, true) == 0)
+            { this.sortDirByCriticidadTexto = this.sortDirByCriticidadTexto == "ASC" ? "DESC" : "ASC"; }
+
+            if (string.Compare("NombreUsuario", e.SortExpression, true) == 0)
+            { this.sortDirByNombreUsuario = this.sortDirByNombreUsuario == "ASC" ? "DESC" : "ASC"; }
+
+            if (string.Compare("DescripcionEvento", e.SortExpression, true) == 0)
+            { this.sortDirByDescripcionEvento = this.sortDirByDescripcionEvento == "ASC" ? "DESC" : "ASC"; ; }
+
+            if (string.Compare("FechaEvento", e.SortExpression, true) == 0)
+            { this.sortDirByFechaEvento = this.sortDirByFechaEvento == "ASC" ? "DESC" : "ASC"; }       
+
+            EnlazarGrillaBitacora(filtros, e.SortExpression);
         }
     }
 }
