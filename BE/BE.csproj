@@ -48,11 +48,14 @@
     <Compile Include="EventosBE.cs" />
     <Compile Include="IdiomaBE.cs" />
     <Compile Include="MedioDePagoBE.cs" />
+    <Compile Include="PacienteCaracteristicaBE.cs" />
+    <Compile Include="PatologiaBE.cs" />
     <Compile Include="PermisoBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextoBE.cs" />
     <Compile Include="TipoMensajeBE.cs" />
     <Compile Include="TipoUsuarioBE.cs" />
+    <Compile Include="TratamientoBE.cs" />
     <Compile Include="UsuarioBE.cs" />
   </ItemGroup>
   <ItemGroup>

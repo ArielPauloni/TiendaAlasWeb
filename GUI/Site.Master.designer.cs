@@ -130,6 +130,69 @@ namespace GUI {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aTipoUsuario;
         
         /// <summary>
+        /// Control aTerapias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aTerapias;
+        
+        /// <summary>
+        /// Control aAdminTratamientos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aAdminTratamientos;
+        
+        /// <summary>
+        /// Control aProfesionalTratamiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aProfesionalTratamiento;
+        
+        /// <summary>
+        /// Control aCalificarTratamiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aCalificarTratamiento;
+        
+        /// <summary>
+        /// Control aAdminPatologias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aAdminPatologias;
+        
+        /// <summary>
+        /// Control aCaracteristicasPaciente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aCaracteristicasPaciente;
+        
+        /// <summary>
+        /// Control aPacienteTratamiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aPacienteTratamiento;
+        
+        /// <summary>
         /// Control aSignUp.
         /// </summary>
         /// <remarks>

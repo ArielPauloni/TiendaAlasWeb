@@ -445,6 +445,74 @@ namespace DAL
             return retVal;
         }
 
+        public List<UsuarioBE> ListarProfesionalPorTratamiento(TratamientoBE tratamiento)
+        {
+            List<BE.UsuarioBE> myLista = new List<BE.UsuarioBE>();
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Tratamiento", tratamiento.Cod_Tratamiento));
+            DataTable tabla = AccesoSQL.Leer("pr_Listar_ProfesionalesPorTratamiento", parametros);
+            if (tabla != null)
+            {
+                long SumaDVH = 0;
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    BE.UsuarioBE usuario = new BE.UsuarioBE();
+                    TipoUsuarioBE tipoUsuario = new TipoUsuarioBE();
+                    usuario.Cod_Usuario = int.Parse(fila["Cod_Usuario"].ToString());
+                    usuario.Apellido = fila["Apellido"].ToString();
+                    usuario.Nombre = fila["Nombre"].ToString();
+                    usuario.Alias = fila["Alias"].ToString();
+                    //usuario.Contraseña = SimpleDecrypt(fila["Contraseña"].ToString());
+                    usuario.Contraseña = fila["Contraseña"].ToString();
+                    tipoUsuario.Cod_Tipo = short.Parse(fila["Cod_Tipo"].ToString());
+                    tipoUsuario.Descripcion_Tipo = fila["DescripcionTipo"].ToString();
+                    usuario.TipoUsuario = tipoUsuario;
+                    IdiomaBE idioma = new IdiomaBE();
+                    idioma.IdIdioma = short.Parse(fila["IdIdioma"].ToString());
+                    idioma.CodIdioma = fila["CodIdioma"].ToString();
+                    idioma.DescripcionIdioma = fila["DescripcionIdioma"].ToString();
+                    usuario.Idioma = idioma;
+                    gestorIdioma.SetearIdioma(ref usuario);
+                    usuario.Telefono = fila["Telefono"].ToString();
+                    usuario.Mail = fila["Mail"].ToString();
+                    if (!string.IsNullOrWhiteSpace(fila["FechaNacimiento"].ToString()))
+                    {
+                        usuario.FechaNacimiento = (DateTime)fila["FechaNacimiento"];
+                    }
+                    else
+                    {
+                        Nullable<DateTime> fNull = default(DateTime?);
+                        usuario.FechaNacimiento = fNull;
+                    }
+                    usuario.Inactivo = (bool)fila["Inactivo"];
+                    if (!string.IsNullOrWhiteSpace(fila["UltimoLogin"].ToString()))
+                    {
+                        usuario.UltimoLogin = (DateTime)fila["UltimoLogin"];
+                    }
+                    else
+                    {
+                        usuario.UltimoLogin = default(DateTime?);
+                    }
+                    usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
+
+                    CalcularDVHUsuario(ref usuario);
+
+                    if (int.Parse(fila["DVH"].ToString()) == usuario.DVH)
+                    {
+                        SumaDVH = +SumaDVH + usuario.DVH;
+                        if (!usuario.Inactivo) { myLista.Add(usuario); }
+                    }
+                    else
+                    {
+                        try { throw new DAL.UsuarioModificadoException("¡ATENCION! \r\nAlgun dato fue modificado externamente a la aplicación para el usuario " + usuario.ToString()); }
+                        catch (DAL.UsuarioModificadoException) { throw; }
+                    }
+                }
+            }
+            return myLista;
+        }
+
         #region Encriptado
         public static string SimpleEncrypt(string PlainText)
         {

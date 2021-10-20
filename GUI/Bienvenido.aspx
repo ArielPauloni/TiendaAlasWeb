@@ -186,6 +186,14 @@
         <span data-u="arrowright" class="jssora22r" style="top: 0px; right: 8px; width: 40px; height: 58px;" data-autocenter="2"></span>
     </div>
 
+    <div style="text-align: center;">
+        <br />
+        <audio controls>
+            <source src="Sonidos/MusicaRelax.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
     <div class="modal fade" id="MensajeModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <uc1:UC_MensajeModal runat="server" ID="UC_MensajeModal" />

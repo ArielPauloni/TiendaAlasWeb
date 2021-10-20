@@ -76,6 +76,17 @@
                                 <li><a id="aTipoUsuario" class="fa fa-user-circle" runat="server" href="~/Negocio/Usuario/TipoUsuario.aspx">-Tipo Usuario</a></li>
                             </ul>
                         </li>
+                         <li class="dropdown">
+                            <a id="aTerapias" runat="server" class="dropdown-toggle fa fa-user-md" data-toggle="dropdown" href="#">-Terapias<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="aAdminTratamientos" class="fa fa-medkit" runat="server" href="~/Negocio/ABMs/Tratamiento.aspx">-Administrar Tratamientos</a></li>
+                                <li><a id="aProfesionalTratamiento" class="fa fa-user-md" runat="server" href="~/Negocio/ABMs/ProfesionalTratamiento.aspx">-Profesional / tratamiento</a></li>
+                                <li><a id="aCalificarTratamiento" class="fa fa-thumbs-up" runat="server" href="~/Negocio/ABMs/CalificarTratamiento.aspx">-Calificar tratamiento</a></li>
+                                <li><a id="aAdminPatologias" class="fa fa-stethoscope" runat="server" href="~/Negocio/ABMs/Patologia.aspx">-Administrar Patologías</a></li>
+                                <li><a id="aCaracteristicasPaciente" class="fa fa-heartbeat" runat="server" href="~/Negocio/ABMs/CaracteristicaPaciente.aspx">-Características del Paciente</a></li>
+                                <li><a id="aPacienteTratamiento" class="fa fa-ambulance" runat="server" href="~/Negocio/ABMs/PacienteTratamiento.aspx">-Asignar tratamiento a Paciente</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li runat="server"><a id="aSignUp" class="fa fa fa-user" runat="server" href="~/Negocio/Usuario/RegistroUsuario.aspx">-Sign Up</a></li>

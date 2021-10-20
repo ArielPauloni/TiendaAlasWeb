@@ -147,8 +147,15 @@
     <Content Include="Imagenes\banner4.jpg" />
     <Content Include="Imagenes\banner5.jpg" />
     <Content Include="Imagenes\buttons_banner.png" />
+    <Content Include="Imagenes\logo_tiendaAlas.jpg" />
     <Content Include="Imagenes\processing.gif" />
     <Content Include="Login.aspx" />
+    <Content Include="Negocio\ABMs\CalificarTratamiento.aspx" />
+    <Content Include="Negocio\ABMs\CaracteristicaPaciente.aspx" />
+    <Content Include="Negocio\ABMs\PacienteTratamiento.aspx" />
+    <Content Include="Negocio\ABMs\Patologia.aspx" />
+    <Content Include="Negocio\ABMs\ProfesionalTratamiento.aspx" />
+    <Content Include="Negocio\ABMs\Tratamiento.aspx" />
     <Content Include="Negocio\Usuario\MisDatos.aspx" />
     <Content Include="Negocio\Usuario\NuevoUsuario.aspx" />
     <Content Include="Negocio\Usuario\RegistroUsuario.aspx" />
@@ -266,6 +273,7 @@
     <Content Include="Servicios\Backup.aspx" />
     <Content Include="Servicios\Integridad.aspx" />
     <Content Include="Negocio\Usuario\ABMUsuario.aspx" />
+    <Content Include="Sonidos\MusicaRelax.mp3" />
     <Content Include="User_Controls\UC_MensajeModal.ascx" />
     <Content Include="User_Controls\UC_Procesando.ascx" />
     <Content Include="webfonts\fa-brands-400.svg" />
@@ -375,6 +383,48 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\CalificarTratamiento.aspx.cs">
+      <DependentUpon>CalificarTratamiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\CalificarTratamiento.aspx.designer.cs">
+      <DependentUpon>CalificarTratamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\CaracteristicaPaciente.aspx.cs">
+      <DependentUpon>CaracteristicaPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\CaracteristicaPaciente.aspx.designer.cs">
+      <DependentUpon>CaracteristicaPaciente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\PacienteTratamiento.aspx.cs">
+      <DependentUpon>PacienteTratamiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\PacienteTratamiento.aspx.designer.cs">
+      <DependentUpon>PacienteTratamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\Patologia.aspx.cs">
+      <DependentUpon>Patologia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\Patologia.aspx.designer.cs">
+      <DependentUpon>Patologia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\ProfesionalTratamiento.aspx.cs">
+      <DependentUpon>ProfesionalTratamiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\ProfesionalTratamiento.aspx.designer.cs">
+      <DependentUpon>ProfesionalTratamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\Tratamiento.aspx.cs">
+      <DependentUpon>Tratamiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\Tratamiento.aspx.designer.cs">
+      <DependentUpon>Tratamiento.aspx</DependentUpon>
     </Compile>
     <Compile Include="Negocio\Usuario\MisDatos.aspx.cs">
       <DependentUpon>MisDatos.aspx</DependentUpon>

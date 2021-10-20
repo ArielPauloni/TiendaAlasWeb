@@ -50,6 +50,7 @@
     <Compile Include="PermisoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoUsuarioMapper.cs" />
+    <Compile Include="TratamientoMapper.cs" />
     <Compile Include="UsuarioMapper.cs" />
     <Compile Include="XML_Mapper.cs" />
   </ItemGroup>

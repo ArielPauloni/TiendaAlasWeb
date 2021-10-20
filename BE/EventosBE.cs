@@ -23,7 +23,9 @@ namespace BE
             NuevoPermisoCreado,
             RecuperoDePass,
             CambioTextoIdioma,
-            PermisoEliminado
+            PermisoEliminado,
+            TratamientoCreado,
+            CambioDescripcionTratamiento
         }
 
         public enum Criticidad

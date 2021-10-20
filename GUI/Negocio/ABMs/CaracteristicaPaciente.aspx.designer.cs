@@ -7,10 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace GUI {
+namespace GUI.Negocio.ABMs {
     
     
-    public partial class AcercaDe {
+    public partial class Caracteristica {
         
         /// <summary>
         /// Control lblTitle.
@@ -22,12 +22,12 @@ namespace GUI {
         protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
-        /// Control imgLogo.
+        /// Control UC_MensajeModal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgLogo;
+        protected global::GUI.User_Controls.UC_MensajeModal UC_MensajeModal;
     }
 }
