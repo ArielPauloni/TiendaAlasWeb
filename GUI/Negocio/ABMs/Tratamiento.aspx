@@ -3,14 +3,13 @@
 <%@ Register Src="~/User_Controls/UC_MensajeModal.ascx" TagPrefix="uc1" TagName="UC_MensajeModal" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+    <br />
     <div style="text-align: center;">
         <header>
             <asp:Label ID="lblTitle" runat="server" Text="-Tratamientos" Font-Size="Large"></asp:Label>
         </header>
         <br />
     </div>
-    <br />
 
     <div class="container">
         <div class="form-group col-md-12">

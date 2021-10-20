@@ -30,7 +30,19 @@ namespace BLL
             else { throw new SL.SinPermisosException(); }
             return retVal;
         }
-        
+
+        public int Actualizar(TratamientoBE tratamiento, UsuarioBE usuarioAutenticado)
+        {
+            int retVal = 0;
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Tratamiento"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                retVal = m.Actualizar(tratamiento);
+            }
+            else { throw new SL.SinPermisosException(); }
+            return retVal;
+        }
+
         public List<UsuarioBE> ListarProfesionalPorTratamiento(TratamientoBE tratamiento)
         {
             UsuarioMapper m = new UsuarioMapper();
@@ -72,18 +84,6 @@ namespace BLL
             }
             catch (Exception)
             { return 0; }
-        }
-
-        public int Actualizar(TratamientoBE tratamiento, UsuarioBE usuarioAutenticado)
-        {
-            int retVal = 0;
-            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Tratamiento"), usuarioAutenticado))
-            {
-                TratamientoMapper m = new TratamientoMapper();
-                retVal = m.Actualizar(tratamiento);
-            }
-            else { throw new SL.SinPermisosException(); }
-            return retVal;
         }
     }
 }

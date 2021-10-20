@@ -25,7 +25,9 @@ namespace BE
             CambioTextoIdioma,
             PermisoEliminado,
             TratamientoCreado,
-            CambioDescripcionTratamiento
+            CambioDescripcionTratamiento,
+            PatologiaCreada,
+            CambioDescripcionPatologia
         }
 
         public enum Criticidad

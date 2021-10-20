@@ -36,8 +36,10 @@ namespace GUI.Negocio.ABMs
                 ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
                 btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
                 btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
+                lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 118);
                 lblDescripcionTratamiento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 119);
                 grvTratamiento.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 118);
+                grvTratamiento.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
 
             }
         }
@@ -95,6 +97,7 @@ namespace GUI.Negocio.ABMs
                 UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["DatosIncorrectos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
+            txtDescripcionTratamiento.Text = string.Empty;
             EnlazarGrillaTratamientos();
         }
 

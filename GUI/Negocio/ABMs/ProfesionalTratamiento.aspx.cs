@@ -17,7 +17,7 @@ namespace GUI.Negocio.ABMs
         public void ChequearPermisos()
         {
             if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { Response.Redirect(@"~\Bienvenido.aspx"); }
-
+            lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 116);
         }
 
         public void TraducirTexto()
