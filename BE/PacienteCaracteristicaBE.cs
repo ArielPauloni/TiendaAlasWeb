@@ -10,9 +10,12 @@ namespace BE
     {
         public enum GeneroEnum
         {
-            Masculino,
-            Femenino,
-            Otro
+            Masculino, Femenino, Otro
+        }
+
+        public enum DiasActividadDeportivaEnum
+        {
+            Cero, Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete
         }
 
         private UsuarioBE paciente;
@@ -23,6 +26,15 @@ namespace BE
             set { paciente = value; }
         }
 
+        private int cod_Paciente;
+
+        public int Cod_Paciente
+        {
+            get { return Paciente.Cod_Usuario; }
+            set { cod_Paciente = value; }
+        }
+
+
         private Boolean fuma;
 
         public Boolean Fuma
@@ -30,7 +42,7 @@ namespace BE
             get { return fuma; }
             set { fuma = value; }
         }
-        
+
         public int Edad
         {
             get
@@ -47,25 +59,25 @@ namespace BE
             }
         }
 
-        private short genero;
+        private short? genero;
 
-        public short Genero
+        public short? Genero
         {
             get { return genero; }
             set { genero = value; }
         }
 
-        private short diasActividadDeportiva;
+        private short? diasActividadDeportiva;
 
-        public short DiasActividadDeportiva
+        public short? DiasActividadDeportiva
         {
             get { return diasActividadDeportiva; }
             set { diasActividadDeportiva = value; }
         }
 
-        private short horasRelax;
+        private short? horasRelax;
 
-        public short HorasRelax
+        public short? HorasRelax
         {
             get { return horasRelax; }
             set { horasRelax = value; }

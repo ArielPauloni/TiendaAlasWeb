@@ -103,6 +103,15 @@ internal class AccesoSQL
         return parametro;
     }
 
+    public SqlParameter CrearParametroShort(string nombre, short? valor)
+    {
+        SqlParameter parametro = new SqlParameter();
+        parametro.ParameterName = nombre;
+        parametro.DbType = DbType.Int16;
+        parametro.Value = valor;
+        return parametro;
+    }
+
     public SqlParameter CrearParametroInt64(string nombre, Int64 valor)
     {
         SqlParameter parametro = new SqlParameter();

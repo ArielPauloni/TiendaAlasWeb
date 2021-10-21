@@ -47,6 +47,7 @@
     <Compile Include="BitacoraMapper.cs" />
     <Compile Include="ExcepcionesDAL.cs" />
     <Compile Include="IdiomaMapper.cs" />
+    <Compile Include="PacienteCaracteristicaMapper.cs" />
     <Compile Include="PatologiaMapper.cs" />
     <Compile Include="PermisoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
