@@ -28,7 +28,9 @@ namespace BE
             CambioDescripcionTratamiento,
             PatologiaCreada,
             CambioDescripcionPatologia,
-            ActualizaCaracteristicasDelPaciente
+            ActualizaCaracteristicasDelPaciente,
+            AltaDeRelacionTratamientoProfesional,
+            BajaDeRelacionTratamientoProfesional
         }
 
         public enum Criticidad

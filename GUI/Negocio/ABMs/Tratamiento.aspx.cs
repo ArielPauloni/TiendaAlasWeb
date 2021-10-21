@@ -40,7 +40,6 @@ namespace GUI.Negocio.ABMs
                 lblDescripcionTratamiento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 119);
                 grvTratamiento.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 118);
                 grvTratamiento.Columns[2].HeaderText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
-
             }
         }
 

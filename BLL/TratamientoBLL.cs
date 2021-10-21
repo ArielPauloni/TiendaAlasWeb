@@ -50,17 +50,25 @@ namespace BLL
             catch (UsuarioModificadoException ex)
             { throw new BLL.UsuarioModificadoException(ex.Message); }
         }
-       
-        public int AgregarProfesionalATratamiento(TratamientoBE tratamiento, UsuarioBE us)
+
+        public int AgregarProfesionalATratamiento(TratamientoBE tratamiento, UsuarioBE us, UsuarioBE usuarioAutenticado)
         {
-            TratamientoMapper m = new TratamientoMapper();
-            return m.AgregarProfesionalATratamiento(tratamiento, us);
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Tratamiento Profesional"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                return m.AgregarProfesionalATratamiento(tratamiento, us);
+            }
+            else { throw new SL.SinPermisosException(); }
         }
 
-        public int QuitarProfesionalATratamiento(TratamientoBE tratamiento, UsuarioBE us)
+        public int QuitarProfesionalATratamiento(TratamientoBE tratamiento, UsuarioBE us, UsuarioBE usuarioAutenticado)
         {
-            TratamientoMapper m = new TratamientoMapper();
-            return m.QuitarProfesionalATratamiento(tratamiento, us);
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Tratamiento Profesional"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                return m.QuitarProfesionalATratamiento(tratamiento, us);
+            }
+            else { throw new SL.SinPermisosException(); }
         }
 
         public int GrabarCalificacion(TratamientoBE tratamiento, UsuarioBE profesional, UsuarioBE usuarioAutenticado, int calificacion)
