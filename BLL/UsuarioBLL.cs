@@ -165,5 +165,13 @@ namespace BLL
             retVal = m.ActualizarIdioma(usuario);
             return retVal;
         }
+
+        public int ActualizarFotoPerfil(UsuarioBE usuario)
+        {
+            int retVal = 0;
+            UsuarioMapper m = new UsuarioMapper();
+            retVal = m.ActualizarFotoPerfil(usuario);
+            return retVal;
+        }
     }
 }

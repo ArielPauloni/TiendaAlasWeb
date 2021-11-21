@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Drawing;
+using System.IO;
 
 internal class AccesoSQL
 {
@@ -40,13 +42,20 @@ internal class AccesoSQL
             {
                 ret = myCommand.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ret = -1;
             }
         }
         Cerrar();
         return ret;
+    }
+
+    public byte[] imageToByteArray(System.Drawing.Image imageIn)
+    {
+        MemoryStream ms = new MemoryStream();
+        imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+        return ms.ToArray();
     }
 
     public DataTable EscribirConDVH(string NombreSP, List<SqlParameter> Parametros)
@@ -152,6 +161,15 @@ internal class AccesoSQL
         parametro.ParameterName = nombre;
         parametro.DbType = DbType.Decimal;
         parametro.Value = valor;
+        return parametro;
+    }
+
+    public SqlParameter CrearParametroVarBinary(string nombre, Bitmap valor)
+    {
+        SqlParameter parametro = new SqlParameter();
+        parametro.ParameterName = nombre;
+        parametro.DbType = DbType.Binary;
+        parametro.Value = imageToByteArray(valor);
         return parametro;
     }
 

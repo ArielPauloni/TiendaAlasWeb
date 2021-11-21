@@ -9,6 +9,8 @@ using BE;
 using BLL;
 using SL;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Drawing;
 
 namespace GUI.Negocio.Usuario
 {
@@ -33,6 +35,7 @@ namespace GUI.Negocio.Usuario
         {
             if (Session["IdiomaSel"] != null)
             {
+                ViewState["Error"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 1);
                 ViewState["DatosGrabadosOk"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 12);
                 ViewState["MailIncorrecto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 47);
                 ViewState["DatosIncorrectos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 55);
@@ -49,7 +52,10 @@ namespace GUI.Negocio.Usuario
                 lblPass1.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
                 lblPass2.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 75);
                 lblFechaNacimiento.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 76);
+                lblFotoPerfil.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 134);
                 btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
+                btnCargarFotoPerfil.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 135);
+                btnCargarFotoPerfil.Attributes.Add("title", gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 135));
             }
         }
 
@@ -84,6 +90,10 @@ namespace GUI.Negocio.Usuario
                 ddlTipoUsuario.DataValueField = "Cod_Tipo";
                 ddlTipoUsuario.DataBind();
                 ddlTipoUsuario.SelectedValue = ((UsuarioBE)Session["UsuarioAutenticado"]).TipoUsuario.Cod_Tipo.ToString();
+
+                ImageConverter converter = new ImageConverter();
+                byte[] imageToByte = (byte[])converter.ConvertTo(((UsuarioBE)Session["UsuarioAutenticado"]).FotoPerfil, typeof(byte[]));
+                litFotoPerfil.Text += "<img class=\"img-responsive\" Width=\"100px\" Height=\"100px\" src=\"" + @String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String((byte[])imageToByte)) + "\"/>";
             }
         }
 
@@ -174,6 +184,31 @@ namespace GUI.Negocio.Usuario
             else
             {
                 UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinDatosVacios"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
+        }
+
+        protected void btnCargarFotoPerfil_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Byte[] arch = null;
+                if (fuCargarFotoPerfil.HasFile == true)
+                {
+                    using (BinaryReader reader = new
+                    BinaryReader(fuCargarFotoPerfil.PostedFile.InputStream))
+                    { arch = reader.ReadBytes(fuCargarFotoPerfil.PostedFile.ContentLength); }
+
+                    Bitmap foto = (Bitmap)((new ImageConverter()).ConvertFrom(arch));
+                    ((UsuarioBE)Session["UsuarioAutenticado"]).FotoPerfil = foto;
+                    int i = gestorUsuario.ActualizarFotoPerfil((UsuarioBE)Session["UsuarioAutenticado"]);
+
+                    Response.Redirect("~/Negocio/Usuario/MisDatos.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["Error"].ToString() + ": " + ex.Message);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
             }
         }

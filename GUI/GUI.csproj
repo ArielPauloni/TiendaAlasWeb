@@ -147,6 +147,9 @@
     <Content Include="Imagenes\banner4.jpg" />
     <Content Include="Imagenes\banner5.jpg" />
     <Content Include="Imagenes\buttons_banner.png" />
+    <Content Include="Imagenes\img_user_default.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Imagenes\logo_tiendaAlas.jpg" />
     <Content Include="Imagenes\processing.gif" />
     <Content Include="Login.aspx" />

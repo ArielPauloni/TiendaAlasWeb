@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using BE;
+using System.Drawing;
+using System.IO;
 
 namespace DAL
 {
@@ -201,6 +203,12 @@ namespace DAL
                         usuario.UltimoLogin = default(DateTime?);
                     }
                     usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
+                    if (!string.IsNullOrWhiteSpace(fila["FotoPerfil"].ToString()))
+                    {
+                        Byte[] myByteArray = (Byte[])fila["FotoPerfil"];
+                        MemoryStream ms = new MemoryStream(myByteArray);
+                        usuario.FotoPerfil = (Bitmap)Image.FromStream(ms);
+                    }
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -266,6 +274,12 @@ namespace DAL
                         usuario.UltimoLogin = default(DateTime?);
                     }
                     usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
+                    if (!string.IsNullOrWhiteSpace(fila["FotoPerfil"].ToString()))
+                    {
+                        Byte[] myByteArray = (Byte[])fila["FotoPerfil"];
+                        MemoryStream ms = new MemoryStream(myByteArray);
+                        usuario.FotoPerfil = (Bitmap)Image.FromStream(ms);
+                    }
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -332,6 +346,12 @@ namespace DAL
                         usuario.UltimoLogin = default(DateTime?);
                     }
                     usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
+                    if (!string.IsNullOrWhiteSpace(fila["FotoPerfil"].ToString()))
+                    {
+                        Byte[] myByteArray = (Byte[])fila["FotoPerfil"];
+                        MemoryStream ms = new MemoryStream(myByteArray);
+                        usuario.FotoPerfil = (Bitmap)Image.FromStream(ms);
+                    }
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -398,6 +418,12 @@ namespace DAL
                         usuario.UltimoLogin = default(DateTime?);
                     }
                     usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
+                    if (!string.IsNullOrWhiteSpace(fila["FotoPerfil"].ToString()))
+                    {
+                        Byte[] myByteArray = (Byte[])fila["FotoPerfil"];
+                        MemoryStream ms = new MemoryStream(myByteArray);
+                        usuario.FotoPerfil = (Bitmap)Image.FromStream(ms);
+                    }
 
                     CalcularDVHUsuario(ref usuario);
 
@@ -442,6 +468,18 @@ namespace DAL
             {
                 gestorIdioma.SetearIdioma(ref usuario);
             }
+            return retVal;
+        }
+
+        public int ActualizarFotoPerfil(UsuarioBE usuario)
+        {
+            int retVal = 0;
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Usuario", usuario.Cod_Usuario));
+            parametros.Add(AccesoSQL.CrearParametroVarBinary("FotoPerfil", usuario.FotoPerfil));
+            retVal = AccesoSQL.Escribir("pr_Actualizar_UsuarioFotoPerfil", parametros);
+
             return retVal;
         }
 
@@ -495,6 +533,12 @@ namespace DAL
                         usuario.UltimoLogin = default(DateTime?);
                     }
                     usuario.IntentosEquivocados = short.Parse(fila["IntentosEquivocados"].ToString());
+                    if (!string.IsNullOrWhiteSpace(fila["FotoPerfil"].ToString()))
+                    {
+                        Byte[] myByteArray = (Byte[])fila["FotoPerfil"];
+                        MemoryStream ms = new MemoryStream(myByteArray);
+                        usuario.FotoPerfil = (Bitmap)Image.FromStream(ms);
+                    }
 
                     CalcularDVHUsuario(ref usuario);
 

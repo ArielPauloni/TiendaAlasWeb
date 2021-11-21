@@ -76,7 +76,7 @@
                                 <li><a id="aTipoUsuario" class="fa fa-user-circle" runat="server" href="~/Negocio/Usuario/TipoUsuario.aspx">-Tipo Usuario</a></li>
                             </ul>
                         </li>
-                         <li class="dropdown">
+                        <li class="dropdown">
                             <a id="aTerapias" runat="server" class="dropdown-toggle fa fa-user-md" data-toggle="dropdown" href="#">-Terapias<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a id="aAdminTratamientos" class="fa fa-medkit" runat="server" href="~/Negocio/ABMs/Tratamiento.aspx">-Administrar Tratamientos</a></li>
@@ -91,8 +91,13 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li runat="server"><a id="aSignUp" class="fa fa fa-user" runat="server" href="~/Negocio/Usuario/RegistroUsuario.aspx">-Sign Up</a></li>
                         <li runat="server"><a id="aLogin" class="fa fa-sign-in" runat="server" href="~/Login.aspx">-Login</a></li>
+                        <li runat="server">
+                            <a id="aImagenPerfil" runat="server" data-toggle="dropdown" href="#">
+                                <img id="imgFotoPerfil" runat="server" src="#" class="logo-image">
+                            </a>
+                        </li>
                         <li class="dropdown">
-                            <a id="aUserName" runat="server" class="dropdown-toggle fa fa-id-badge" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                            <a id="aUserName" runat="server" class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a id="aMisDatos" class="fa fa-cog" runat="server" href="~/Negocio/Usuario/MisDatos.aspx">-Mis Datos</a></li>
                                 <li runat="server"><a id="aLogout" class="fa fa-sign-out" runat="server" style="cursor: pointer;" onclick="confirmarLogout()">-Logout</a></li>

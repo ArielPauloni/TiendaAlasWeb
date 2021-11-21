@@ -10,6 +10,7 @@ using SL;
 using BLL;
 using BE;
 using System.Web.Services;
+using System.Drawing;
 
 namespace GUI
 {
@@ -21,8 +22,8 @@ namespace GUI
 
         public void ChequearPermisos()
         {
-            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { aLogout.Visible = aUserName.Visible = false; aSignUp.Visible = aLogin.Visible = true; }
-            else { aLogout.Visible = aUserName.Visible = true; aSignUp.Visible = aLogin.Visible = false; }
+            if ((UsuarioBE)Session["UsuarioAutenticado"] == null) { aLogout.Visible = aUserName.Visible = aImagenPerfil.Visible = false; aSignUp.Visible = aLogin.Visible = true; }
+            else { aLogout.Visible = aUserName.Visible = aImagenPerfil.Visible = true; aSignUp.Visible = aLogin.Visible = false; }
 
             aBackup.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Generar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Restaurar Backup"), (UsuarioBE)Session["UsuarioAutenticado"])));
@@ -124,10 +125,19 @@ namespace GUI
 
             if ((UsuarioBE)Session["UsuarioAutenticado"] != null)
             {
-                aUserName.InnerText = " " + ((UsuarioBE)Session["UsuarioAutenticado"]).ToString() + " ";
+                aUserName.InnerText = ((UsuarioBE)Session["UsuarioAutenticado"]).ToString() + " ";
                 var span3 = new HtmlGenericControl("span");
                 span3.Attributes["class"] = "caret";
                 aUserName.Controls.Add(span3);
+
+                if (((UsuarioBE)Session["UsuarioAutenticado"]).FotoPerfil != null)
+                {
+                    ImageConverter converter = new ImageConverter();
+                    byte[] imageToByte = (byte[])converter.ConvertTo(((UsuarioBE)Session["UsuarioAutenticado"]).FotoPerfil, typeof(byte[]));
+
+                    imgFotoPerfil.Src = @String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String((byte[])imageToByte));
+                }
+                else { imgFotoPerfil.Src = "Imagenes/img_user_default.jpg"; }
             }
         }
 

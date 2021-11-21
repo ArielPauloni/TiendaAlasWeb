@@ -51,6 +51,17 @@
             </div>
         </div>
 
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <asp:Label ID="lblFotoPerfil" runat="server" Text="-Foto de Perfil"></asp:Label>
+                <asp:Literal ID="litFotoPerfil" runat="server"></asp:Literal>
+            </div>
+            <div class="form-group col-md-6">
+                <asp:FileUpload ID="fuCargarFotoPerfil" runat="server" />
+                <button runat="server" id="btnCargarFotoPerfil" class="btn btn-primary fa fa-check-circle" onserverclick="btnCargarFotoPerfil_ServerClick" onclick="processingShow();"></button>
+            </div>
+        </div>
+
         <div runat="server" visible="false">
             <asp:DropDownList ID="ddlTipoUsuario" runat="server"></asp:DropDownList>
         </div>
