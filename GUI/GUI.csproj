@@ -158,7 +158,9 @@
     <Content Include="Negocio\ABMs\PacienteTratamiento.aspx" />
     <Content Include="Negocio\ABMs\Patologia.aspx" />
     <Content Include="Negocio\ABMs\ProfesionalTratamiento.aspx" />
+    <Content Include="Negocio\ABMs\Terapia.aspx" />
     <Content Include="Negocio\ABMs\Tratamiento.aspx" />
+    <Content Include="Negocio\ABMs\TratamientoTerapias.aspx" />
     <Content Include="Negocio\Usuario\MisDatos.aspx" />
     <Content Include="Negocio\Usuario\NuevoUsuario.aspx" />
     <Content Include="Negocio\Usuario\RegistroUsuario.aspx" />
@@ -422,12 +424,26 @@
     <Compile Include="Negocio\ABMs\ProfesionalTratamiento.aspx.designer.cs">
       <DependentUpon>ProfesionalTratamiento.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\ABMs\Terapia.aspx.cs">
+      <DependentUpon>Terapia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\Terapia.aspx.designer.cs">
+      <DependentUpon>Terapia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\ABMs\Tratamiento.aspx.cs">
       <DependentUpon>Tratamiento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Negocio\ABMs\Tratamiento.aspx.designer.cs">
       <DependentUpon>Tratamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\ABMs\TratamientoTerapias.aspx.cs">
+      <DependentUpon>TratamientoTerapias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Negocio\ABMs\TratamientoTerapias.aspx.designer.cs">
+      <DependentUpon>TratamientoTerapias.aspx</DependentUpon>
     </Compile>
     <Compile Include="Negocio\Usuario\MisDatos.aspx.cs">
       <DependentUpon>MisDatos.aspx</DependentUpon>

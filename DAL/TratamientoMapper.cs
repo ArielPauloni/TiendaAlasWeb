@@ -24,6 +24,7 @@ namespace DAL
                     tratamiento.Cod_Tratamiento = int.Parse(fila["Cod_Tratamiento"].ToString());
                     tratamiento.DescripcionTratamiento = fila["DescripcionTratamiento"].ToString();
                     tratamiento.Activo = (Boolean)(fila["Activo"]);
+                    tratamiento.Terapias = ObtenerTerapiasPorTratamiento(tratamiento);
                     myLista.Add(tratamiento);
                 }
             }
@@ -36,6 +37,50 @@ namespace DAL
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(AccesoSQL.CrearParametroStr("DescripcionTratamiento", tratamiento.DescripcionTratamiento));
             return AccesoSQL.Escribir("pr_Insertar_Tratamiento", parametros);
+        }
+
+        //public int ActualizarTratamientoTerapias(TratamientoBE tratamiento)
+        //{
+        //    int retVal = 0;
+        //    try
+        //    {
+        //        foreach (Tuple<TerapiaBE, short> terapia in tratamiento.Terapias)
+        //        { if (InsertarTratamientoTerapias(tratamiento, terapia) > 0) { retVal++; } }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        EliminarTratamientoTerapias(tratamiento);
+        //    }
+        //    if (retVal == 0) { EliminarTratamientoTerapias(tratamiento); }
+
+        //    return retVal;
+        //}
+
+        public int InsertarTratamientoTerapia(TratamientoBE tratamiento, Tuple<TerapiaBE, short> terapia)
+        {
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Tratamiento", tratamiento.Cod_Tratamiento));
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Terapia", terapia.Item1.Cod_Terapia));
+            parametros.Add(AccesoSQL.CrearParametroInt("CantidadSesiones", terapia.Item2));
+            return AccesoSQL.Escribir("pr_Insertar_TratamientoTerapia", parametros);
+        }
+
+        public int EliminarTratamientoTerapias(TratamientoBE tratamiento)
+        {
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Tratamiento", tratamiento.Cod_Tratamiento));
+            return AccesoSQL.Escribir("pr_Eliminar_TratamientoTerapias", parametros);
+        }
+
+        public int EliminarTratamientoTerapia(TratamientoBE tratamiento, TerapiaBE terapia)
+        {
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Tratamiento", tratamiento.Cod_Tratamiento));
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Terapia", terapia.Cod_Terapia));
+            return AccesoSQL.Escribir("pr_Eliminar_TratamientoTerapia", parametros);
         }
 
         public int AgregarProfesionalATratamiento(TratamientoBE tratamiento, UsuarioBE us)
@@ -54,7 +99,7 @@ namespace DAL
             parametros.Add(AccesoSQL.CrearParametroInt("Cod_Tratamiento", tratamiento.Cod_Tratamiento));
             parametros.Add(AccesoSQL.CrearParametroInt("Cod_Profesional", profesional.Cod_Usuario));
             parametros.Add(AccesoSQL.CrearParametroInt("Cod_Paciente", us.Cod_Usuario));
-            parametros.Add(AccesoSQL.CrearParametroInt("Calificacion", calificacion));         
+            parametros.Add(AccesoSQL.CrearParametroInt("Calificacion", calificacion));
             return AccesoSQL.Escribir("pr_Insertar_ProfesionalTratamientoEvaluacion", parametros);
         }
 
@@ -95,5 +140,27 @@ namespace DAL
             return AccesoSQL.Escribir("pr_Eliminar_ProfesionalTratamiento", parametros);
         }
 
+        public List<Tuple<TerapiaBE, short>> ObtenerTerapiasPorTratamiento(TratamientoBE tratamiento)
+        {
+            List<Tuple<TerapiaBE, short>> myLista = new List<Tuple<TerapiaBE, short>>();
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Tratamiento", tratamiento.Cod_Tratamiento));
+            DataTable tabla = AccesoSQL.Leer("pr_Listar_Terapias_PorTratamiento", parametros);
+            if (tabla != null)
+            {
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    TerapiaBE t = new TerapiaBE();
+                    t.Cod_Terapia = int.Parse(fila["Cod_Terapia"].ToString());
+                    t.DescripcionTerapia = fila["DescripcionTerapia"].ToString();
+                    t.Duracion = int.Parse(fila["Duracion"].ToString());
+                    t.Precio = float.Parse(fila["Precio"].ToString());
+                    t.Activo = (Boolean)(fila["Activo"]);
+                    myLista.Add(new Tuple<TerapiaBE, short>(t, short.Parse(fila["CantidadSesiones"].ToString())));
+                }
+            }
+            return myLista;
+        }
     }
 }

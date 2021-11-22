@@ -139,6 +139,15 @@ namespace GUI {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aTerapias;
         
         /// <summary>
+        /// Control aAdminTerapias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aAdminTerapias;
+        
+        /// <summary>
         /// Control aAdminTratamientos.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace GUI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aAdminTratamientos;
+        
+        /// <summary>
+        /// Control aTratamientoTerapia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aTratamientoTerapia;
         
         /// <summary>
         /// Control aProfesionalTratamiento.

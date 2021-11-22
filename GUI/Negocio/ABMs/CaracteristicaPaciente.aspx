@@ -4,6 +4,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <br />
+    <br />
     <div style="text-align: center;">
         <header>
             <asp:Label ID="lblTitle" runat="server" Text="-Características del paciente" Font-Size="Large"></asp:Label>

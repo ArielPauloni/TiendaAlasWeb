@@ -24,6 +24,22 @@ namespace BE
             set { descripcionTratamiento = value; }
         }
 
+        private List<Tuple<TerapiaBE, short>> terapias;
+
+        public List<Tuple<TerapiaBE, short>> Terapias
+        {
+            get { return terapias; }
+            set { terapias = value; }
+        }
+
+        private float valorTotal;
+
+        public float ValorTotal
+        {
+            get { return valorTotal; }
+            set { valorTotal = value; }
+        }
+        
         private Boolean activo;
 
         public Boolean Activo

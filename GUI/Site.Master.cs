@@ -46,7 +46,10 @@ namespace GUI
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Usuario"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aTipoUsuario.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear TipoUsuario"), (UsuarioBE)Session["UsuarioAutenticado"]);
             aUsuarios.Visible = ((aABMUsuarios.Visible) || (aNuevoUsuario.Visible) || (aTipoUsuario.Visible));
-            aAdminTratamientos.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Tratamiento"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+            aAdminTerapias.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Terapia"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Terapia"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
+                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Terapia"), (UsuarioBE)Session["UsuarioAutenticado"])));
+            aAdminTratamientos.Visible = aTratamientoTerapia.Visible = ((gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Crear Tratamiento"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Tratamiento"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                 (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Tratamiento"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aProfesionalTratamiento.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Tratamiento Profesional"), (UsuarioBE)Session["UsuarioAutenticado"]);
@@ -56,7 +59,8 @@ namespace GUI
                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Patologia"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Patologia"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aPacienteTratamiento.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Tratamiento Paciente"), (UsuarioBE)Session["UsuarioAutenticado"]);
-            aTerapias.Visible = ((aProfesionalTratamiento.Visible) || (aAdminTratamientos.Visible) || (aCalificarTratamiento.Visible) || (aAdminPatologias.Visible) || (aCaracteristicasPaciente.Visible) || (aPacienteTratamiento.Visible));
+            aTerapias.Visible = ((aProfesionalTratamiento.Visible) || (aAdminTratamientos.Visible) || (aCalificarTratamiento.Visible) || (aAdminPatologias.Visible) ||
+                (aAdminTerapias.Visible) || (aCaracteristicasPaciente.Visible) || (aPacienteTratamiento.Visible));
         }
 
         public void TraducirTexto()
@@ -106,7 +110,10 @@ namespace GUI
             span4.Attributes["class"] = "caret";
             aTerapias.Controls.Add(span4);
 
+            aAdminTerapias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 140);
             aAdminTratamientos.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 117);
+            aTratamientoTerapia.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 133) +
+                                            " / " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 136);
             aProfesionalTratamiento.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 116);
             aAdminPatologias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 122);
             aCaracteristicasPaciente.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 123);

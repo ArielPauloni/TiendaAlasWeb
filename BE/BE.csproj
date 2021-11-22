@@ -53,6 +53,7 @@
     <Compile Include="PatologiaBE.cs" />
     <Compile Include="PermisoBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerapiaBE.cs" />
     <Compile Include="TextoBE.cs" />
     <Compile Include="TipoMensajeBE.cs" />
     <Compile Include="TipoUsuarioBE.cs" />

@@ -4,6 +4,7 @@
 
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
+    <br />
     <div class="container">
         <div class="form-group col-md-12">
             <asp:Label ID="lblTipoUsuario" runat="server" Text="-Tipo Usuario"></asp:Label>

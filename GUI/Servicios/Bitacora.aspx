@@ -5,6 +5,7 @@
 
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
+    <br />
     <div class="form-group col-md-12">
         <button runat="server" id="btnMostrarFiltros" class="btn btn-primary fa fa-filter" onserverclick="btnMostrarFiltros_Click">
         </button>

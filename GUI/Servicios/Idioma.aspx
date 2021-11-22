@@ -5,6 +5,7 @@
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="form-group col-md-12">
         <br />
+        <br />
         <asp:Label ID="lblIdioma" runat="server" Text="-Idioma" Font-Bold="true"></asp:Label>
         :<asp:DropDownList ID="ddlIdiomas" ClientIDMode="Static" runat="server" AutoPostBack="true" CssClass="form-control form-control-select" OnSelectedIndexChanged="ddlIdiomas_SelectedIndexChanged" Width="159px"></asp:DropDownList>
         <br />

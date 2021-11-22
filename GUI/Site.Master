@@ -79,7 +79,9 @@
                         <li class="dropdown">
                             <a id="aTerapias" runat="server" class="dropdown-toggle fa fa-user-md" data-toggle="dropdown" href="#">-Terapias<span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li><a id="aAdminTerapias" class="fa fa-envira" runat="server" href="~/Negocio/ABMs/Terapia.aspx">-Administrar Terapias</a></li>
                                 <li><a id="aAdminTratamientos" class="fa fa-medkit" runat="server" href="~/Negocio/ABMs/Tratamiento.aspx">-Administrar Tratamientos</a></li>
+                                <li><a id="aTratamientoTerapia" class="fa fa-link" runat="server" href="~/Negocio/ABMs/TratamientoTerapias.aspx">-Tratamiento / Terapias</a></li>
                                 <li><a id="aProfesionalTratamiento" class="fa fa-user-md" runat="server" href="~/Negocio/ABMs/ProfesionalTratamiento.aspx">-Profesional / tratamiento</a></li>
                                 <li><a id="aCalificarTratamiento" class="fa fa-thumbs-up" runat="server" href="~/Negocio/ABMs/CalificarTratamiento.aspx">-Calificar tratamiento</a></li>
                                 <li><a id="aAdminPatologias" class="fa fa-stethoscope" runat="server" href="~/Negocio/ABMs/Patologia.aspx">-Administrar Patologías</a></li>

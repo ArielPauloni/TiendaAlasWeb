@@ -19,6 +19,12 @@ namespace BLL
             return m.Listar();
         }
 
+        public List<Tuple<TerapiaBE, short>> ObtenerTerapiasPorTratamiento(TratamientoBE tratamiento)
+        {
+            TratamientoMapper m = new TratamientoMapper();
+            return m.ObtenerTerapiasPorTratamiento(tratamiento);
+        }
+
         public int Insertar(TratamientoBE tratamiento, UsuarioBE usuarioAutenticado)
         {
             int retVal = 0;
@@ -38,6 +44,30 @@ namespace BLL
             {
                 TratamientoMapper m = new TratamientoMapper();
                 retVal = m.Actualizar(tratamiento);
+            }
+            else { throw new SL.SinPermisosException(); }
+            return retVal;
+        }
+
+        public int InsertarTratamientoTerapia(TratamientoBE tratamiento, Tuple<TerapiaBE, short> terapia, UsuarioBE usuarioAutenticado)
+        {
+            int retVal = 0;
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Tratamiento"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                retVal = m.InsertarTratamientoTerapia(tratamiento, terapia);
+            }
+            else { throw new SL.SinPermisosException(); }
+            return retVal;
+        }
+
+        public int EliminarTratamientoTerapia(TratamientoBE tratamiento, TerapiaBE terapia, UsuarioBE usuarioAutenticado)
+        {
+            int retVal = 0;
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Tratamiento"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                retVal = m.EliminarTratamientoTerapia(tratamiento, terapia);
             }
             else { throw new SL.SinPermisosException(); }
             return retVal;
