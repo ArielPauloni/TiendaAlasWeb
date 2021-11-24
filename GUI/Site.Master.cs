@@ -59,8 +59,11 @@ namespace GUI
                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Patologia"), (UsuarioBE)Session["UsuarioAutenticado"])) ||
                (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Eliminar Patologia"), (UsuarioBE)Session["UsuarioAutenticado"])));
             aPacienteTratamiento.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Tratamiento Paciente"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            aAdminPacientePatologias.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Paciente Patologia"), (UsuarioBE)Session["UsuarioAutenticado"]);
             aTerapias.Visible = ((aProfesionalTratamiento.Visible) || (aAdminTratamientos.Visible) || (aCalificarTratamiento.Visible) || (aAdminPatologias.Visible) ||
-                (aAdminTerapias.Visible) || (aCaracteristicasPaciente.Visible) || (aPacienteTratamiento.Visible));
+                (aAdminTerapias.Visible) || (aCaracteristicasPaciente.Visible) || (aPacienteTratamiento.Visible) || aAdminPacientePatologias.Visible);
+            aRptPatologias.Visible = gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Visualizar Reportes"), (UsuarioBE)Session["UsuarioAutenticado"]);
+            aReportes.Visible = aRptPatologias.Visible;
         }
 
         public void TraducirTexto()
@@ -117,6 +120,11 @@ namespace GUI
             aProfesionalTratamiento.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 116);
             aAdminPatologias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 122);
             aCaracteristicasPaciente.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 123);
+            aPacienteTratamiento.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 148);
+            aAdminPacientePatologias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 145);
+
+            aReportes.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 151);
+            aRptPatologias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 121);
 
             aSignUp.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
             aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10);

@@ -37,6 +37,18 @@ namespace BLL
             return retVal;
         }
 
+        public int InsertarPacienteTratamiento(PacienteBE paciente, TratamientoBE tratamiento, UsuarioBE usuarioAutenticado)
+        {
+            int retVal = 0;
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Tratamiento Paciente"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                retVal = m.InsertarPacienteTratamiento(paciente, tratamiento);
+            }
+            else { throw new SL.SinPermisosException(); }
+            return retVal;
+        }
+
         public int Actualizar(TratamientoBE tratamiento, UsuarioBE usuarioAutenticado)
         {
             int retVal = 0;
@@ -101,10 +113,14 @@ namespace BLL
             else { throw new SL.SinPermisosException(); }
         }
 
-        public int GrabarCalificacion(TratamientoBE tratamiento, UsuarioBE profesional, UsuarioBE usuarioAutenticado, int calificacion)
+        public int GrabarCalificacion(TratamientoBE tratamiento, PacienteBE paciente, UsuarioBE usuarioAutenticado)
         {
-            TratamientoMapper m = new TratamientoMapper();
-            return m.GrabarCalificacion(tratamiento, profesional, calificacion, usuarioAutenticado);
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Calificar tratamiento"), usuarioAutenticado))
+            {
+                TratamientoMapper m = new TratamientoMapper();
+                return m.GrabarCalificacion(tratamiento, paciente);
+            }
+            else { throw new SL.SinPermisosException(); }
         }
 
         public double ObtenerPromedioCalificacion(TratamientoBE tratamiento, UsuarioBE profesional)
@@ -122,6 +138,74 @@ namespace BLL
             }
             catch (Exception)
             { return 0; }
+        }
+
+        /// <summary>
+        /// Sugiere tratamiento para el paciente con más cantidad de características similares dentro de los 
+        /// de la lista de evaluaciones (más de 2 coincidencias). Debe coincidir también la patología y 
+        ///  tener una calificación mayor a 5 en la evaluación.
+        /// </summary>
+        /// <param name="paciente">Paciente al que se le quiere sugerir tratamiento</param>
+        /// <param name="caracteristicas">Caracteristicas del paciente al que se le quiere sugerir tratamiento</param>
+        /// <param name="evaluaciones">Lista de evaluaciones cargadas en el sistema</param>
+        /// <returns></returns>
+        public TratamientoBE SugerirTratamiento(PacienteBE paciente, PacienteCaracteristicaBE caracteristicas, List<EvaluacionBE> evaluaciones)
+        {
+            List<EvaluacionBE> evaluacionesConMismaPatologia = new List<EvaluacionBE>();
+            List<Tuple<EvaluacionBE, short>> rankingEvaluacionesConMismaPatologia = new List<Tuple<EvaluacionBE, short>>();
+            TratamientoBE tratamientoRecomendado = null;
+            Boolean malEvaluada = false;
+
+            foreach (EvaluacionBE evaluacion in evaluaciones)
+            {
+                if (string.Compare(paciente.Patologia.DescripcionPatologia, evaluacion.Paciente.Patologia.DescripcionPatologia, true) == 0)
+                {
+                    //Solo si el grado de Satisfacción es mayor a 5
+                    if (evaluacion.GradoSatisfaccion > 5)
+                    {
+                        evaluacionesConMismaPatologia.Add(evaluacion);
+                        malEvaluada = false;
+                    }
+                    else { malEvaluada = true; }
+                }
+            }
+
+            if (evaluacionesConMismaPatologia.Count == 0 && !malEvaluada) { throw new BLL.PatologiaNoEvaluadaException(paciente.Patologia.DescripcionPatologia); }
+            else if (evaluacionesConMismaPatologia.Count == 0 && malEvaluada) { throw new BLL.PatologiaMalEvaluadaException(paciente.Patologia.DescripcionPatologia); }
+            else
+            {
+                //Ranking (ordenado) de pacientes con más cantidad de características similares
+                foreach (EvaluacionBE eva in evaluacionesConMismaPatologia)
+                {
+                    short cantidadAciertos = 0;
+                    if (caracteristicas.Fuma == eva.PacienteCaracteristicas.Fuma) { cantidadAciertos++; }
+                    if (caracteristicas.Genero == eva.PacienteCaracteristicas.Genero) { cantidadAciertos++; }
+                    if (Enumerable.Range(caracteristicas.Edad - 7, caracteristicas.Edad + 7).Contains(eva.PacienteCaracteristicas.Edad)) { cantidadAciertos++; }
+                    if (caracteristicas.DiasActividadDeportiva.HasValue && eva.PacienteCaracteristicas.DiasActividadDeportiva.HasValue)
+                    {
+                        if (Enumerable.Range(caracteristicas.DiasActividadDeportiva.Value - 1, caracteristicas.DiasActividadDeportiva.Value + 1).Contains(eva.PacienteCaracteristicas.DiasActividadDeportiva.Value)) { cantidadAciertos++; }
+                    }
+                    if (caracteristicas.HorasRelax.HasValue && eva.PacienteCaracteristicas.HorasRelax.HasValue)
+                    {
+                        if (Enumerable.Range(caracteristicas.HorasRelax.Value - 5, caracteristicas.HorasRelax.Value + 5).Contains(eva.PacienteCaracteristicas.HorasRelax.Value)) { cantidadAciertos++; }
+                    }
+
+                    if (cantidadAciertos > 2)
+                    { rankingEvaluacionesConMismaPatologia.Add(new Tuple<EvaluacionBE, short>(eva, cantidadAciertos)); }
+                }
+                if (rankingEvaluacionesConMismaPatologia.Count > 0)
+                {
+                    rankingEvaluacionesConMismaPatologia = rankingEvaluacionesConMismaPatologia.OrderByDescending(i => i.Item2).ToList();
+                    Tuple<EvaluacionBE, short> mayorCoincidencia = rankingEvaluacionesConMismaPatologia.FirstOrDefault();
+                    tratamientoRecomendado = mayorCoincidencia.Item1.Tratamiento;
+                }
+                else
+                {
+                    throw new BLL.PacienteSinCoincidenciasSuficientesException(paciente.Patologia.DescripcionPatologia);
+                }
+            }
+
+            return tratamientoRecomendado;
         }
     }
 }

@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EvaluacionBLL.cs" />
     <Compile Include="ExcepcionesBLL.cs" />
+    <Compile Include="PacienteBLL.cs" />
     <Compile Include="PacienteCaracteristicaBLL.cs" />
     <Compile Include="PatologiaBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

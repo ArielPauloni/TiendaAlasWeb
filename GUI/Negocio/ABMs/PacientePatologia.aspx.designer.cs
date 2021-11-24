@@ -10,7 +10,7 @@
 namespace GUI.Negocio.ABMs {
     
     
-    public partial class PacienteTratamiento {
+    public partial class PacientePatologia {
         
         /// <summary>
         /// Control lblTitle.
@@ -40,40 +40,22 @@ namespace GUI.Negocio.ABMs {
         protected global::System.Web.UI.WebControls.DropDownList ddlPacientes;
         
         /// <summary>
-        /// Control lblTratamiento.
+        /// Control lblPatologia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTratamiento;
+        protected global::System.Web.UI.WebControls.Label lblPatologia;
         
         /// <summary>
-        /// Control ddlTratamiento.
+        /// Control ddlPatologia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTratamiento;
-        
-        /// <summary>
-        /// Control lblConsultarTratamiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConsultarTratamiento;
-        
-        /// <summary>
-        /// Control btnRecomendarTratamiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnRecomendarTratamiento;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPatologia;
         
         /// <summary>
         /// Control btnGuardar.
@@ -85,13 +67,22 @@ namespace GUI.Negocio.ABMs {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnGuardar;
         
         /// <summary>
-        /// Control grvTratamientos.
+        /// Control lblPatologiaPaciente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grvTratamientos;
+        protected global::System.Web.UI.WebControls.Label lblPatologiaPaciente;
+        
+        /// <summary>
+        /// Control txtPatologia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPatologia;
         
         /// <summary>
         /// Control UC_MensajeModal.

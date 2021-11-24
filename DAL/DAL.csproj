@@ -46,6 +46,7 @@
     <Compile Include="AccesoSQL.cs" />
     <Compile Include="BackupMapper.cs" />
     <Compile Include="BitacoraMapper.cs" />
+    <Compile Include="EvaluacionMapper.cs" />
     <Compile Include="ExcepcionesDAL.cs" />
     <Compile Include="IdiomaMapper.cs" />
     <Compile Include="PacienteCaracteristicaMapper.cs" />

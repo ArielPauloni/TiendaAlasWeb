@@ -85,8 +85,15 @@
                                 <li><a id="aProfesionalTratamiento" class="fa fa-user-md" runat="server" href="~/Negocio/ABMs/ProfesionalTratamiento.aspx">-Profesional / tratamiento</a></li>
                                 <li><a id="aCalificarTratamiento" class="fa fa-thumbs-up" runat="server" href="~/Negocio/ABMs/CalificarTratamiento.aspx">-Calificar tratamiento</a></li>
                                 <li><a id="aAdminPatologias" class="fa fa-stethoscope" runat="server" href="~/Negocio/ABMs/Patologia.aspx">-Administrar Patologías</a></li>
+                                <li><a id="aAdminPacientePatologias" class="fa fa-plus" runat="server" href="~/Negocio/ABMs/PacientePatologia.aspx"> -Patología por Paciente</a></li>
                                 <li><a id="aCaracteristicasPaciente" class="fa fa-heartbeat" runat="server" href="~/Negocio/ABMs/CaracteristicaPaciente.aspx">-Características del Paciente</a></li>
                                 <li><a id="aPacienteTratamiento" class="fa fa-ambulance" runat="server" href="~/Negocio/ABMs/PacienteTratamiento.aspx">-Asignar tratamiento a Paciente</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="aReportes" runat="server" class="dropdown-toggle fa fa-user-md" data-toggle="dropdown" href="#">-Informes<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="aRptPatologias" class="fa fa-bar-chart" runat="server" href="~/Reportes/RptPatologias.aspx">-Patologías</a></li>
                             </ul>
                         </li>
                     </ul>

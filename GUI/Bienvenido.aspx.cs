@@ -80,32 +80,124 @@ namespace GUI
             //usuarioAdmin.TipoUsuario.Cod_Tipo = 1;
             //int new_i = gestorUsuario.Insertar(usuarioAdmin, (UsuarioBE)Session["UsuarioAutenticado"]);
 
+            PacienteCaracteristicaBLL gestorCaracteristicas = new PacienteCaracteristicaBLL();
+            PatologiaBLL gestorPatologia = new PatologiaBLL();
+            TratamientoBLL gestorTratamiento = new TratamientoBLL();
+            //Usuario:
             UsuarioBE usuario = new UsuarioBE();
             usuario.TipoUsuario = new TipoUsuarioBE();
-            usuario.Apellido = "Pellegrino";
-            usuario.Nombre = "Luciana";
-            usuario.Alias = "Luchita";
-            usuario.Contraseña = gestorEncriptacion.SimpleEncrypt("Profesional123");
-            usuario.TipoUsuario.Cod_Tipo = 3;
+            usuario.Apellido = "Paciente 19";
+            usuario.Nombre = "Paciente 19";
+            usuario.Alias = "Paciente19";
+            usuario.FechaNacimiento = DateTime.Now.AddDays(-90).AddYears(-27);
+            usuario.Mail = "paciente19@mail.com";
+            usuario.Contraseña = gestorEncriptacion.SimpleEncrypt("Paciente123");
+            usuario.TipoUsuario.Cod_Tipo = 2;
             int i = gestorUsuario.Insertar(usuario, (UsuarioBE)Session["UsuarioAutenticado"]);
-
+            //Características:
+            usuario.Cod_Usuario = 24;
+            PacienteCaracteristicaBE pacienteCaracteristica = new PacienteCaracteristicaBE();
+            pacienteCaracteristica.Paciente = usuario;
+            pacienteCaracteristica.Genero = 1;
+            pacienteCaracteristica.Fuma = true;
+            pacienteCaracteristica.DiasActividadDeportiva = 1;
+            pacienteCaracteristica.HorasRelax = 11;
+            i = gestorCaracteristicas.Actualizar(pacienteCaracteristica, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Patología:
+            PatologiaBE patologia = new PatologiaBE() { Cod_Patologia = 1 };
+            PacienteBE paciente = new PacienteBE() { Cod_Usuario = usuario.Cod_Usuario };
+            i = gestorPatologia.InsertarPacientePatologia(paciente, patologia, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Tratamiento y Calificación:
+            TratamientoBE tratamiento = new TratamientoBE() { Cod_Tratamiento = 6, Calificacion = 4 };
+            i = gestorTratamiento.InsertarPacienteTratamiento(paciente, tratamiento, (UsuarioBE)Session["UsuarioAutenticado"]);
+            i = gestorTratamiento.GrabarCalificacion(tratamiento, paciente, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //*********************************************************************//
+            //Usuario:
             UsuarioBE usuario1 = new UsuarioBE();
             usuario1.TipoUsuario = new TipoUsuarioBE();
-            usuario1.Apellido = "Perez";
-            usuario1.Nombre = "Juan";
-            usuario1.Alias = "Paciente1";
+            usuario1.Apellido = "Paciente 20";
+            usuario1.Nombre = "Paciente 20";
+            usuario1.Alias = "Paciente20";
+            usuario1.FechaNacimiento = DateTime.Now.AddDays(-80).AddYears(-54);
+            usuario1.Mail = "paciente20@mail.com";
             usuario1.Contraseña = gestorEncriptacion.SimpleEncrypt("Paciente123");
             usuario1.TipoUsuario.Cod_Tipo = 2;
             int j = gestorUsuario.Insertar(usuario1, (UsuarioBE)Session["UsuarioAutenticado"]);
-
+            //Características:
+            usuario1.Cod_Usuario = 25;
+            PacienteCaracteristicaBE pacienteCaracteristica1 = new PacienteCaracteristicaBE();
+            pacienteCaracteristica1.Paciente = usuario1;
+            pacienteCaracteristica1.Genero = 0;
+            pacienteCaracteristica1.Fuma = false;
+            pacienteCaracteristica1.DiasActividadDeportiva = 4;
+            pacienteCaracteristica1.HorasRelax = 16;
+            j = gestorCaracteristicas.Actualizar(pacienteCaracteristica1, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Patología:
+            PatologiaBE patologia1 = new PatologiaBE() { Cod_Patologia = 6 };
+            PacienteBE paciente1 = new PacienteBE() { Cod_Usuario = usuario1.Cod_Usuario };
+            j = gestorPatologia.InsertarPacientePatologia(paciente1, patologia1, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Tratamiento y Calificación:
+            TratamientoBE tratamiento1 = new TratamientoBE() { Cod_Tratamiento = 1, Calificacion = 7 };
+            j = gestorTratamiento.InsertarPacienteTratamiento(paciente1, tratamiento1, (UsuarioBE)Session["UsuarioAutenticado"]);
+            j = gestorTratamiento.GrabarCalificacion(tratamiento1, paciente1, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //*********************************************************************//
+            //Usuario:
             UsuarioBE usuario2 = new UsuarioBE();
             usuario2.TipoUsuario = new TipoUsuarioBE();
-            usuario2.Apellido = "Gomez";
-            usuario2.Nombre = "Martin";
-            usuario2.Alias = "Paciente2";
+            usuario2.Apellido = "Paciente 21";
+            usuario2.Nombre = "Paciente 21";
+            usuario2.Alias = "Paciente21";
+            usuario2.FechaNacimiento = DateTime.Now.AddDays(-22).AddYears(-19);
+            usuario2.Mail = "paciente21@mail.com";
             usuario2.Contraseña = gestorEncriptacion.SimpleEncrypt("Paciente123");
             usuario2.TipoUsuario.Cod_Tipo = 2;
             int k = gestorUsuario.Insertar(usuario2, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Características:
+            usuario2.Cod_Usuario = 26;
+            PacienteCaracteristicaBE pacienteCaracteristica2 = new PacienteCaracteristicaBE();
+            pacienteCaracteristica2.Paciente = usuario2;
+            pacienteCaracteristica2.Genero = 1;
+            pacienteCaracteristica2.Fuma = false;
+            pacienteCaracteristica2.DiasActividadDeportiva = 0;
+            pacienteCaracteristica2.HorasRelax = 10;
+            k = gestorCaracteristicas.Actualizar(pacienteCaracteristica2, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Patología:
+            PatologiaBE patologia2 = new PatologiaBE() { Cod_Patologia = 1 };
+            PacienteBE paciente2 = new PacienteBE() { Cod_Usuario = usuario2.Cod_Usuario };
+            k = gestorPatologia.InsertarPacientePatologia(paciente2, patologia2, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Tratamiento y Calificación:
+            TratamientoBE tratamiento2 = new TratamientoBE() { Cod_Tratamiento = 4, Calificacion = 6 };
+            k = gestorTratamiento.InsertarPacienteTratamiento(paciente2, tratamiento2, (UsuarioBE)Session["UsuarioAutenticado"]);
+            k = gestorTratamiento.GrabarCalificacion(tratamiento2, paciente2, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //*********************************************************************//
+            //Usuario:
+            UsuarioBE usuario3 = new UsuarioBE();
+            usuario3.TipoUsuario = new TipoUsuarioBE();
+            usuario3.Apellido = "Paciente 22";
+            usuario3.Nombre = "Paciente 22";
+            usuario3.Alias = "Paciente22";
+            usuario3.FechaNacimiento = DateTime.Now.AddDays(-8).AddYears(-45);
+            usuario3.Mail = "paciente22@mail.com";
+            usuario3.Contraseña = gestorEncriptacion.SimpleEncrypt("Paciente123");
+            usuario3.TipoUsuario.Cod_Tipo = 2;
+            int l = gestorUsuario.Insertar(usuario3, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Características:
+            usuario3.Cod_Usuario = 27;
+            PacienteCaracteristicaBE pacienteCaracteristica3 = new PacienteCaracteristicaBE();
+            pacienteCaracteristica3.Paciente = usuario3;
+            pacienteCaracteristica3.Genero = 1;
+            pacienteCaracteristica3.Fuma = false;
+            pacienteCaracteristica3.DiasActividadDeportiva = 3;
+            pacienteCaracteristica3.HorasRelax = 14;
+            l = gestorCaracteristicas.Actualizar(pacienteCaracteristica3, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Patología:
+            PatologiaBE patologia3 = new PatologiaBE() { Cod_Patologia = 4 };
+            PacienteBE paciente3 = new PacienteBE() { Cod_Usuario = usuario3.Cod_Usuario };
+            l = gestorPatologia.InsertarPacientePatologia(paciente3, patologia3, (UsuarioBE)Session["UsuarioAutenticado"]);
+            //Tratamiento y Calificación:
+            TratamientoBE tratamiento3 = new TratamientoBE() { Cod_Tratamiento = 6, Calificacion = 6 };
+            l = gestorTratamiento.InsertarPacienteTratamiento(paciente3, tratamiento3, (UsuarioBE)Session["UsuarioAutenticado"]);
+            l = gestorTratamiento.GrabarCalificacion(tratamiento3, paciente3, (UsuarioBE)Session["UsuarioAutenticado"]);
         }
     }
 }

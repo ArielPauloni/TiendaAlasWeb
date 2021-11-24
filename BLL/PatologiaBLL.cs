@@ -42,5 +42,23 @@ namespace BLL
             else { throw new SL.SinPermisosException(); }
             return retVal;
         }
+
+        public int InsertarPacientePatologia(PacienteBE paciente, PatologiaBE Patologia, UsuarioBE usuarioAutenticado)
+        {
+            int retVal = 0;
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Editar Paciente Patologia"), usuarioAutenticado))
+            {
+                PatologiaMapper m = new PatologiaMapper();
+                retVal = m.InsertarPacientePatologia(paciente, Patologia);
+            }
+            else { throw new SL.SinPermisosException(); }
+            return retVal;
+        }
+
+        public List<PacienteBE> ListarPacientesPorPatologia(PatologiaBE patologia)
+        {
+            PatologiaMapper m = new PatologiaMapper();
+            return m.ListarPacientesPorPatologia(patologia);
+        }
     }
 }

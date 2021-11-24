@@ -32,12 +32,25 @@ namespace BE
             set { terapias = value; }
         }
 
-        private float valorTotal;
+        private short calificacion;
+
+        public short Calificacion
+        {
+            get { return calificacion; }
+            set { calificacion = value; }
+        }
 
         public float ValorTotal
         {
-            get { return valorTotal; }
-            set { valorTotal = value; }
+            get
+            {
+                float valTotal = 0;
+                foreach (Tuple<TerapiaBE, short> t in terapias)
+                {
+                    valTotal += t.Item1.Precio * t.Item2;
+                }
+                return valTotal;
+            }
         }
         
         private Boolean activo;

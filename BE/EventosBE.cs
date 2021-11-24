@@ -33,7 +33,11 @@ namespace BE
             BajaDeRelacionTratamientoProfesional,
             TerapiaCreada,
             CambioTerapia,
-            CambioRelacionTratamientoTerapia
+            CambioRelacionTratamientoTerapia,
+            ActualizaPatologiaDelPaciente,
+            AsignarTratamientoPaciente,
+            CalificarTratamiento,
+            ConsultaTratamientoRecomendado
         }
 
         public enum Criticidad

@@ -102,7 +102,7 @@ namespace GUI.Negocio.ABMs
         {
             try
             {
-                if (ddlTerapias.SelectedIndex > -1 && ddlTratamientos.SelectedIndex > -1 && ddlCantidadSesiones.SelectedIndex > -10)
+                if (ddlTerapias.SelectedIndex > -1 && ddlTratamientos.SelectedIndex > -1 && ddlCantidadSesiones.SelectedIndex > -1)
                 {
                     TratamientoBE trat = new TratamientoBE()
                     {

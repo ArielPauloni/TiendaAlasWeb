@@ -30,5 +30,11 @@ namespace BLL
             else { throw new SL.SinPermisosException(); }
             return retVal;
         }
+
+        public PacienteCaracteristicaBE ListarCaracteristicasPaciente(PacienteBE paciente)
+        {
+            PacienteCaracteristicaMapper m = new PacienteCaracteristicaMapper();
+            return m.ListarCaracteristicasPaciente(paciente);
+        }
     }
 }

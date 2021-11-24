@@ -193,6 +193,15 @@ namespace GUI {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aAdminPatologias;
         
         /// <summary>
+        /// Control aAdminPacientePatologias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aAdminPacientePatologias;
+        
+        /// <summary>
         /// Control aCaracteristicasPaciente.
         /// </summary>
         /// <remarks>
@@ -209,6 +218,24 @@ namespace GUI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor aPacienteTratamiento;
+        
+        /// <summary>
+        /// Control aReportes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aReportes;
+        
+        /// <summary>
+        /// Control aRptPatologias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aRptPatologias;
         
         /// <summary>
         /// Control aSignUp.

@@ -85,7 +85,7 @@ internal class AccesoSQL
             {
                 myAdaptador.Fill(TablaRet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TablaRet = null;
             }

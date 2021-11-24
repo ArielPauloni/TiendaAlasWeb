@@ -108,7 +108,82 @@ namespace SL
                         559, 15, i, TextAlignment.RIGHT,
                         VerticalAlignment.BOTTOM, 0);
                     document.ShowTextAligned(new Paragraph(String
-                       .Format("©Tienda Alada")),
+                       .Format("©Tienda Alas")),
+                        35, 15, i, TextAlignment.LEFT,
+                        VerticalAlignment.BOTTOM, 0);
+                }
+                //*****************************************************//
+                document.Close();
+                //System.Diagnostics.Process.Start("chrome.EXE", filePath);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void GuardarGraficoPDF(string filePath, string headerText, string subHeaderText,
+                               string textoLibre, byte[] imagen, string pageFormatStr)
+        {
+            try
+            {
+                PdfWriter writer = new PdfWriter(filePath);
+                PdfDocument pdf = new PdfDocument(writer);
+                Document document = new Document(pdf, PageSize.A4, false);
+
+                document.ShowTextAligned(new Paragraph(String
+                       .Format("Tienda Alas")),
+                        35, 806, 1, TextAlignment.LEFT,
+                        VerticalAlignment.TOP, 0);
+                document.ShowTextAligned(new Paragraph(String
+                       .Format(DateTime.Now.ToString("dd/MM/yyyy"))),
+                        559, 806, 1, TextAlignment.RIGHT,
+                        VerticalAlignment.TOP, 0);
+
+                //Título:
+                Paragraph header = new Paragraph(headerText.ToUpper())
+                   .SetTextAlignment(TextAlignment.CENTER)
+                   .SetFontSize(18);
+                header.SetBold();
+                document.Add(header);
+                //*****************************************************//
+                // New line
+                Paragraph newline = new Paragraph(new Text("\n"));
+                //*****************************************************//
+                //Subtítulo:
+                Paragraph subheader = new Paragraph(subHeaderText)
+                     .SetTextAlignment(TextAlignment.CENTER)
+                     .SetFontSize(13);
+                document.Add(subheader);
+                //*****************************************************//
+                // Line separator
+                LineSeparator ls = new LineSeparator(new SolidLine());
+                document.Add(ls);
+                //*****************************************************//
+                // Add paragraph1
+                Paragraph paragraph1 = new Paragraph(textoLibre);
+                document.Add(paragraph1);
+                document.Add(newline);
+                //*****************************************************//
+                // Add image
+                iText.Layout.Element.Image img = new iText.Layout.Element.Image(ImageDataFactory
+                   .Create(imagen))
+                   .SetTextAlignment(TextAlignment.CENTER);
+                img.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+                document.Add(img);
+
+                document.Add(newline);
+                //*****************************************************//
+                // Page numbers
+                int n = pdf.GetNumberOfPages();
+                for (int i = 1; i <= n; i++)
+                {
+                    document.ShowTextAligned(new Paragraph(String
+                       .Format(pageFormatStr, i, n)),
+                        559, 15, i, TextAlignment.RIGHT,
+                        VerticalAlignment.BOTTOM, 0);
+                    document.ShowTextAligned(new Paragraph(String
+                       .Format("©Tienda Alas")),
                         35, 15, i, TextAlignment.LEFT,
                         VerticalAlignment.BOTTOM, 0);
                 }

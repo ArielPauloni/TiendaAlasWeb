@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitacoraBE.cs" />
+    <Compile Include="EvaluacionBE.cs" />
     <Compile Include="EventosBE.cs" />
     <Compile Include="IdiomaBE.cs" />
     <Compile Include="MedioDePagoBE.cs" />
+    <Compile Include="PacienteBE.cs" />
     <Compile Include="PacienteCaracteristicaBE.cs" />
     <Compile Include="PatologiaBE.cs" />
     <Compile Include="PermisoBE.cs" />

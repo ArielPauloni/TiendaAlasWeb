@@ -46,6 +46,39 @@ namespace DAL
             return myLista;
         }
 
+        public PacienteCaracteristicaBE ListarCaracteristicasPaciente(PacienteBE paciente)
+        {
+           PacienteCaracteristicaBE pacienteCaracteristica = new PacienteCaracteristicaBE();
+            AccesoSQL AccesoSQL = new AccesoSQL();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(AccesoSQL.CrearParametroInt("Cod_Paciente", paciente.Cod_Usuario));
+            DataTable tabla = AccesoSQL.Leer("pr_Listar_CaracteristicasDelPaciente", parametros);
+            if (tabla != null)
+            {
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    UsuarioBE pacienteRet = new UsuarioBE();
+                    pacienteRet.Cod_Usuario = int.Parse(fila["Cod_Usuario"].ToString());
+                    pacienteRet.Apellido = fila["Apellido"].ToString();
+                    pacienteRet.Nombre = fila["Nombre"].ToString();
+                    pacienteRet.Alias = fila["Alias"].ToString();
+                    pacienteRet.Mail = fila["Mail"].ToString();
+                    if (!string.IsNullOrWhiteSpace(fila["FechaNacimiento"].ToString()))
+                    { pacienteRet.FechaNacimiento = (DateTime)fila["FechaNacimiento"]; }
+                    else { pacienteRet.FechaNacimiento = default(DateTime?); }
+
+                    pacienteCaracteristica.Paciente = pacienteRet;
+                    pacienteCaracteristica.Genero = fila["Genero"] == DBNull.Value ? null : (short?)short.Parse(fila["Genero"].ToString());
+                    if (!string.IsNullOrWhiteSpace(fila["Fuma"].ToString()))
+                    { pacienteCaracteristica.Fuma = (bool)fila["Fuma"]; }
+                    else { pacienteCaracteristica.Fuma = false; }
+                    pacienteCaracteristica.DiasActividadDeportiva = fila["DiasActividadDeportiva"] == DBNull.Value ? null : (short?)short.Parse(fila["DiasActividadDeportiva"].ToString());
+                    pacienteCaracteristica.HorasRelax = fila["HorasRelax"] == DBNull.Value ? null : (short?)short.Parse(fila["HorasRelax"].ToString());
+                }
+            }
+            return pacienteCaracteristica;
+        }
+
         public int Actualizar(PacienteCaracteristicaBE pacienteCaracteristica)
         {
             AccesoSQL AccesoSQL = new AccesoSQL();
