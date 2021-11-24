@@ -168,7 +168,7 @@ namespace GUI.Negocio.Usuario
                                 usuario.Permisos = ((UsuarioBE)Session["UsuarioAutenticado"]).Permisos;
                                 usuario.Idioma = ((UsuarioBE)Session["UsuarioAutenticado"]).Idioma;
                                 Session["UsuarioAutenticado"] = usuario;
-                                gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.AltaDeUsuario, (short)EventosBE.Criticidad.Media);
+                                gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.ModificaciónUsuario, (short)EventosBE.Criticidad.Media);
                                 UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["DatosGrabadosOk"].ToString());
                                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                             }

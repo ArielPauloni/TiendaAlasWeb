@@ -42,7 +42,6 @@ namespace GUI.Reportes
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect(@"~\Bienvenido.aspx");
             if (!IsPostBack)
             {
                 Subject.CleanObserversAll();
@@ -84,7 +83,7 @@ namespace GUI.Reportes
         protected void btnExportarPDF_ServerClick(object sender, EventArgs e)
         {
             string tmpPath = Server.MapPath("~/");
-            string filename = String.Format("TiendaAlas_Reporte_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
+            string filename = String.Format("TiendaAlas_RptPatologias_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
 
             byte[] bytes = null;
             using (MemoryStream memoryStream = new MemoryStream())
