@@ -86,7 +86,7 @@ namespace GUI
             Page.Title = "Tienda Alas";
             aAbout.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 14);
             aContact.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 15);
-            aHome.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 4);
+            aHome.Title = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 4);
 
             aSecurity.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 5) + " ";
             var span1 = new HtmlGenericControl("span");
@@ -122,9 +122,14 @@ namespace GUI
             aCaracteristicasPaciente.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 123);
             aPacienteTratamiento.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 148);
             aAdminPacientePatologias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 145);
+            aCalificarTratamiento.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 143);
 
-            aReportes.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 151);
+            aReportes.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 151) + " ";
             aRptPatologias.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 121);
+
+            var span5 = new HtmlGenericControl("span");
+            span5.Attributes["class"] = "caret";
+            aReportes.Controls.Add(span5);
 
             aSignUp.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 9);
             aLogin.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 10);

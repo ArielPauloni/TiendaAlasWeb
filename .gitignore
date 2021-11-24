@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /GUI/Imagenes/processing.gif
+/GUI/Probando.aspx.designer.cs
+/GUI/Probando.aspx.cs
+/GUI/Probando.aspx

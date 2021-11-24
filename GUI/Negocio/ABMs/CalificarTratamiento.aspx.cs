@@ -36,6 +36,7 @@ namespace GUI.Negocio.ABMs
                 ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
                 ViewState["Tratamiento"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 133);
                 ViewState["Calificacion"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 144);
+                lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 143);
             }
         }
 

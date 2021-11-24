@@ -22,6 +22,7 @@ namespace GUI
         {
             if (Session["IdiomaSel"] != null)
             {
+                ViewState["ModifiqueDatos"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 160);
             }
         }
 
@@ -43,7 +44,7 @@ namespace GUI
             if ((Request.UrlReferrer != null) && (Request.UrlReferrer.AbsolutePath.Contains("")) &&
                 (Session["UsuarioCreado"] != null) && ((Boolean)Session["UsuarioCreado"]))
             {
-                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-Modifique sus datos o solicite a un administrador que los actualice");
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["ModifiqueDatos"].ToString());
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 Session["UsuarioCreado"] = false;
             }

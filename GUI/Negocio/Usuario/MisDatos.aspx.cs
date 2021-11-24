@@ -153,6 +153,7 @@ namespace GUI.Negocio.Usuario
                         usuario.IntentosEquivocados = ((UsuarioBE)Session["UsuarioAutenticado"]).IntentosEquivocados;
                         if (((UsuarioBE)Session["UsuarioAutenticado"]).UltimoLogin.HasValue)
                         { usuario.UltimoLogin = ((UsuarioBE)Session["UsuarioAutenticado"]).UltimoLogin.Value; }
+                        usuario.FotoPerfil = ((UsuarioBE)Session["UsuarioAutenticado"]).FotoPerfil;
 
                         try
                         {
@@ -177,7 +178,7 @@ namespace GUI.Negocio.Usuario
                             UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                         }
-                        CargarDatosUsuarioAutenticado();
+                        Response.Redirect("~/Negocio/Usuario/MisDatos.aspx");
                     }
                 }
             }
