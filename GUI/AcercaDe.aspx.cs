@@ -19,6 +19,13 @@ namespace GUI
         {
             if (Session["IdiomaSel"] != null)
             {
+                lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 162);
+                lblHistoria.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 163) + ": ";
+                lblHistoriaTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 166) + "\r\n";
+                lblMision.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 164) + ": ";
+                lblMisionTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 167) + "\r\n";
+                lblVision.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 165) + ": ";
+                lblVisionTexto.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 168) + "\r\n";
             }
         }
 

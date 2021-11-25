@@ -159,10 +159,6 @@ namespace SL
                 // Line separator
                 LineSeparator ls = new LineSeparator(new SolidLine());
                 document.Add(ls);
-                //*****************************************************//
-                // Add paragraph1
-                Paragraph paragraph1 = new Paragraph(textoLibre);
-                document.Add(paragraph1);
                 document.Add(newline);
                 //*****************************************************//
                 // Add image
@@ -172,6 +168,11 @@ namespace SL
                 img.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
                 document.Add(img);
 
+                document.Add(newline);
+                //*****************************************************//
+                // Add paragraph1
+                Paragraph paragraph1 = new Paragraph(textoLibre);
+                document.Add(paragraph1);
                 document.Add(newline);
                 //*****************************************************//
                 // Page numbers

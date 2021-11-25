@@ -71,3 +71,12 @@ body {
     overflow: hidden;
     margin-top: -6px;
 }
+
+.highlight {
+    font-weight: bold;
+}
+
+textarea {
+    max-width: 100%;
+    resize: none;
+}

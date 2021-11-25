@@ -86,7 +86,7 @@ namespace DAL
                 {
                     PacienteBE paciente = new PacienteBE();
                     paciente.Cod_Usuario = int.Parse(fila["Cod_Usuario"].ToString());
-                    paciente.Apellido =fila["Apellido"].ToString();
+                    paciente.Apellido = fila["Apellido"].ToString();
                     paciente.Nombre = fila["Nombre"].ToString();
                     paciente.Alias = fila["Alias"].ToString();
                     myLista.Add(paciente);

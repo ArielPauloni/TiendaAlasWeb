@@ -35,8 +35,10 @@ namespace GUI.Reportes
                 ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
                 ViewState["PatologiasPresentadas"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 153);
                 ViewState["PagFooter"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 99);
+                ViewState["PatologiaTexto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 146);
                 lblTitle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 152);
                 btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
+                lblDetalle.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 161) + ": ";
             }
         }
 
@@ -56,6 +58,7 @@ namespace GUI.Reportes
             int contador = 0;
             float porcentaje = 0;
             float total = 0;
+            string detalle = string.Empty;
             List<PatologiaBE> patologias = gestorPatologia.Listar();
             int[] porcion = new int[patologias.Count];
             string[] nombres = new string[patologias.Count];
@@ -67,7 +70,15 @@ namespace GUI.Reportes
                 nombres[contador] = patologia.DescripcionPatologia + ": " + pacientes.Count.ToString();
                 total += pacientes.Count;
                 contador++;
+                if (pacientes.Count > 0)
+                {
+                    detalle += "* " + ViewState["PatologiaTexto"].ToString() + ": " + patologia.DescripcionPatologia + " \n";
+                    foreach (PacienteBE paciente in pacientes)
+                    { detalle += "- " + paciente.ToString() + "\n"; }
+                    detalle += "\r";
+                }
             }
+            txtDatosPacientes.Text = detalle;
             contador = 0;
             foreach (int i in porcion)
             {
@@ -75,7 +86,6 @@ namespace GUI.Reportes
                 nombres[contador] = nombres[contador] + " (" + porcentaje.ToString("n2") + "%)";
                 contador++;
             }
-
             ctPatologias.Series["Series"].Points.DataBindXY(nombres, porcion);
             ctPatologias.Titles.Add(ViewState["PatologiasPresentadas"].ToString());
         }
@@ -91,7 +101,10 @@ namespace GUI.Reportes
                 ctPatologias.SaveImage(memoryStream, ChartImageFormat.Jpeg);
                 bytes = memoryStream.ToArray();
             }
-            GestorReportes.GuardarGraficoPDF(tmpPath + @"\" + filename, ViewState["PatologiasPresentadas"].ToString(), string.Empty, string.Empty, bytes, ViewState["PagFooter"].ToString());
+
+            //TODO: Mostrar el texto de los pacientes o alguna otra info
+
+            GestorReportes.GuardarGraficoPDF(tmpPath + @"\" + filename, ViewState["PatologiasPresentadas"].ToString(), string.Empty, txtDatosPacientes.Text, bytes, ViewState["PagFooter"].ToString());
 
             Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
         }

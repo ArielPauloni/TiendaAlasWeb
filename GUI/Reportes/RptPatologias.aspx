@@ -23,7 +23,14 @@
         </asp:Chart>
     </div>
 
-     <div class="form-row">
+    <div style="text-align: center;">
+        <asp:Label ID="lblDetalle" runat="server" Text="-Detalle" Font-Bold="true"></asp:Label>
+        <br />
+        <asp:TextBox ID="txtDatosPacientes" runat="server" TextMode="MultiLine" Enabled="false" Height="400px" Width="600px"></asp:TextBox>
+        <br />
+    </div>
+
+    <div class="form-row">
         <div class="form-group" style="text-align: right;">
             <button runat="server" id="btnExportarPDF" class="btn btn-primary fa fa-file-pdf-o" onserverclick="btnExportarPDF_ServerClick"></button>
         </div>

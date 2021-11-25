@@ -363,7 +363,24 @@ namespace GUI.Servicios.Bitacora
             {
                 for (int i = 0; i < dtg.HeaderRow.Cells.Count; i++)
                 {
-                    if (!listaColOcultas.Contains(i)) { dt.Columns.Add(dtg.HeaderRow.Cells[i].Text); }
+                    if (!listaColOcultas.Contains(i))
+                    {
+                        switch (i)
+                        {
+                            case (int)grvBitacoraColumns.CriticidadTexto:
+                                dt.Columns.Add(ViewState["CriticidadTexto"].ToString());
+                                break;
+                            case (int)grvBitacoraColumns.NombreUsuario:
+                                dt.Columns.Add(ViewState["NombreUsuario"].ToString());
+                                break;
+                            case (int)grvBitacoraColumns.DescripcionEvento:
+                                dt.Columns.Add(ViewState["DescripcionEvento"].ToString());
+                                break;
+                            case (int)grvBitacoraColumns.FechaEvento:
+                                dt.Columns.Add(ViewState["FechaEvento"].ToString());
+                                break;
+                        }
+                    }
                 }
             }
             //  add each of the data rows to the table
