@@ -4,6 +4,59 @@
 <%@ Register Src="~/User_Controls/UC_Procesando.ascx" TagPrefix="uc1" TagName="UC_Procesando" %>
 
 <asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
+
+    <style>
+        div.custom_file_upload {
+            width: 50px;
+            height: 30px;
+            margin: 20px 0;
+        }
+
+        div.file_upload {
+            /*width: 150px;*/
+            width: 200px;
+            height: 30px;
+            background: #7abcff;
+            background: -moz-linear-gradient(top, #7abcff 0%, #60abf8 44%, #4096ee 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+            background: -webkit-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%);
+            background: -o-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%);
+            background: linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 );
+            display: inline;
+            position: absolute;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-border-top-right-radius: 5px;
+            -webkit-border-bottom-right-radius: 5px;
+            -moz-border-radius-topright: 5px;
+            -moz-border-radius-bottomright: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #FFF;
+            text-align: center;
+            padding-top: 5px;
+        }
+
+            div.file_upload:before {
+                content: '<%=getFileText()%>';
+                position: absolute;
+                left: 0;
+                right: 0;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            div.file_upload input {
+                position: relative;
+                height: 30px;
+                width: 250px;
+                display: inline;
+                cursor: pointer;
+                opacity: 0;
+            }
+    </style>
+
     <br />
     <br />
 
@@ -58,8 +111,13 @@
                 <asp:Literal ID="litFotoPerfil" runat="server"></asp:Literal>
             </div>
             <div class="form-group col-md-6">
-                <asp:FileUpload ID="fuCargarFotoPerfil" runat="server" />
-                <button runat="server" id="btnCargarFotoPerfil" class="btn btn-primary fa fa-check-circle" onserverclick="btnCargarFotoPerfil_ServerClick" onclick="processingShow();"></button>
+                <div class="custom_file_upload">
+                    <div id="divArchivo" class="file_upload" runat="server">
+                        <asp:FileUpload ID="fuCargarFotoPerfil" runat="server" />
+                    </div>
+                </div>
+                <%--<asp:FileUpload ID="fuCargarFotoPerfil" runat="server" />--%>
+                <button runat="server" id="btnCargarFotoPerfil" class="btn btn-primary fa fa-upload" onserverclick="btnCargarFotoPerfil_ServerClick" onclick="processingShow();"></button>
             </div>
         </div>
 

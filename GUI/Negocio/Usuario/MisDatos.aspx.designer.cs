@@ -175,6 +175,15 @@ namespace GUI.Negocio.Usuario {
         protected global::System.Web.UI.WebControls.Literal litFotoPerfil;
         
         /// <summary>
+        /// Control divArchivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divArchivo;
+        
+        /// <summary>
         /// Control fuCargarFotoPerfil.
         /// </summary>
         /// <remarks>

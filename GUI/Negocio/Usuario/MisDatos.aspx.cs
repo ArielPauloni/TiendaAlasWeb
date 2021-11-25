@@ -44,6 +44,7 @@ namespace GUI.Negocio.Usuario
                 ViewState["NoSePudoGrabar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 59);
                 ViewState["ContraseniasNoCoinciden"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 60);
                 ViewState["ContraseniaPatron"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 61);
+                ViewState["SeleccioneFoto"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 172);
                 lblNombre.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
                 lblApellido.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
                 lblTelefono.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 66);
@@ -70,6 +71,8 @@ namespace GUI.Negocio.Usuario
                 CargarDatosUsuarioAutenticado();
             }
         }
+
+        public string getFileText() { return ViewState["SeleccioneFoto"].ToString(); }
 
         private void CargarDatosUsuarioAutenticado()
         {
