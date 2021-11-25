@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitacoraBE.cs" />
+    <Compile Include="ComunDatosBE.cs" />
     <Compile Include="EvaluacionBE.cs" />
     <Compile Include="EventosBE.cs" />
     <Compile Include="IdiomaBE.cs" />

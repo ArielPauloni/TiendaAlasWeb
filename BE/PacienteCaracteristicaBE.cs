@@ -28,6 +28,7 @@ namespace BE
 
         private int cod_Paciente;
 
+        [SkipProperty]
         public int Cod_Paciente
         {
             get { return Paciente.Cod_Usuario; }

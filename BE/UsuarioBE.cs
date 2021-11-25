@@ -11,6 +11,7 @@ namespace BE
     {
         private int cod_Usuario;
 
+        [SkipProperty]
         public int Cod_Usuario
         {
             get { return cod_Usuario; }
@@ -43,6 +44,7 @@ namespace BE
 
         private string contraseña;
 
+        [SkipProperty]
         public string Contraseña
         {
             get { return contraseña; }
@@ -59,6 +61,7 @@ namespace BE
 
         private List<PermisoBE> permisos;
 
+        [SkipProperty]
         public List<PermisoBE> Permisos
         {
             get { return permisos; }
@@ -67,6 +70,7 @@ namespace BE
 
         private Int64 dvh;
 
+        [SkipProperty]
         public Int64 DVH
         {
             get { return dvh; }
@@ -75,6 +79,7 @@ namespace BE
 
         private IdiomaBE idioma;
 
+        [SkipProperty]
         public IdiomaBE Idioma
         {
             get { return idioma; }
@@ -99,6 +104,7 @@ namespace BE
 
         private DateTime? fechaNacimiento;
 
+        [SkipProperty]
         public DateTime? FechaNacimiento
         {
             get { return fechaNacimiento; }
@@ -107,6 +113,7 @@ namespace BE
 
         private Boolean inactivo;
 
+        [SkipProperty]
         public Boolean Inactivo
         {
             get { return inactivo; }
@@ -115,6 +122,7 @@ namespace BE
 
         private short intentosEquivocados;
 
+        [SkipProperty]
         public short IntentosEquivocados
         {
             get { return intentosEquivocados; }
@@ -123,6 +131,7 @@ namespace BE
 
         private DateTime? ultimoLogin;
 
+        [SkipProperty]
         public DateTime? UltimoLogin
         {
             get { return ultimoLogin; }
@@ -131,6 +140,7 @@ namespace BE
 
         private Bitmap fotoPerfil;
 
+        [SkipProperty]
         public Bitmap FotoPerfil
         {
             get { return fotoPerfil; }

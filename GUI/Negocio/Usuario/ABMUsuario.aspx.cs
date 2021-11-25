@@ -9,6 +9,8 @@ using SL;
 using BE;
 using BLL;
 using System.Text.RegularExpressions;
+using System.Data;
+using System.Reflection;
 
 namespace GUI.Servicios.Usuarios
 {
@@ -18,6 +20,7 @@ namespace GUI.Servicios.Usuarios
         private TipoUsuarioBLL gestorTipoUsuario = new TipoUsuarioBLL();
         private EncriptacionSL gestorEncriptacion = new EncriptacionSL();
         private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+        private ReporteSL gestorReportes = new ReporteSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
         private IdiomaSL gestorIdioma = new IdiomaSL();
         private string eMailPattern = @"^[\w._%-]+@[\w.-]+\.[a-zA-Z]{2,4}$";
@@ -43,6 +46,7 @@ namespace GUI.Servicios.Usuarios
                 ViewState["Deshacer"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
                 ViewState["Confirmar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
                 ViewState["Eliminar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 87);
+                ViewState["PagFooter"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 99);
 
                 ViewState["lblNombre"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 63);
                 ViewState["lblApellido"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 64);
@@ -54,8 +58,11 @@ namespace GUI.Servicios.Usuarios
                 ViewState["Accion"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 77);
                 ViewState["Bloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 78);
                 ViewState["Usuarios"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 48);
+                ViewState["Idioma"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 171);
+                ViewState["Detalle"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 161);
 
                 btnCrearNuevoUsuario.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 88);
+                btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
             }
         }
 
@@ -346,6 +353,82 @@ namespace GUI.Servicios.Usuarios
                 e.Row.Cells[(int)grvUsuariosColumns.FechaNac].Text = ViewState["lblFechaNacimiento"].ToString();
                 e.Row.Cells[(int)grvUsuariosColumns.Bloqueado].Text = ViewState["Bloqueado"].ToString();
             }
+        }
+
+        protected void btnExportarPDF_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string tmpPath = Server.MapPath("~/");
+                string filename = String.Format("TiendaAlas_Usuarios_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
+
+                List<UsuarioBE> usuarios = gestorUsuario.Listar();
+                if (usuarios.Count > 0)
+                {
+                    DataTable dt = GetDataTable(usuarios);
+                    gestorReportes.GuardarPDF(tmpPath + @"\" + filename, ViewState["Usuarios"].ToString(), ViewState["Detalle"].ToString(), string.Empty, dt, ViewState["PagFooter"].ToString());
+
+                    Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
+                }
+            }
+            catch (Exception ex)
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["NoSePudoGrabar"].ToString() + ". " +
+                                              ViewState["ErrorMsg"].ToString() + ": " + "<br>" + ex.Message);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
+        }
+
+        private DataTable GetDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+            //Obtengo todas las propiedades (usando reflection)
+            PropertyInfo[] Props = typeof(T).GetFilteredProperties();
+            foreach (PropertyInfo prop in Props)
+            {
+                //Defino el tipo de cada dato 
+                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+                //Seteo el nombre de cada columna
+                switch (prop.Name)
+                {
+                    case "Apellido":
+                        dataTable.Columns.Add(ViewState["lblApellido"].ToString(), type);
+                        break;
+                    case "Nombre":
+                        dataTable.Columns.Add(ViewState["lblNombre"].ToString(), typeof(System.String));
+                        break;
+                    case "Alias":
+                        dataTable.Columns.Add(ViewState["lblAlias"].ToString(), typeof(System.String));
+                        break;
+                    case "Telefono":
+                        dataTable.Columns.Add(ViewState["lblTelefono"].ToString(), type);
+                        break;
+                    case "Mail":
+                        dataTable.Columns.Add(ViewState["lblMail"].ToString(), type);
+                        break;
+                    case "TipoUsuario":
+                        dataTable.Columns.Add(ViewState["lblTipoUsuario"].ToString(), type);
+                        break;
+                    case "Idioma":
+                        dataTable.Columns.Add(ViewState["Idioma"].ToString(), type);
+                        break;
+                    case "FechaNacimiento":
+                        dataTable.Columns.Add(ViewState["lblFechaNacimiento"].ToString(), type);
+                        break;
+                }
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //Inserto el valor de cada propiedad en los dt rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //Datatable a retornar
+            return dataTable;
         }
     }
 }

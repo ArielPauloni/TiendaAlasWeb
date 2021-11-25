@@ -168,7 +168,6 @@
     <Content Include="Negocio\Usuario\RegistroUsuario.aspx" />
     <Content Include="Negocio\Usuario\TipoUsuario.aspx" />
     <Content Include="Reportes\RptPatologias.aspx" />
-    <Content Include="Probando.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -490,13 +489,6 @@
     </Compile>
     <Compile Include="Reportes\RptPatologias.aspx.designer.cs">
       <DependentUpon>RptPatologias.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Probando.aspx.cs">
-      <DependentUpon>Probando.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Probando.aspx.designer.cs">
-      <DependentUpon>Probando.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\Bitacora.aspx.cs">

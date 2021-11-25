@@ -91,7 +91,7 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a id="aReportes" runat="server" class="dropdown-toggle fa fa-user-md" data-toggle="dropdown" href="#">-Informes<span class="caret"></span></a>
+                            <a id="aReportes" runat="server" class="dropdown-toggle fa fa-bar-chart" data-toggle="dropdown" href="#">-Informes<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a id="aRptPatologias" class="fa fa-bar-chart" runat="server" href="~/Reportes/RptPatologias.aspx">-Patologías</a></li>
                             </ul>

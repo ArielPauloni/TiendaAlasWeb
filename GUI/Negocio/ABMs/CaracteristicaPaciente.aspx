@@ -76,6 +76,13 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
+        <br />
+    </div>
+
+    <div class="form-row">
+        <div class="form-group" style="text-align: right;">
+            <button runat="server" id="btnExportarPDF" class="btn btn-primary fa fa-file-pdf-o" onserverclick="btnExportarPDF_ServerClick"></button>
+        </div>
     </div>
 
     <!-- Modal Mensaje -->

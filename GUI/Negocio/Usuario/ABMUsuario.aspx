@@ -120,6 +120,12 @@
         <hr />
     </div>
 
+    <div class="form-row">
+        <div class="form-group" style="text-align: right;">
+            <button runat="server" id="btnExportarPDF" class="btn btn-primary fa fa-file-pdf-o" onserverclick="btnExportarPDF_ServerClick"></button>
+        </div>
+    </div>
+
     <div class="form-group col-md-12">
         <br />
         <asp:Button ID="btnCrearNuevoUsuario" CssClass="btn btn-primary" runat="server" Text="-Crear Nuevo Usuario" OnClick="btnCrearNuevoUsuario_Click" />

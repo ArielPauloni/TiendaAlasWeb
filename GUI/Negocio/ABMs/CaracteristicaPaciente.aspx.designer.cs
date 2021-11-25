@@ -31,6 +31,15 @@ namespace GUI.Negocio.ABMs {
         protected global::System.Web.UI.WebControls.GridView grvCaracteristicasPaciente;
         
         /// <summary>
+        /// Control btnExportarPDF.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnExportarPDF;
+        
+        /// <summary>
         /// Control UC_MensajeModal.
         /// </summary>
         /// <remarks>

@@ -9,6 +9,8 @@ using SL;
 using BLL;
 using BE;
 using System.Web.Configuration;
+using System.Data;
+using System.Reflection;
 
 namespace GUI.Negocio.ABMs
 {
@@ -16,6 +18,8 @@ namespace GUI.Negocio.ABMs
     {
         private IdiomaSL gestorIdioma = new IdiomaSL();
         private BitacoraSL gestorBitacora = new BitacoraSL();
+        private AutorizacionSL gestorAutorizacion = new AutorizacionSL();
+        private ReporteSL gestorReportes = new ReporteSL();
         private PacienteCaracteristicaBLL gestorCaracteristicas = new PacienteCaracteristicaBLL();
 
         public void ChequearPermisos()
@@ -35,13 +39,19 @@ namespace GUI.Negocio.ABMs
                 ViewState["tooltipEdit"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
                 ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
                 ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
+                ViewState["PacientesCaracteristicas"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 123);
                 ViewState["Paciente"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 124);
                 ViewState["Genero"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 125);
                 ViewState["Fuma"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 126);
                 ViewState["DiasActividadDeportiva"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 127);
                 ViewState["HorasRelax"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 128);
                 ViewState["Edad"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 129);
-                grvCaracteristicasPaciente.Caption = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 123);
+                ViewState["PagFooter"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 99);
+                ViewState["Si"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 169);
+                ViewState["No"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 170);
+                ViewState["Detalle"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 161);
+                grvCaracteristicasPaciente.Caption = ViewState["PacientesCaracteristicas"].ToString();
+                btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
             }
         }
 
@@ -191,6 +201,94 @@ namespace GUI.Negocio.ABMs
                 e.Row.Cells[6].Text = ViewState["HorasRelax"].ToString();
                 e.Row.Cells[7].Text = ViewState["Edad"].ToString();
             }
+        }
+
+        protected void btnExportarPDF_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Caracteristicas Paciente"), (UsuarioBE)Session["UsuarioAutenticado"]))
+                {
+                    string tmpPath = Server.MapPath("~/");
+                    string filename = String.Format("TiendaAlas_PacientesCaracteristicas_{0}." + "PDF", DateTime.Now.ToString().Replace("/", "-").Replace(":", ".").Replace(" ", "_"));
+
+                    List<PacienteCaracteristicaBE> cP = gestorCaracteristicas.Listar();
+                    if (cP.Count > 0)
+                    {
+                        DataTable dt = GetDataTable(cP);
+                        gestorReportes.GuardarPDF(tmpPath + @"\" + filename, ViewState["PacientesCaracteristicas"].ToString(), ViewState["Detalle"].ToString(), string.Empty, dt, ViewState["PagFooter"].ToString());
+
+                        Response.Redirect("~/DownloadFile.ashx?filename=" + filename);
+                    }
+                }
+                else
+                {
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Error, ViewState["NoSePudoGrabar"].ToString() + ". " +
+                                              ViewState["ErrorMsg"].ToString() + ": " + "<br>" + ex.Message);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
+        }
+
+        private DataTable GetDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+            //Obtengo todas las propiedades (usando reflection)
+            PropertyInfo[] Props = typeof(T).GetFilteredProperties();
+            foreach (PropertyInfo prop in Props)
+            {
+                //Defino el tipo de cada dato 
+                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+                //Seteo el nombre de cada columna
+                switch (prop.Name)
+                {
+                    case "Paciente":
+                        dataTable.Columns.Add(ViewState["Paciente"].ToString(), type);
+                        break;
+                    case "Genero":
+                        dataTable.Columns.Add(ViewState["Genero"].ToString(), typeof(System.String));
+                        break;
+                    case "Fuma":
+                        dataTable.Columns.Add(ViewState["Fuma"].ToString(), typeof(System.String));
+                        break;
+                    case "DiasActividadDeportiva":
+                        dataTable.Columns.Add(ViewState["DiasActividadDeportiva"].ToString(), type);
+                        break;
+                    case "HorasRelax":
+                        dataTable.Columns.Add(ViewState["HorasRelax"].ToString(), type);
+                        break;
+                    case "Edad":
+                        dataTable.Columns.Add(ViewState["Edad"].ToString(), type);
+                        break;
+                }
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //Inserto el valor de cada propiedad en los dt rows
+                    if (Props[i].Name == "Genero")
+                    {
+                        values[i] = Enum.GetName(typeof(PacienteCaracteristicaBE.GeneroEnum), Props[i].GetValue(item, null));
+                    }
+                    else if (Props[i].Name == "Fuma")
+                    {
+                        if ((bool)Props[i].GetValue(item, null)) { values[i] = ViewState["Si"].ToString(); }
+                        else { values[i] = ViewState["No"].ToString(); }
+                    }
+                    else
+                    { values[i] = Props[i].GetValue(item, null); }
+                }
+                dataTable.Rows.Add(values);
+            }
+            //Datatable a retornar
+            return dataTable;
         }
     }
 }
