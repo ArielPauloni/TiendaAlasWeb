@@ -28,7 +28,7 @@
 
     <div class="form-group col-md-12">
         <asp:Panel runat="server" ScrollBars="Vertical" Height="400px">
-            <asp:GridView ID="grvBitacora" runat="server" AllowSorting="true" Caption="-Bitacora sistema"
+            <asp:GridView ID="grvBitacora" runat="server" AllowSorting="true" Caption="-Bitacora sistema" CssClass="table table-responsive"
                 AutoGenerateColumns="False" EnableTheming="true" OnRowDataBound="grvBitacora_RowDataBound"
                 OnSorting="OnSorting" >
                 <AlternatingRowStyle BackColor="#CCFFFF" />
@@ -59,6 +59,7 @@
             <button runat="server" id="btnExportarJson" class="btn btn-primary fa fa-file-code-o" onserverclick="btnExportarJson_Click"></button>
             <button runat="server" id="btnExportarXML" class="btn btn-primary fa fa-file" onserverclick="btnExportarXML_Click"></button>
             <button runat="server" id="btnExportarPDF" class="btn btn-primary fa fa-file-pdf-o" onserverclick="btnExportarPDF_Click"></button>
+            <button runat="server" id="btnExportarExcel" class="btn btn-primary fa fa-file-excel-o" onserverclick="btnExportarExcel_ServerClick"></button>
         </div>
     </div>
 

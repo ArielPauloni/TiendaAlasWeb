@@ -87,6 +87,7 @@ namespace GUI.Servicios.Bitacora
                 btnExportarXML.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 98);
                 btnExportarJson.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 97);
                 btnExportarPDF.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 96);
+                btnExportarExcel.InnerText = " " + "Excel";
             }
         }
 
@@ -306,6 +307,17 @@ namespace GUI.Servicios.Bitacora
             }
         }
 
+        protected void btnExportarExcel_ServerClick(object sender, EventArgs e)
+        {
+            if (gestorAutorizacion.ValidarPermisoUsuario(new PermisoBE("Ver Bitacora"), (UsuarioBE)Session["UsuarioAutenticado"]))
+            { GrabarArchivoBitacora("xlsx"); }
+            else
+            {
+                UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Alerta, ViewState["SinPermisos"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
+            }
+        }
+
         private void GrabarArchivoBitacora(string tipoArchivo)
         {
             try
@@ -341,6 +353,9 @@ namespace GUI.Servicios.Bitacora
                             break;
                         case "json":
                             int j = gestorPersistencia.EscribirBitacoraJSON(datosBitacora, tmpPath + @"\" + filename);
+                            break;
+                        case "xlsx":
+                            bool resultado = GestorReportes.ExportarAExcel<BitacoraBE>(datosBitacora, tmpPath + @"\" + filename, ViewState["BitacoraCaption"].ToString(), filename);
                             break;
                     }
                     Response.Redirect("~/DownloadFile.ashx?filename=" + filename);

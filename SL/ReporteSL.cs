@@ -15,6 +15,7 @@ using iText.Layout.Properties;
 using BE;
 using System.Web.UI.WebControls;
 using System.Data;
+using ClosedXML.Excel;
 
 namespace SL
 {
@@ -196,6 +197,35 @@ namespace SL
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Funcion que Exporta un listado de Objetos a un Archivo Excel definido
+        /// </summary>
+        /// <typeparam name="T">Tipo de Objeto a Listar</typeparam>
+        /// <param name="ListaDeObjetos">Listado de Objetos a Incluir en el Excel</param>
+        /// <param name="NombreDeArchivo">Nombre de archivo completo, incluyendo ruta completa y extensión .xlsx</param>
+        /// <param name="NombreDeHoja">Nombre de la Hoja en el Archivo Excel</param>
+        /// <param name="Titulo">Titulo que aparece en la primer celda de la hoja</param>
+        /// <returns>Verdadero (true) en caso de exito y Falso (false)  en caso de error</returns>
+        public bool ExportarAExcel<T>(List<T> ListaDeObjetos, string NombreDeArchivo, string NombreDeHoja, string Titulo)
+        {
+            bool exported = false;
+            using (IXLWorkbook workbook = new XLWorkbook())
+            {
+                workbook.AddWorksheet(NombreDeHoja).FirstCell().SetValue<string>("");
+                //workbook.Worksheets.Worksheet(NombreDeHoja).FirstCell().Style.Font.Bold = true;
+                //workbook.Worksheets.Worksheet(NombreDeHoja).FirstCell().Style.Font.FontSize = 14;
+
+                workbook.Worksheets.Worksheet(NombreDeHoja).Cell(1, 1).InsertTable<T>(ListaDeObjetos, Titulo);
+                workbook.Worksheets.Worksheet(NombreDeHoja).Tables.Table(Titulo).Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
+                workbook.Worksheets.Worksheet(NombreDeHoja).Tables.Table(Titulo).Style.Border.InsideBorder = XLBorderStyleValues.Medium;
+
+                workbook.SaveAs(NombreDeArchivo);
+
+                exported = true;
+            }
+            return exported;
         }
 
         //public void GuardarEncuestaPDF(string filePath, string headerText, string subHeaderText,
