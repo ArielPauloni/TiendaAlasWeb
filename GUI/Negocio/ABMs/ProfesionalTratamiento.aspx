@@ -21,7 +21,7 @@
 
         <div class="form-group col-md-4">
             <asp:Panel runat="server" ScrollBars="Auto" Height="50%">
-                <asp:GridView ID="grvProfesionales" runat="server" AllowSorting="True" Caption="-Profesionales"
+                <asp:GridView ID="grvProfesionales" runat="server" AllowSorting="True" Caption="-Profesionales" CssClass="table table-responsive"
                     AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="cod_Usuario" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvProfesionales_PageIndexChanging">
                     <AlternatingRowStyle BackColor="#CCFFFF" />
                     <Columns>

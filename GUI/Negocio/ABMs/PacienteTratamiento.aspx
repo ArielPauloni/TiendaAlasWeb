@@ -37,7 +37,7 @@
         <br />
         <br />
         <div class="form-group col-md-12">
-            <asp:GridView ID="grvTratamientos" runat="server" AllowSorting="True" Caption="-Tratamientos"
+            <asp:GridView ID="grvTratamientos" runat="server" AllowSorting="True" Caption="-Tratamientos" CssClass="table table-responsive"
                 AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="Cod_Tratamiento" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvTratamientos_PageIndexChanging" OnRowDataBound="grvTratamientos_RowDataBound">
                 <AlternatingRowStyle BackColor="#CCFFFF" />
                 <Columns>

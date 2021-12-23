@@ -7,8 +7,8 @@
     <br />
     <br />
 
-    <div class="form-group">
-        <asp:GridView ID="grvUsuarios" runat="server" AllowSorting="True" Caption="-Usuarios"
+    <div class="form-group col-md-12">
+        <asp:GridView ID="grvUsuarios" runat="server" AllowSorting="True" Caption="-Usuarios" CssClass="table table-responsive"
             AutoGenerateColumns="False" AllowPaging="True" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvUsuarios_PageIndexChanging"
             OnRowCancelingEdit="grvUsuarios_RowCancelingEdit" OnRowEditing="grvUsuarios_RowEditing" OnRowUpdating="grvUsuarios_RowUpdating"
             OnRowDataBound="grvUsuarios_RowDataBound" OnRowDeleting="grvUsuarios_RowDeleting">

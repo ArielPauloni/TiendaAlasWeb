@@ -36,6 +36,7 @@ namespace GUI
                 ViewState["UsuarioBloqueado"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 72);
                 ViewState["Mostrar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 79);
                 ViewState["Ocultar"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 80);
+                ViewState["ContraseniaEnviada"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 173);
 
                 lblAlias.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 73);
                 lblPassword.InnerText = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 74);
@@ -176,7 +177,7 @@ namespace GUI
                     gestorConfiguracion.ConfigurarRemitenteEnvioMail(ref RemitenteMail, ref RemitentePass);
                     gestorMail.EnviarMailRecuperoPass(RemitenteMail, RemitentePass, usuarioDestinatario, NuevoPass);
 
-                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, "-Contraseña enviada a: " + usuarioDestinatario.Mail);
+                    UC_MensajeModal.SetearMensaje(TipoMensajeBE.Tipo.Info, ViewState["ContraseniaEnviada"].ToString() + ": " + usuarioDestinatario.Mail);
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "mostrarMensaje()", true);
                 }
                 else

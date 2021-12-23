@@ -218,6 +218,17 @@ namespace GUI
             gestorBitacora.GrabarBitacora((UsuarioBE)Session["UsuarioAutenticado"], (short)EventosBE.Eventos.Logout, (short)EventosBE.Criticidad.Baja);
             Session["UsuarioAutenticado"] = null;
             Session.Remove("UsuarioAutenticado");
+
+            HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+            HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Current.Response.Cache.SetNoStore();
+
+            HttpContext.Current.Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            HttpContext.Current.Response.AddHeader("Pragma", "no-cache");
+            HttpContext.Current.Response.AddHeader("Expires", "0");
+
             Response.Redirect(@"~/Bienvenido.aspx");
         }
     }

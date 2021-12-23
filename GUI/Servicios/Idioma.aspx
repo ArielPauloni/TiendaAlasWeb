@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group col-md-12">
-        <asp:GridView ID="grvTexto" runat="server" AllowSorting="True" Caption="-Textos"
+        <asp:GridView ID="grvTexto" runat="server" AllowSorting="True" Caption="-Textos" CssClass="table table-responsive"
             AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="idFrase" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvTexto_PageIndexChanging" OnRowCancelingEdit="grvTexto_RowCancelingEdit" OnRowEditing="grvTexto_RowEditing" OnRowUpdating="grvTexto_RowUpdating" OnRowDataBound="grvTexto_RowDataBound">
             <AlternatingRowStyle BackColor="#CCFFFF" />
             <Columns>

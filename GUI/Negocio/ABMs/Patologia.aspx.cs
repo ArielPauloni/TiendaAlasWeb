@@ -34,6 +34,7 @@ namespace GUI.Negocio.ABMs
                 ViewState["tooltipEdit"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 27);
                 ViewState["tooltipConfirm"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 28);
                 ViewState["tooltipUndo"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 30);
+                ViewState["Accion"] = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 77);
                 btnGuardar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 19);
                 btnCancelar.InnerText = " " + gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 20);
                 lblDescripcionPatologia.Text = gestorIdioma.TraducirTexto((IdiomaBE)Session["IdiomaSel"], 120);
@@ -53,6 +54,7 @@ namespace GUI.Negocio.ABMs
 
                 EnlazarGrillaPatologias();
             }
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
         }
 
         private void EnlazarGrillaPatologias()
@@ -178,6 +180,10 @@ namespace GUI.Negocio.ABMs
                 LinkButton controlUndo = (LinkButton)e.Row.FindControl("btn_Undo");
                 if (controlUndo != null)
                 { controlUndo.ToolTip = ViewState["tooltipUndo"].ToString(); }
+            }
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = ViewState["Accion"].ToString();
             }
         }
     }

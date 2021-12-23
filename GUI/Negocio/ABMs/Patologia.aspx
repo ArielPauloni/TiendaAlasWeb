@@ -27,9 +27,10 @@
     </div>
 
     <div class="form-group col-md-12">
-        <asp:GridView ID="grvPatologia" runat="server" AllowSorting="True" Caption="-Patologias"
+        <asp:GridView ID="grvPatologia" runat="server" AllowSorting="True" Caption="-Patologias" CssClass="table table-responsive" 
             AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="cod_Patologia" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvPatologia_PageIndexChanging" OnRowCancelingEdit="grvPatologia_RowCancelingEdit" OnRowEditing="grvPatologia_RowEditing" OnRowUpdating="grvPatologia_RowUpdating" OnRowDataBound="grvPatologia_RowDataBound">
             <AlternatingRowStyle BackColor="#CCFFFF" />
+            <EditRowStyle BackColor="Turquoise" />
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>

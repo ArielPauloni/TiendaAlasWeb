@@ -49,7 +49,7 @@
     </div>
 
     <div class="form-group col-md-12">
-        <asp:GridView ID="grvTerapia" runat="server" AllowSorting="True" Caption="-Terapias"
+        <asp:GridView ID="grvTerapia" runat="server" AllowSorting="True" Caption="-Terapias" CssClass="table table-responsive"
             AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="cod_Terapia" PageSize="20" EnableTheming="True" OnPageIndexChanging="grvTerapia_PageIndexChanging" OnRowCancelingEdit="grvTerapia_RowCancelingEdit" OnRowEditing="grvTerapia_RowEditing" OnRowUpdating="grvTerapia_RowUpdating" OnRowDataBound="grvTerapia_RowDataBound">
             <AlternatingRowStyle BackColor="#CCFFFF" />
             <Columns>

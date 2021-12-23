@@ -14,7 +14,7 @@
     </div>
 
     <div class="form-group col-md-12">
-        <asp:GridView ID="grvCaracteristicasPaciente" runat="server" AllowSorting="True" Caption="-Caracteristicas del Paciente"
+        <asp:GridView ID="grvCaracteristicasPaciente" runat="server" AllowSorting="True" Caption="-Caracteristicas del Paciente" CssClass="table table-responsive"
             AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="cod_Paciente" PageSize="30" EnableTheming="True" OnPageIndexChanging="grvCaracteristicasPaciente_PageIndexChanging" OnRowCancelingEdit="grvCaracteristicasPaciente_RowCancelingEdit" OnRowEditing="grvCaracteristicasPaciente_RowEditing" OnRowUpdating="grvCaracteristicasPaciente_RowUpdating" OnRowDataBound="grvCaracteristicasPaciente_RowDataBound">
             <AlternatingRowStyle BackColor="#CCFFFF" />
             <Columns>
